@@ -1,3 +1,7 @@
 migrations/
 __pycache__
 *.sqlite3
+
+# Ambiente virtual
+venv/
+env/
