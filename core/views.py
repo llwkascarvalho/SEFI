@@ -1,5 +1,5 @@
 from django.shortcuts import render
 
-# Create your views here.
-def index(request):
-    return render(request, 'core/core-index.html')
+# views
+def professorIndex(request):
+    return render(request, 'core/professor-index.html')
