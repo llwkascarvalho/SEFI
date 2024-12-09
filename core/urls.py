@@ -1,6 +1,7 @@
-from django.urls import path, include
+from django.urls import path
 from core import views
 
+# urls
 urlpatterns = [
-    path('', views.index, name='core-index'),
+    path('', views.professorIndex, name='professor-index'),
 ]

@@ -1,0 +1,245 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+:root {
+    --azul-escuro: #30465F;
+    --azul-claro: #0084FD;
+    --branco: #ffffff;
+    --cinza-medio: #E2E8F0;
+    --cinza-claro: #EDF2F7;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Inter;
+    border: none;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    position: fixed;
+    display: flex;
+    padding: 24px 0 24px 24px;
+    background-color: var(--azul-escuro);
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 101px;
+}
+
+/* LOGO E MENU */
+
+.container {
+    display: flex;
+    align-items: center;
+    width: 50%;
+}
+
+.container-logo {
+    display: flex;
+    align-items: center;
+}
+
+.container-logo h1 {
+    font-size: 19px;
+    font-weight: bold;
+    color: var(--branco);
+}
+
+.container-logo p {
+    font-size: 12px;
+    color: var(--branco);
+    font-weight: 400;
+}
+
+.menu-logo {
+    display: flex;
+    align-items: center;
+    max-width: 212px;
+}
+
+.logo {
+    max-width: 50px;
+    max-height: 42px;
+    margin-right: 5px;
+}
+
+.burger {
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+
+    margin-right: 14px;
+}
+
+.burger .linha {
+    width: 25px;
+    height: 2px;
+    border-radius: 2px;
+    background-color: var(--branco);
+    margin: 3px;
+    transition: 0.3s;
+}
+
+/* BARRA DE PESQUISA */
+
+.input-container {
+    position: relative;
+    width: 320px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 10px 10px 10px 40px;
+    font-size: 12px;
+    background-color: var(--cinza-medio);
+    color: var(--azul-escuro);
+    border: 1px solid var(--cinza-escuro);
+    border-radius: 5px;
+    outline: none;
+    margin-left: 40px;
+    box-sizing: border-box;
+}
+
+.search-input:focus {
+    border-color: var(--azul-claro);
+}
+
+.icone-search {
+    position: absolute;
+    top: 50%;
+    left: 50px;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    pointer-events: none;
+}
+
+/* ITENS ALINHADOS CANTO SUPERIOR DIREITO*/
+
+.container-itens {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    gap: 24px;
+}
+
+.container-itens .icon {
+    max-width: 24px;
+    max-height: 24px;
+    color: var(--branco);
+}
+
+.container-itens .usuario {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    overflow: hidden;
+    margin-right: 32px;
+}
+
+/* MENU */
+
+.menu {
+    position: fixed;
+    top: 101px;
+    left: -254px;
+    width: 254px;
+    height: 100%;
+    background-color: var(--cinza-claro);
+    color: var(--branco);
+    display: flex;
+    flex-direction: column;
+    padding-left: 20px;
+    transition: left 0.3s;
+    gap: 23px;
+    padding: 32px 16px 0 16px;
+}
+
+
+
+
+.menu li {
+    list-style: none;
+    width: 220px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+}
+
+.menu a {
+    font-size: 14px;
+    border: none;
+    color: var(--azul-escuro);
+    padding: 8px;
+    text-decoration: none;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    height: 100%;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.menu a img {
+    width: 20px;
+    height: 20px;
+    transition: filter 0.3s;
+}
+
+.menu a.active {
+    background-color: var(--azul-escuro);
+    color: white;
+}
+
+.menu a.active img {
+    filter: brightness(0) invert(1);
+}
+
+.menu.active {
+    left: 0;
+}
+
+/* FOOTER */
+
+.footer {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--azul-escuro);
+    color: #dbdde1;
+    text-align: center;
+    padding: 1rem 0;
+    align-items: center;
+    font-size: 1rem;
+}
+
+.footer div {
+    display: flex;
+    align-items: center;
+    margin-left: 32px;
+    gap: 5px;
+}
+
+.p__footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--branco_claro);
+    align-items: center;
+    gap: 32px;
+}

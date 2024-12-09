@@ -1,0 +1,76 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'core/css/base.css' %}">
+    <link rel="shortcut icon" href="{% static 'core/imagens/Logo.svg' %}" type="image/x-icon">
+    <title>{% block title %}SEFI{% endblock %}</title>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="menu-logo">
+                <div class="burger" onclick="toggleMenu()">
+                    <div class="linha"></div>
+                    <div class="linha"></div>
+                    <div class="linha"></div>
+                </div>
+                <ul id="menu" class="menu">
+                    <li><a href="#"><img src="{% static 'core/icones/home-azul.svg' %}" alt="Ínicio"> Início</a></li>
+                    <li><a href="#"><img src="{% static 'core/icones/nova-solicitação.svg' %}" alt="Nova Solicitação">
+                            Nova Solicitação</a></li>
+                    <li><a href="#"><img src="{% static 'core/icones/fila.svg' %}" alt="Fila de Impressão"> Fila de
+                            Impressão</a></li>
+                    <li><a href="#"><img src="{% static 'core/icones/histórico.svg' %}" alt="Histórico de Impressões">
+                            Histórico de Impressões</a></li>
+                    <li><a href="#"><img src="{% static 'core/icones/sair.svg' %}" alt="Sair"> Sair</a></li>
+                </ul>
+                <div class="container-logo">
+                    <img class="logo" src="{% static 'core/imagens/Logo.svg' %}" alt="">
+                    <div>
+                        <h1>SEFI</h1>
+                        <p>Sistema de Envio e Fila de Impressão</p>
+                    </div>
+                </div>
+            </div>
+            <form action="/search" class="search-bar">
+                <div class="input-container">
+                    <input type="text" placeholder="Procurar solicitações" class="search-input">
+                    <img class="icone-search" src="{% static 'core/icones/search.svg' %}" alt="Ícone de busca">
+                </div>
+            </form>
+
+        </div>
+        <div class="container-itens">
+            <img class="icon" src="{% static 'core/icones/sino.svg' %}" alt="">
+            <img class="icon" src="{% static 'core/icones/help-circle.svg' %}" alt="">
+            <img class="usuario" src="{% static 'core/imagens/irlan.jpg' %}" alt="">
+        </div>
+    </header>
+
+    <main>
+        {% block content %}
+        <!-- Conteúdo principal -->
+        {% endblock %}
+    </main>
+
+    <footer class="footer">
+        <p class="p__footer">
+            &copy; 2024 SEFI.
+        <div>
+            <img class="icone-footer" src="{% static 'core/icones/python.svg' %}" alt="Python Icon">
+            Desenvolvido por IFRN.
+        </div>
+        </p>
+    </footer>
+
+
+    <script src="{% static 'core/js/scripts.js' %}"></script>
+</body>
+
+</html>
