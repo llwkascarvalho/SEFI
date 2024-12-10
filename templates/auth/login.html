@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+</head>
+<body>
+    <h2>Login</h2>
+
+    <!--Mensagem de erro
+    Você pode estilizar também
+    -->
+    {% if form.errors %}
+        <p>Usuário ou senha inválidos</p>
+    {% endif %}
+
+    <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        <table>
+        <tr>
+            <!--Usuário-->
+            <td>{{ form.username.label_tag }}</td>
+            <td>{{ form.username }}</td>
+        </tr>
+        <tr>
+            <!--Senha-->
+            <td>{{ form.password.label_tag }}</td>
+            <td>{{ form.password }}</td>
+        </tr>
+        </table>
+        
+        <!--Botão-->
+        <input type="submit" value="login">
+        <input type="hidden" name="next" value="{{ next }}">
+    </form>
+</body>
+</html>
