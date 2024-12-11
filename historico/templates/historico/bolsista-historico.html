@@ -2,13 +2,12 @@
 {% load static %}
 {% block content %}
 {% block css %}
-<link rel="stylesheet" href="{% static 'fila/css/fila.css' %}">
+<link rel="stylesheet" href="{% static 'historico/css/historico.css' %}">
 {% endblock %}
-
-<div class="fila">
+<div class="historico">
     <div class="text">
-        <h1>Fila de Impressão</h1>
-        <p>Essas são as solicitações que precisam ser entregues!</p>
+        <h1>Histórico</h1>
+        <p>Essas são todas as solicitações que você já entregou!</p>
     </div>
 
     <table>
@@ -28,7 +27,7 @@
             <tr>
                 <td>7</td>
                 <td>Atividade sobre Templates Django</td>
-                <td style="color: #006EBC;">Aguardando entrega</td>
+                <td style="color: #30BE34;">Concluída</td>
                 <td>Irlan Arley Targino Moreira</td>
                 <td>40</td>
                 <td>Exercicio</td>
