@@ -1,15 +1,15 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
-# views
+# Create your views here.
 @login_required
-def index(request):
+def fila(request):
     user = request.user
     if user.is_superuser:
-        return render(request, 'core/admin-index.html')
+        return render(request, 'fila/admin-fila.html')
     elif user.groups.filter(name='Professor').exists():
-        return render(request, 'core/professor-index.html')
+        return render(request, 'fila/professor-fila.html')
     elif user.groups.filter(name='Bolsista').exists():
-        return render(request, 'core/bolsista-index.html')
+        return render(request, 'fila/bolsista-fila.html')
     else:
         return redirect('login')

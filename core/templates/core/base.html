@@ -1,4 +1,5 @@
 {% load static %}
+{% load auth_extras %}
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -8,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'core/css/base.css' %}">
     <link rel="shortcut icon" href="{% static 'core/imagens/Logo.svg' %}" type="image/x-icon">
+    {% block css %}{% endblock %}
     <title>{% block title %}SEFI{% endblock %}</title>
 </head>
 
@@ -21,15 +23,24 @@
                     <div class="linha"></div>
                 </div>
                 <ul id="menu" class="menu">
-                    <li><a href="#"><img src="{% static 'core/icones/home-azul.svg' %}" alt="Ínicio"> Início</a></li>
+                    <li><a href="{% url 'index' %}"><img src="{% static 'core/icones/home-azul.svg' %}" alt="Ínicio"> Início</a></li>
+                    {% if request.user|has_group:"Professor"  %}
                     <li><a href="#"><img src="{% static 'core/icones/nova-solicitação.svg' %}" alt="Nova Solicitação">
                             Nova Solicitação</a></li>
-                    <li><a href="#"><img src="{% static 'core/icones/fila.svg' %}" alt="Fila de Impressão"> Fila de
+                    {% endif %}
+                    <li><a href="{% url 'fila' %}"><img src="{% static 'core/icones/fila.svg' %}" alt="Fila de Impressão"> Fila de
                             Impressão</a></li>
                     <li><a href="#"><img src="{% static 'core/icones/histórico.svg' %}" alt="Histórico de Impressões">
                             Histórico de Impressões</a></li>
-                    <li><a href="#"><img src="{% static 'core/icones/sair.svg' %}" alt="Sair"> Sair</a></li>
-                </ul>
+                    <li>
+                        <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <img src="{% static 'core/icones/sair.svg' %}" alt="Sair"> Sair
+                        </a>
+                        <form id="logout-form" method="post" action="{% url 'logout' %}" style="display: none;">
+                            {% csrf_token %}
+                        </form>
+                    </li>
+                </ul>   
                 <div class="container-logo">
                     <img class="logo" src="{% static 'core/imagens/Logo.svg' %}" alt="">
                     <div>

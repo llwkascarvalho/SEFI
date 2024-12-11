@@ -3,5 +3,5 @@ from core import views
 
 # urls
 urlpatterns = [
-    path('', views.professorIndex, name='professor-index'),
+    path('', views.index, name='index'),
 ]

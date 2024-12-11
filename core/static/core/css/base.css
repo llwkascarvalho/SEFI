@@ -6,6 +6,8 @@
     --branco: #ffffff;
     --cinza-medio: #E2E8F0;
     --cinza-claro: #EDF2F7;
+    --tablerow: #F7FAFC;
+    --bordas: #CBD5E0;
 }
 
 * {
@@ -242,4 +244,14 @@ header {
     color: var(--branco_claro);
     align-items: center;
     gap: 32px;
+}
+
+/*main*/
+
+main {
+    flex: 1;
+    padding-top: 120px;
+    padding-bottom: 72px;
+    margin-left: 270px;
+    margin-top: 30px;
 }
