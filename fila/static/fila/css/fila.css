@@ -9,6 +9,10 @@ table > thead {
     color: var(--azul-escuro);
 }
 
+table > thead > tr > th {
+    padding: 11px 12px 11px 12px;
+}
+
 table > tbody > tr {
     background-color: var(--tablerow);
 }
@@ -44,9 +48,19 @@ table > tbody > tr > td > button:hover {
 
 .text h1 {
     font-size: 24px;
+    margin-bottom: 4px;
 }
 
 .text p {
     font-size: 12px;
     font-weight: 300;
+}
+
+#quantidade-solicitacoes {
+    padding: 16px;
+}
+
+#quantidade-solicitacoes > p {
+    font-size: 13px;
+    color: var(--azul-escuro);
 }
