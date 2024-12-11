@@ -1,36 +1,82 @@
+{% load static%}
+
 <!DOCTYPE html>
 <html>
 <head>
     <title>Login</title>
+    <link rel="stylesheet" href="{% static 'auth/css/login.css' %}">
+    <link rel="shortcut icon" href="{% static 'core/imagens/Logo.svg' %}" type="image/x-icon">
 </head>
 <body>
-    <h2>Login</h2>
 
-    <!--Mensagem de erro
-    Você pode estilizar também
-    -->
     {% if form.errors %}
-        <p>Usuário ou senha inválidos</p>
+        <p class="error-message">Usuário ou senha inválidos</p>
     {% endif %}
 
-    <form method="post" action="{% url 'login' %}">
-        {% csrf_token %}
-        <table>
-        <tr>
-            <!--Usuário-->
-            <td>{{ form.username.label_tag }}</td>
-            <td>{{ form.username }}</td>
-        </tr>
-        <tr>
-            <!--Senha-->
-            <td>{{ form.password.label_tag }}</td>
-            <td>{{ form.password }}</td>
-        </tr>
-        </table>
-        
-        <!--Botão-->
-        <input type="submit" value="login">
-        <input type="hidden" name="next" value="{{ next }}">
-    </form>
+    <header>
+        <div class="container-logo">
+            <img class="logo" src="{% static 'core/imagens/Logo.svg' %}" alt="">
+            <div>
+                <h1>SEFI</h1>
+                <p>Sistema de Envio e Fila de Impressão</p>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <img class="img-tela-login" src="{% static 'auth/img/imagem-tela-login.svg'%}" alt="">
+
+            <div class="container-login">
+                <div class="conteiner-conteudo">
+                    <p class="p-login">Login</p>
+                
+                    <form method="post" action="{% url 'login' %}">
+                        {% csrf_token %}
+
+                        <div class="group-input">
+                            <!--Usuário-->
+                            <label for="username">{{ form.username.label_tag }}</label>
+                            <div class="input-container">
+                                {{ form.username }}
+                            </div>
+                        </div>
+
+                        <div class="group-input">
+                            <!--Senha-->
+                            <label for="password">{{ form.password.label_tag }}</label>
+                            <div class="input-container">
+                                {{ form.password }}
+                            </div>
+                        </div>
+
+                        <span>
+                            <div>
+                                <input type="checkbox" name="" id="">
+                                <label class="label" for="">Lembrar senha</label>
+                            </div>
+                            <a class="link-esqueceu-senha" href="">Esqueceu a senha?</a>
+                        </span>
+
+                        <!--Botão-->
+                        <input class="button-submit" type="submit" value="Acessar">
+                        <input type="hidden" name="next" value="{{ next }}">
+
+                        <p class="p-criar-conta">Ainda não possui uma conta? <a class="link-criar-conta" href="">Criar conta</a></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p class="p__footer">
+            &copy; 2024 SEFI.
+        <div>
+            <img class="icone-footer" src="{% static 'core/icones/python.svg' %}" alt="Python Icon">
+            Desenvolvido por IFRN.
+        </div>
+        </p>
+    </footer>
 </body>
 </html>

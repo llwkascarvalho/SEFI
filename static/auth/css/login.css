@@ -1,0 +1,222 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+:root {
+    --azul-escuro: #30465F;
+    --azul-escuro2: #2B3A56;
+    --azul-claro: #0084FD;
+    --branco: #ffffff;
+    --cinza-medio: #E2E8F0;
+    --cinza-claro: #EDF2F7;
+    --tablerow: #F7FAFC;
+    --bordas: #CBD5E0;
+    --links: #82C0FA;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Inter;
+    border: none;
+}
+
+body {
+    background-color: var(--azul-escuro);
+}
+
+main {
+    flex: 1;
+    padding-top: 120px;
+    padding-bottom: 72px;
+}
+
+/* HEADER */
+
+header {
+    position: fixed;
+    display: flex;
+    padding: 24px 0 24px 0;
+    background-color: var(--azul-escuro);
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 101px;
+}
+
+.container-logo {
+    display: flex;
+    align-items: center;
+    width: 164px;
+}
+
+.container-logo h1 {
+    font-size: 19px;
+    font-weight: bold;
+    color: var(--branco);
+}
+
+.container-logo p {
+    font-size: 12px;
+    color: var(--branco);
+    font-weight: 400;
+}
+
+.logo {
+    max-width: 50px;
+    max-height: 42px;
+    margin-right: 5px;
+}
+
+/* MAIN */
+
+.container {
+    display: flex;
+    align-items: center;
+    gap: 150px;
+    justify-content: center;
+}
+
+.img-tela-login {
+    width: 500px;
+    height: 422px;
+}
+
+/* LOGIN */
+
+.container-login {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--azul-escuro2);
+    text-align: center;
+    width: 448px;
+    height: 425px;
+    border-radius: 28px;
+    align-items: center;
+}
+
+.conteiner-conteudo {
+    width: 360px;
+    height: 327px;
+}
+
+form span {
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.p-login {
+    font-size: 35px;
+    font-weight: 700;
+    color: var(--branco);
+    padding: 32px 75px 24px 75px;
+}
+
+.group-input {
+    margin-bottom: 13px;
+}
+
+label {
+    color: var(--branco);
+    text-align: left;
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 300;
+}
+
+.label {
+    display: inline;
+    font-weight: 300;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 360px;
+    padding: 12px;
+    border: none;
+    margin: 5px 0;
+    border-radius: 8px;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    outline: none; 
+    border: 2.5px solid var(--azul-claro); }
+
+.button-submit {
+    width: 360px;
+    padding: 12px;
+    border: none;
+    margin: 16px 0;
+    border-radius: 100px;
+    background-color: var(--azul-claro);
+    color: var(--branco);
+    font-size: 16px;
+}
+
+.link-esqueceu-senha {
+    color: var(--links);
+    text-decoration: none;
+    font-weight: 300;
+}
+
+.link-criar-conta {
+    color: var(--links);
+    text-decoration: none;
+    font-weight: 300;
+}
+
+.p-criar-conta {
+    color: var(--branco);
+    margin-bottom: 32px;
+}
+
+/* FOOTER */
+
+.footer {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--azul-escuro);
+    color: #dbdde1;
+    text-align: center;
+    padding: 1rem 0;
+    align-items: center;
+    font-size: 1rem;
+}
+
+.footer div {
+    display: flex;
+    align-items: center;
+    margin-left: 32px;
+    gap: 5px;
+}
+
+.p__footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--branco_claro);
+    align-items: center;
+    gap: 32px;
+}
+
+/* MENSAGEM DE ERRO */
+
+.error-message {
+    display: flex;
+    justify-content: center;
+    color:var(--branco);
+    background-color: #CB2433; 
+    padding: 10px;
+    margin: 0 auto;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 4px;
+    width: 500px;
+    margin-top: 10px;
+}
