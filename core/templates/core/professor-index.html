@@ -1,4 +1,71 @@
 {% extends 'core/base.html' %}
+{% load static %}
 {% block content %}
-<h1>Professor</h1>
+{% block css %}
+<link rel="stylesheet" href="{% static 'core/css/index.css' %}">
+{% endblock %}
+
+<div class="container-header">
+    <h1>Bem-vindo ao SEFI</h1>
+    <p>Olá, <strong>Irlan</strong>! Gerencie todas as solicitações de impressões do IFRN com facilidade e eficiência.</p>
+</div>
+
+<div class="container">
+    <div class="container-card">
+        <a href="{% url 'fila' %}">
+            <div class="container-conteudo">
+                <p class="title-card">Pendentes</p>
+                <div class="info-card">
+                    <img class='icone-card' src="{% static 'core/imagens/index/icone-pendente.svg'%}" alt="">
+                    <p class="number-card">2</p>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="container-card">
+        <a href="{% url 'fila' %}">
+            <div class="container-conteudo">
+                <p class="title-card">Em andamento</p>
+                <div class="info-card">
+                    <img class='icone-card' src="{% static 'core/imagens/index/icone-andamento.svg'%}" alt="">
+                    <p class="number-card">5</p>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="container-card">
+        <a href="historico">
+            <div class="container-conteudo">
+                <p class="title-card">Concluídas</p>
+                <div class="info-card">
+                    <img class='icone-card' src="{% static 'core/imagens/index/icone-concluido.svg'%}" alt="">
+                    <p class="number-card">2</p>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="container-card2 maior">
+        <div class="container-conteudo-inferiores maior">
+            <p class="title-card">Suas Solicitações</p>
+            <div class="info-card-inferiores">
+                <p class="text-card point">Revisão HTML e CSS</p>
+                <p class="text-card point">Avaliação de Javascript</p>
+                <p class="text-card point">Atividade sobre Templates Django</p>
+            </div>
+        </div>
+    </div>
+    <div class="container-card2">
+        <div class="container-conteudo-inferiores">
+            <p class="title-card">Ações Rápidas</p>
+            <div class="info-card-inferiores">
+                <a href="#"><button type="button">Realizar nova solicitação</button></a>
+                <a href="#"><button type="button">Acessar histórico</button></a>
+                <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <button type="button">Sair</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock %}

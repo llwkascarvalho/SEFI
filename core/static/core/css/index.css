@@ -49,7 +49,7 @@ a, p {
 
 .container-card {
     display: flex;
-    width: 310px;
+    flex: 1;
     max-height: 181px;
     background-color: var(--cinza-claro);
     flex-direction: column;
@@ -95,13 +95,20 @@ a, p {
 
 .container-card2 {
     display: flex;
-    width: 310px;
-    max-height: 279px;
+    width: 312px;
     height: 279px;
     background-color: var(--cinza-claro);
     flex-direction: column;
     border-radius: 8px;
     cursor: pointer;
+}
+
+.container-card2.maior {
+    flex: 2;
+}
+
+.container-card2.maior .text-card {
+    font-size: 20px;
 }
 
 .container-conteudo-inferiores {
