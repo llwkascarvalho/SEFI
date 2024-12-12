@@ -1,0 +1,150 @@
+:root {
+    --azul-escuro: #30465F;
+    --azul-escuro2: #2B3A56;
+    --azul-claro: #0084FD;
+    --branco: #ffffff;
+    --cinza-medio: #E2E8F0;
+    --cinza-claro: #EDF2F7;
+    --cinza-escuro:#4A5568;
+    --tablerow: #F7FAFC;
+    --bordas: #CBD5E0;
+    --links: #82C0FA;
+    --hover: #405170;
+}
+
+a, p {
+    text-decoration: none;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 36px;
+    width: 1010px;
+    margin-left: 24px;
+}
+
+.container-header {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 56px;
+    padding-left: 24px;
+}
+
+.container-header h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--azul-escuro);
+    display: inline-block;
+}
+.container-header p {
+    margin-top: 8px;
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--cinza-escuro);
+    display: inline-block;
+    max-width: 384px;
+}
+
+.container-card {
+    display: flex;
+    width: 310px;
+    max-height: 181px;
+    background-color: var(--cinza-claro);
+    flex-direction: column;
+    border-radius: 8px;
+}
+
+.container-conteudo {
+    display: flex;
+    gap: 16px;
+    flex-direction: column;
+    padding: 44px 44px;
+    text-align: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.title-card {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--azul-escuro);
+    width: max-content;
+}
+
+.info-card {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    align-items: center;
+}
+
+.icone-card {
+    width: 33px;
+    height: 33px;
+}
+
+.number-card {
+    color: var(--azul-escuro);
+    font-size: 24px;
+    font-weight: 500;
+}
+
+/* CARDS INFERIORES */
+
+.container-card2 {
+    display: flex;
+    width: 310px;
+    max-height: 279px;
+    height: 279px;
+    background-color: var(--cinza-claro);
+    flex-direction: column;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.container-conteudo-inferiores {
+    display: flex;
+    gap: 24px;
+    flex-direction: column;
+    padding: 44px 44px;
+    text-align: center;
+    align-items: center;
+}
+
+.info-card-inferiores {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 16px;
+}
+
+.text-card.point:before {
+    content: '•';
+    font-size: 24px; 
+    display: inline-block; 
+    margin-right: 8px;
+    color: #E83434; 
+}
+
+.text-card {
+    font-size: 15px;
+    font-weight: 400;
+    width: max-content;
+}
+
+.info-card-inferiores button {
+    background-color: var(--azul-escuro);
+    color: var(--branco);
+    font-weight: 600;
+    height: 35px;
+    width: 230px;
+    border-radius: 8px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.info-card-inferiores button:hover{
+    background-color: var(--hover);
+}
