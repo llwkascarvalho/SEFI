@@ -125,6 +125,7 @@
     padding: 0;
     cursor: pointer;
     border-radius: 5px;
+    z-index: -1;
 }
 
 .caret {
