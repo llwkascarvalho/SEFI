@@ -27,7 +27,7 @@ table > tbody > tr > td {
     border-width: 1px 0px;
 }
 
-table > tbody > tr > td > button {
+table > tbody > tr > td > a > button {
     background-color: var(--azul-escuro);
     color: var(--branco);
     border-radius: 4px;
@@ -36,7 +36,7 @@ table > tbody > tr > td > button {
     cursor: pointer;
 }
 
-table > tbody > tr > td > button:hover {
+table > tbody > tr > td > a > button:hover {
     background-color: var(--azul-claro);
     transition: ease-in-out 0.3s;
 }
