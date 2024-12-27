@@ -1,0 +1,50 @@
+.status {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    cursor: pointer;
+    border-radius: 5px;
+    color: var(--azul);
+    cursor: auto;
+}
+
+.status-name {
+    color: var(--azul);
+    font-weight: 700;
+    width: auto;
+}
+
+.detalhes-status-bolsista {
+    display: flex;
+    width: 873px;
+    align-items: baseline;
+    justify-content: space-between;
+    padding-bottom: 26px;
+    border-bottom: solid 1px var(--azul-escuro2);
+}
+
+.detalhes-status-bolsista div {
+    display: flex;
+    align-items: center;
+    width: 160px;
+}
+
+.detalhes-status-bolsista h2{
+    font-size: 20px;
+    color: var(--azul-escuro2);
+    padding-top: 24px;
+}
+
+.button-entregue {
+    margin: 32px 0 90px 24px;
+    background-color: var(--azul-escuro);
+    color: var(--branco);
+    border-radius: 4px;
+    padding: 5px 10px 5px 10px;
+    height: 37px;
+    cursor: pointer;
+    width: 270px;
+    font-size: 16px;
+    font-weight: 700;
+}
