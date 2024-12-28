@@ -1,0 +1,74 @@
+.container-informacoes--professor {
+    display: flex;
+    width: 873px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.status {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    cursor: pointer;
+    border-radius: 5px;
+    color: var(--azul);
+    cursor: auto;
+}
+
+.status-name {
+    color: var(--vermelho);
+    font-weight: 700;
+    width: auto;
+}
+
+.detalhes-status--professor {
+    display: flex;
+    width: 873px;
+    align-items: baseline;
+    justify-content: space-between;
+    padding-bottom: 16px;
+    border-bottom: solid 1px var(--azul-escuro2);
+}
+
+.detalhes-status--professor div {
+    display: flex;
+    align-items: center;
+    width: 160px;
+}
+
+.detalhes-status--professor h2{
+    font-size: 20px;
+    color: var(--azul-escuro2);
+    padding-top: 29px;
+}
+
+.dropdown .selected.transparent{ background-color: var(--cinza-escuro);
+color: var(--branco); 
+}
+
+.button-salvar {
+    margin: 32px 0 90px 24px;
+    background-color: var(--azul-escuro);
+    color: var(--branco);
+    border-radius: 4px;
+    height: 37px;
+    cursor: pointer;
+    width: 156px;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.button-descartar {
+    margin: 32px 0 90px 10px;
+    background-color: none;
+    border: solid 1px var(--azul-escuro2);
+    color: var(--azul-escuro2);
+    border-radius: 4px;
+    height: 37px;
+    cursor: pointer;
+    width: 190px;
+    font-size: 16px;
+    font-weight: 700;
+}
+
