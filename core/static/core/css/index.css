@@ -5,6 +5,7 @@
     --branco: #ffffff;
     --cinza-medio: #E2E8F0;
     --cinza-claro: #EDF2F7;
+    --card: #DFEAF5;
     --cinza-escuro:#4A5568;
     --tablerow: #F7FAFC;
     --bordas: #CBD5E0;
@@ -22,7 +23,7 @@ a, p {
     flex-direction: row;
     gap: 36px;
     width: 1010px;
-    margin-left: 24px;
+
 }
 
 .container-header {
@@ -51,7 +52,7 @@ a, p {
     display: flex;
     flex: 1;
     max-height: 181px;
-    background-color: var(--cinza-claro);
+    background-color: var(--card);
     flex-direction: column;
     border-radius: 8px;
 }
@@ -97,7 +98,7 @@ a, p {
     display: flex;
     width: 312px;
     height: 279px;
-    background-color: var(--cinza-claro);
+    background-color: var(--card);
     flex-direction: column;
     border-radius: 8px;
     cursor: pointer;
