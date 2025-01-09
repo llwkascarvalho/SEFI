@@ -1,0 +1,75 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block content %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'solicitacao/css/solicitacao.css' %}">
+{% endblock %}
+
+<div class="form-container">
+    <div class="texto-form">
+        <h1>Nova solicitação</h1>
+        <p>É necessário preencher todos os campos para o envio.</p>
+    </div>
+    <form action="{% url 'nova-solicitacao' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <fieldset>
+            <legend>Dados da solicitação</legend>
+            <hr/>
+
+            <label for="titulo">Título da Atividade</label>
+            <input type="text" id="titulo" name="titulo" placeholder="Exercício de fixação..." required>
+            
+            <div class="grid-3">
+                <div>
+                    <label for="quantidade_copias">Quantidade de cópias</label>
+                    <input type="number" id="quantidade_copias" name="quantidade_copias" placeholder="30" required>
+                </div>
+                <div>
+                    <label for="grampos">Grampos?</label>
+                    <select id="grampos" name="grampos">
+                        <option value="True">Sim</option>
+                        <option value="False">Não</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="tipo_entrega">Retirada</label>
+                    <select id="tipo_entrega" name="tipo_entrega">
+                        <option value="Pessoalmente">Pessoalmente</option>
+                        <option value="Bolsista">Bolsista</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="grid-3">
+                <div>
+                    <label for="tipo_atividade">Tipo de atividade</label>
+                    <select id="tipo_atividade" name="tipo_atividade">
+                        <option value="Exercício">Exercício</option>
+                        <option value="Prova">Prova</option>
+                        <option value="Outro">Outro</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="data_entrega">Data de entrega</label>
+                    <input type="date" id="data_entrega" name="data_entrega" required>
+                </div>
+                <div>
+                    <label for="tipo_impressao">Impressão</label>
+                    <select id="tipo_impressao" name="tipo_impressao">
+                        <option value="Colorida">Colorida</option>
+                        <option value="Preto e branco">Preto e branco</option>
+                    </select>
+                </div>
+            </div>
+            
+            <label for="arquivo">Upload de arquivos</label>
+            <input type="file" id="arquivo" name="arquivo" class="file-input" required>
+            
+            <div class="actions">
+                <button type="submit" class="submit-btn">Enviar</button>
+                <button type="reset" class="reset-btn">Remover</button>
+            </div>
+        </fieldset>
+    </form>
+</div>
+{% endblock %}

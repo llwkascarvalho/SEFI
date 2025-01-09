@@ -1,0 +1,97 @@
+.form-container {
+    width: 100%;
+    max-width: 800px;
+}
+
+.texto-form {
+    margin-bottom: 48px;
+}
+
+h1 {
+    font-size: 24px;
+    color: var(--azul-escuro);
+}
+
+p {
+    font-size: 12px;
+    color: var(--azul-escuro);
+} 
+
+fieldset {
+    border: none;
+    margin-bottom: 20px;
+}
+
+legend {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: var(--azul-escuro);
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+/* Labels e inputs */
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: var(--azul-escuro);
+}
+
+#titulo,
+#quantidade_copias,
+#data_entrega,
+select,
+.file-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #718096;
+}
+
+input::placeholder {
+    color: #718096;
+}
+
+select {
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.submit-btn {
+    background-color: var(--azul-escuro);
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.reset-btn {
+    background-color: #fff;
+}
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    padding: 0;
+    margin-bottom: 24px;
+}

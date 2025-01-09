@@ -7,6 +7,7 @@ urlpatterns = [
     path('', include('core.urls')),
     path('fila/', include('fila.urls')),
     path('historico/', include('historico.urls')),
+    path('solicitacao/', include('solicitacao.urls')),
     path('accounts/login/', auth_views.LoginView.as_view(template_name='auth/login.html'), name='login'),
     path('accounts/', include('django.contrib.auth.urls')),
 ]

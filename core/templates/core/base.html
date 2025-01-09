@@ -25,7 +25,7 @@
                 <ul id="menu" class="menu">
                     <li><a href="{% url 'index' %}"><img src="{% static 'core/icones/home-azul.svg' %}" alt="Ínicio"> Início</a></li>
                     {% if request.user|has_group:"Professor"  %}
-                    <li><a href="#"><img src="{% static 'core/icones/nova-solicitação.svg' %}" alt="Nova Solicitação">
+                    <li><a href="{% url 'nova-solicitacao' %}"><img src="{% static 'core/icones/nova-solicitação.svg' %}" alt="Nova Solicitação">
                             Nova Solicitação</a></li>
                     {% endif %}
                     <li><a href="{% url 'fila' %}"><img src="{% static 'core/icones/fila.svg' %}" alt="Fila de Impressão"> Fila de

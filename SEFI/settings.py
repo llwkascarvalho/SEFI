@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'core',
     'fila',
     'historico',
+    'solicitacao',
 ]
 
 MIDDLEWARE = [
