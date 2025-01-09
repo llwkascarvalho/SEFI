@@ -58,8 +58,8 @@
         <div class="container-conteudo-inferiores">
             <p class="title-card">Ações Rápidas</p>
             <div class="info-card-inferiores">
-                <a href="#"><button type="button">Realizar nova solicitação</button></a>
-                <a href="#"><button type="button">Acessar histórico</button></a>
+                <a href="{% url 'nova-solicitacao' %}"><button type="button">Realizar nova solicitação</button></a>
+                <a href="{% url 'historico' %}"><button type="button">Acessar histórico</button></a>
                 <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <button type="button">Sair</button>
                 </a>
