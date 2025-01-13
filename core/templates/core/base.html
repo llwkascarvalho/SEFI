@@ -64,7 +64,16 @@
         <div class="container-itens">
             <img class="icon" src="{% static 'core/icones/sino.svg' %}" alt="">
             <img class="icon" src="{% static 'core/icones/help-circle.svg' %}" alt="">
-            <img class="usuario" src="{% static 'core/imagens/irlan.jpg' %}" alt="">
+            <a href="{% url 'perfil-usuario' %}">
+                {% if user.username == 'professor' %}
+                    <img class="usuario" src="{% static 'core/imagens/irlan.jpg' %}" alt="">
+                {% elif user.username == 'admin' %}
+                    <img class="usuario" src="{% static 'core/imagens/admin.png' %}" alt="">
+                {% elif user.username == 'bolsista' %}
+                    <img class="usuario" src="{% static 'core/imagens/bolsista.jpg' %}" alt="">
+                {% endif %}
+            </a>
+            
         </div>
     </header>
 

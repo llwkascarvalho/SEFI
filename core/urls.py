@@ -5,4 +5,5 @@ from core import views
 urlpatterns = [
     path('', views.index, name='index'),
     path('estatisticas', views.estatisticas, name='estatisticas'),
+    path('perfil/', views.perfil, name='perfil-usuario'),
 ]
