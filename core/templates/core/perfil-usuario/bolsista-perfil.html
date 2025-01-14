@@ -1,0 +1,75 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block content %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'core/css/perfil/perfil.css' %}">
+{% endblock %}
+
+<div class="container-header">
+    <h1>Perfil do Usuário</h1>
+    <p>Essas são as informações do seu perfil   </p>
+</div>
+
+<div class="profile-card">
+    <div class="profile-info">
+        <img src= "{% static 'core/imagens/bolsista.jpg' %}" alt="Profile Picture">
+        <div class="informacoes">
+            <p><strong>Nome:</strong><br>Santos Junior Silva</p>
+            <p><strong>Data de Registro:</strong><br> 28/12/2024 15:25:32</p>
+            <p><strong>Matrícula:</strong><br>202420232022202</p>
+            <p><strong>Email:</strong><br>Santos@escolar.ifrn.edu.br</p>
+            <p><strong>Vínculo:</strong><br>Bolsista</p>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="container-info">
+        <h2>Notificações</h2>
+        <p>Configure as notificações que deseja receber.</p>
+    </div>
+    <div class="container-card-notificacoes">
+        <div class="container-notificacoes">
+            <span>
+                <label for="">Início das impressões</label>
+                <p><input type="checkbox"> E-mail</p>
+            </span>
+            <span>
+                <label for="">Tarefas concluídas</label>
+                <p><input type="checkbox"> E-mail</p>
+            </span>
+            <span>
+                <label for="">Mensagens</label>
+                <p><input type="checkbox"> E-mail</p>
+            </span>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="container-info">
+        <h2>Acessibilidade</h2>
+        <p>Configure as preferências de acessibilidade para seu trabalho.</p>
+    </div>
+    <div>
+        <div>
+            <p>Modo de cor:</p>
+            <select name="" id="">
+                <option value="">Padrão</option>
+                <option value="">Modo Alto Contraste</option>
+                <option value="">Modo Escuro</option>
+            </select>
+        </div>
+        <div>
+            <p>Nível de zoom:</p>
+            <select name="" id="">
+                <option value="">100%</option>
+                <option value="">125%</option>
+                <option value="">150%</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
