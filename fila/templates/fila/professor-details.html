@@ -24,6 +24,16 @@
             </div>
         </div>
     </div>
+
+    <div id="overlay-excluir" class="overlay hidden">
+        <div class="overlay-content">
+            <h3>Deseja excluir a solicitação?</h3>
+            <p>Cuidado! Esta operação não pode ser desfeita.</p>
+            <button class="button-confirmar-exclusao">Confirmar Exclusão</button>
+            <button class="button-cancelar-exclusao">Cancelar</button>
+        </div>
+    </div>
+
     <div class="detalhes-status--professor">
         <h2>Detalhes</h2>
         <div class="status">
@@ -83,10 +93,11 @@
 </div>
 
 <div>
-    <button class="button-salvar">Salvar</button>
-    <button class="button-descartar">Descartar alterações</button>
+    <button class="button-salvar hidden">Salvar</button>
+    <button class="button-descartar hidden">Descartar alterações</button>
 </div>
 
 <script src="{% static 'fila/js/dropdown.js' %}"></script>
+<script src="{% static 'fila/js/botoes.js' %}"></script>
 
 {%endblock%}

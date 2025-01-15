@@ -22,7 +22,7 @@ html,
 body {
     margin: 0;
     padding: 0;
-    height: 100%;
+    min-height: 100%;
     display: flex;
     flex-direction: column;
 }
@@ -217,7 +217,6 @@ header {
 /* FOOTER */
 
 .footer {
-    position: fixed;
     display: flex;
     justify-content: center;
     bottom: 0;
@@ -256,4 +255,5 @@ main {
     padding-bottom: 72px;
     margin-left: 270px;
     margin-top: 30px;
+    min-height: 100vh
 }

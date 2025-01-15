@@ -45,13 +45,15 @@
                         </form>
                     </li>
                 </ul>   
-                <div class="container-logo">
-                    <img class="logo" src="{% static 'core/imagens/Logo.svg' %}" alt="">
-                    <div>
-                        <h1>SEFI</h1>
-                        <p>Sistema de Envio e Fila de Impressão</p>
+                <a href="{% url 'index' %}" style="text-decoration: none;">
+                    <div class="container-logo">
+                        <img class="logo" src="{% static 'core/imagens/Logo.svg' %}" alt="">
+                        <div>
+                            <h1>SEFI</h1>
+                            <p>Sistema de Envio e Fila de Impressão</p>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
             <form action="/search" class="search-bar">
                 <div class="input-container">
