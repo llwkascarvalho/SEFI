@@ -1,5 +1,6 @@
 {% extends 'core/base.html' %}
 {% load static %}
+{% load auth_extras %}
 {% block content %}
 {% block css %}
 <link rel="stylesheet" href="{% static 'core/css/index.css' %}">
@@ -7,7 +8,7 @@
 
 <div class="container-header">
     <h1>Bem-vindo ao SEFI</h1>
-    <p>Olá, <strong>Irlan</strong>! Gerencie todas as solicitações de impressões do IFRN com facilidade e eficiência.</p>
+    <p>Olá, <strong>Usuario</strong>! Gerencie todas as solicitações de impressões do IFRN com facilidade e eficiência.</p>
 </div>
 
 <div class="container">
@@ -44,6 +45,39 @@
             </div>
         </a>
     </div>
+    
+    {% if request.user.is_superuser %}
+    <div class="container-card2">
+        <div class="container-conteudo-inferiores">
+            <p class="title-card">Recentes</p>
+            <div class="info-card-inferiores">
+                <p class="text-card point">Atividade sobre Templates Django</p>
+                <p class="text-card point">Miniteste - Engenharia de Softwa</p>
+            </div>
+        </div>
+    </div>
+    <div class="container-card2">
+        <div class="container-conteudo-inferiores">
+            <p class="title-card">Estatísticas</p>
+            <div class="info-card-inferiores">
+                <p class="text-card">Total de solicitações esse mês: 8</p>
+                <p class="text-card">Tempo médio de espera: 1 dia</p>
+                <p class="text-card">Taxa de erro nas impressões: 10%</p>
+            </div>
+        </div>
+    </div>
+    <div class="container-card2">
+        <div class="container-conteudo-inferiores">
+            <p class="title-card">Ações Rápidas</p>
+            <div class="info-card-inferiores">
+                <a href="{% url 'fila' %}"><button type="button">Solicitação mais recente</button></a>
+                <a href="{% url 'fila' %}"><button type="button">Solicitações na fila</button></a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if request.user|has_group:"Professor" %}
     <div class="container-card2 maior">
         <div class="container-conteudo-inferiores maior">
             <p class="title-card">Suas Solicitações</p>
@@ -66,6 +100,30 @@
             </div>
         </div>
     </div>
+    {% endif %}
+
+    {% if request.user|has_group:"Bolsista" %}
+    <div class="container-card2 maior">
+        <div class="container-conteudo-inferiores maior">
+            <p class="title-card">Solicitações aguardando entrega</p>
+            <div class="info-card-inferiores">
+                <p class="text-card point">Revisão HTML e CSS</p>
+            </div>
+        </div>
+    </div>
+    <div class="container-card2">
+        <div class="container-conteudo-inferiores">
+            <p class="title-card">Ações Rápidas</p>
+            <div class="info-card-inferiores">
+                <a href="fila"><button type="button">Última solicitação</button></a>
+                <a href="historico"><button type="button">Acessar histórico</button></a>
+                <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <button type="button">Sair</button>
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
 </div>
 
 {% endblock %}

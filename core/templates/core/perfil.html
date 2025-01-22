@@ -1,5 +1,6 @@
 {% extends 'core/base.html' %}
 {% load static %}
+{% load auth_extras %}
 {% block content %}
 {% block css %}
 <link rel="stylesheet" href="{% static 'core/css/perfil/perfil.css' %}">
@@ -12,17 +13,18 @@
 
 <div class="profile-card">
     <div class="profile-info">
-        <img src= "{% static 'core/imagens/irlan.jpg' %}" alt="Profile Picture">
+        <img src= "{% static 'core/imagens/admin.png' %}" alt="Profile Picture">
         <div class="informacoes">
-            <p><strong>Nome:</strong><br> Irlan Arley Targino Moreira</p>
+            <p><strong>Nome:</strong><br>Lorem Ipsum</p>
             <p><strong>Data de Registro:</strong><br> 28/12/2024 15:25:32</p>
-            <p><strong>Matrícula:</strong><br> 1237553</p>
-            <p><strong>Email:</strong><br> irlan.moreira@ifrn.edu.br</p>
-            <p><strong>Vínculo:</strong><br> Professor</p>
+            <p><strong>Matrícula:</strong><br> Lorem Ipsum</p>
+            <p><strong>Email:</strong><br> Lorem Ipsum@ifrn.edu.br</p>
+            <p><strong>Vínculo:</strong><br> Lorem Ipsum</p>
         </div>
     </div>
 </div>
 
+{% if request.user|has_group:"Professor" %}
 <div class="card">
     <div class="container-info">
         <h2>Preferências</h2>
@@ -54,6 +56,7 @@
         </div>
     </div>
 </div>
+{% endif %}
 
 <div class="card">
     <div class="container-info">
@@ -62,6 +65,18 @@
     </div>
     <div class="container-card-notificacoes">
         <div class="container-notificacoes">
+            {% if request.user.is_staff %}
+            <span>
+                <label for="">Nova solicitação recebida</label>
+                <p><input type="checkbox"> E-mail</p>
+            </span>
+            
+            <span>
+                <label for="">Material entregue</label>
+                <p><input type="checkbox"> E-mail</p>
+            </span>
+            {% endif %}
+            {% if request.user|has_group:"Professor" or request.user|has_group:"Bolsista" %}
             <span>
                 <label for="">Início das impressões</label>
                 <p><input type="checkbox"> E-mail</p>
@@ -70,6 +85,7 @@
                 <label for="">Tarefas concluídas</label>
                 <p><input type="checkbox"> E-mail</p>
             </span>
+            {% endif %}
             <span>
                 <label for="">Mensagens</label>
                 <p><input type="checkbox"> E-mail</p>
@@ -102,6 +118,4 @@
         </div>
     </div>
 </div>
-
-
 {% endblock %}

@@ -4,24 +4,8 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 @login_required
 def fila(request):
-    user = request.user
-    if user.is_superuser:
-        return render(request, 'fila/admin-fila.html')
-    elif user.groups.filter(name='Professor').exists():
-        return render(request, 'fila/professor-fila.html')
-    elif user.groups.filter(name='Bolsista').exists():
-        return render(request, 'fila/bolsista-fila.html')
-    else:
-        return redirect('login')
+    return render(request, "fila/fila.html")
     
 @login_required
-def details(request):
-    user = request.user
-    if user.is_superuser:
-        return render(request, 'fila/admin-details.html')
-    elif user.groups.filter(name='Professor').exists():
-        return render(request, 'fila/professor-details.html')
-    elif user.groups.filter(name='Bolsista').exists():
-        return render(request, 'fila/bolsista-details.html')
-    else:
-        return redirect('login')
+def detalhes(request):
+    return render(request, "fila/detalhes.html")
