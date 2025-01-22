@@ -1,0 +1,121 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load auth_extras %}
+{% block content %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'core/css/perfil/perfil.css' %}">
+{% endblock %}
+
+<div class="container-header">
+    <h1>Perfil do Usuário</h1>
+    <p>Essas são as informações do seu perfil   </p>
+</div>
+
+<div class="profile-card">
+    <div class="profile-info">
+        <img src= "{% static 'core/imagens/admin.png' %}" alt="Profile Picture">
+        <div class="informacoes">
+            <p><strong>Nome:</strong><br>Lorem Ipsum</p>
+            <p><strong>Data de Registro:</strong><br> 28/12/2024 15:25:32</p>
+            <p><strong>Matrícula:</strong><br> Lorem Ipsum</p>
+            <p><strong>Email:</strong><br> Lorem Ipsum@ifrn.edu.br</p>
+            <p><strong>Vínculo:</strong><br> Lorem Ipsum</p>
+        </div>
+    </div>
+</div>
+
+{% if request.user|has_group:"Professor" %}
+<div class="card">
+    <div class="container-info">
+        <h2>Preferências</h2>
+        <p>Escolha suas preferências e agilize seu trabalho.</p>
+    </div>
+    <div>
+        <div>
+            <p>Tipo de impressão:</p>
+            <select name="" id="">
+                <option value="">Frente e verso</option>
+                <option value="">Frente Única</option>
+            </select>
+        </div>
+        <div>
+            <p>Grampos:</p>
+            <select name="" id="">
+                <option value="">Sim</option>
+                <option value="">Não</option>
+            </select>
+        </div>
+        <div>
+            <p>Formato do papel:</p>
+            <select name="" id="">
+                <option value="">A4 (210 x 297 mm)</option>
+                <option value="">A5 (148 x 210 mm)</option>
+                <option value="">A3 (297 x 420 mm)</option>
+                <option value="">Carta (216 x 279 mm)</option>
+            </select>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<div class="card">
+    <div class="container-info">
+        <h2>Notificações</h2>
+        <p>Configure as notificações que deseja receber.</p>
+    </div>
+    <div class="container-card-notificacoes">
+        <div class="container-notificacoes">
+            {% if request.user.is_staff %}
+            <span>
+                <label for="">Nova solicitação recebida</label>
+                <p><input type="checkbox"> E-mail</p>
+            </span>
+            
+            <span>
+                <label for="">Material entregue</label>
+                <p><input type="checkbox"> E-mail</p>
+            </span>
+            {% endif %}
+            {% if request.user|has_group:"Professor" or request.user|has_group:"Bolsista" %}
+            <span>
+                <label for="">Início das impressões</label>
+                <p><input type="checkbox"> E-mail</p>
+            </span>
+            <span>
+                <label for="">Tarefas concluídas</label>
+                <p><input type="checkbox"> E-mail</p>
+            </span>
+            {% endif %}
+            <span>
+                <label for="">Mensagens</label>
+                <p><input type="checkbox"> E-mail</p>
+            </span>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="container-info">
+        <h2>Acessibilidade</h2>
+        <p>Configure as preferências de acessibilidade para seu trabalho.</p>
+    </div>
+    <div>
+        <div>
+            <p>Modo de cor:</p>
+            <select name="" id="">
+                <option value="">Padrão</option>
+                <option value="">Modo Alto Contraste</option>
+                <option value="">Modo Escuro</option>
+            </select>
+        </div>
+        <div>
+            <p>Nível de zoom:</p>
+            <select name="" id="">
+                <option value="">100%</option>
+                <option value="">125%</option>
+                <option value="">150%</option>
+            </select>
+        </div>
+    </div>
+</div>
+{% endblock %}
