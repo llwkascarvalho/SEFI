@@ -61,7 +61,7 @@
     padding-top: 24px;
 }
 
-.container {
+.container-main {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;

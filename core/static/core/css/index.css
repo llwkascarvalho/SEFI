@@ -17,7 +17,7 @@ a, p {
     text-decoration: none;
 }
 
-.container {
+.container-main {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
@@ -30,7 +30,6 @@ a, p {
     display: flex;
     flex-direction: column;
     padding-bottom: 56px;
-    padding-left: 24px;
 }
 
 .container-header h1 {
