@@ -41,19 +41,48 @@ table > tbody > tr > td > a > button:hover {
     transition: ease-in-out 0.3s;
 }
 
-.text {
+.text-filter {
     margin-bottom: 32px;
+    padding-right: 22px;
     color: var(--azul-escuro);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1158px;
+    position: relative;
 }
 
-.text h1 {
+.text-filter > .text > h1 {
     font-size: 24px;
     margin-bottom: 4px;
 }
 
-.text p {
+.text-filter > .text > p {
     font-size: 12px;
     font-weight: 300;
+}
+
+.filter {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 7px 10px 7px 10px;
+    background-color: var(--azul-escuro);
+    color: var(--branco);
+    border-radius: 6px;
+    height: 32px;
+    cursor: pointer;
+}
+
+.filter > p {
+    font-size: 12px;
+    color: #fff;
+}
+
+.filter > img {
+    width: 14px;
+    height: 10px;
+    margin-left: 8px;
 }
 
 #quantidade-solicitacoes {
@@ -63,4 +92,98 @@ table > tbody > tr > td > a > button:hover {
 #quantidade-solicitacoes > p {
     font-size: 13px;
     color: var(--azul-escuro);
+}
+
+/* TODO: ajustar a posição do filtro, esta no centro do botao*/
+
+.filter-list {
+    position: fixed;
+    top: 200px;
+    right: 22px;
+    display: none;
+    opacity: 0;
+    flex-direction: column;
+    width: 224px;
+    height: 224px;
+    background-color: var(--azul-escuro);
+    color: var(--branco);
+    border-radius: 6px;
+    font-size: 12px;
+    padding: 16px;
+    z-index: 100;
+    transition: opacity 0.3s ease;
+}
+
+.filter-list.show {
+    display: flex;
+    opacity: 1;
+}
+
+.filter-list-status {
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-list-status-options {
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-list-status-option {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.filter-list-status-option > input {
+    width: 14px;
+    height: 14px;
+    border-radius: 100%;
+    appearance: none;
+    border: 2px solid var(--branco);
+}
+
+.filter-list-status-option > input:checked {
+    background-color: var(--branco);
+    border: 2px solid var(--branco);
+}
+
+.filter-list-divider {
+    border: 1px solid var(--branco);
+    margin: 10px 0px 10px 0px;
+}
+
+.filter-list-type {
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-list-type-options {
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-list-type-option {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.filter-list-type-option > input {
+    width: 14px;
+    height: 14px;
+    border-radius: 100%;
+    appearance: none;
+    border: 2px solid var(--branco);
+}
+
+.filter-list-type-option > input:checked {
+    background-color: var(--branco);
+    border: 2px solid var(--branco);
 }
