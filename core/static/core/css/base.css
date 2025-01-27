@@ -20,11 +20,22 @@
 
 html,
 body {
-    margin: 0;
-    padding: 0;
-    min-height: 100%;
     display: flex;
     flex-direction: column;
+    max-width: 1440px;
+    height: 1024px;
+    margin: auto;
+    overflow-x: hidden;
+    width: 100%;
+}
+
+main {
+    flex: 1;
+    margin-left: 250px;
+    padding: 0px 0px 72px 50px;
+    margin-top: 150px;
+    min-height: 100vh;
+    max-width: 1440px;
 }
 
 header {
@@ -37,6 +48,7 @@ header {
     width: 100%;
     height: 101px;
     z-index: 50;
+    max-width: 1440px;
 }
 
 /* LOGO E MENU */
@@ -154,23 +166,20 @@ header {
 /* MENU */
 
 .menu {
-    position: fixed;
-    top: 101px;
-    left: -254px;
+    position: absolute;
+    left: 0;
     width: 254px;
-    height: 100%;
+    height: 100vh;
+    top: 100%;
     background-color: var(--cinza-claro);
     color: var(--branco);
     display: flex;
     flex-direction: column;
     padding-left: 20px;
-    transition: left 0.3s;
-    gap: 23px;
+    transition: transform 0.3s ease-in-out;
+    gap: 1rem;
     padding: 32px 16px 0 16px;
 }
-
-
-
 
 .menu li {
     list-style: none;
@@ -195,10 +204,19 @@ header {
     transition: background-color 0.3s, color 0.3s;
 }
 
+.menu a:hover {
+    background-color: var(--bordas);
+}
+
 .menu a img {
     width: 20px;
     height: 20px;
     transition: filter 0.3s;
+    filter: invert(0%);
+}
+
+.menu a.active img {
+    filter: invert(1); /* Torna a imagem branca */
 }
 
 .menu a.active {
@@ -206,12 +224,8 @@ header {
     color: white;
 }
 
-.menu a.active img {
-    filter: brightness(0) invert(1);
-}
-
 .menu.active {
-    left: 0;
+    transform: translateX(-100%);
 }
 
 /* FOOTER */
@@ -229,6 +243,8 @@ header {
     align-items: center;
     font-size: 1rem;
     z-index: 100;
+    margin: auto;
+    max-width: 1440px;
 }
 
 .footer div {
@@ -245,15 +261,4 @@ header {
     color: var(--branco_claro);
     align-items: center;
     gap: 32px;
-}
-
-/*main*/
-
-main {
-    flex: 1;
-    padding-top: 120px;
-    padding-bottom: 72px;
-    margin-left: 270px;
-    margin-top: 30px;
-    min-height: 100vh
 }
