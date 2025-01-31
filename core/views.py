@@ -1,19 +1,12 @@
-from django.shortcuts import redirect, render
-from django.contrib.auth.decorators import login_required
-
-# views
-@login_required
-def index(request):
-    return render(request, "core/index.html")
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import TemplateView
+from core.permissions import CheckUserAdminMixin
     
-@login_required
-def perfil(request):
-    return render(request, "core/perfil.html")
+class IndexView(LoginRequiredMixin, TemplateView):
+    template_name = "core/index.html"
 
-@login_required
-def estatisticas(request):
-    user = request.user
-    if user.is_superuser:
-        return render(request, "core/estatisticas.html")
-    else:
-        return redirect("index")
+class PerfilView(LoginRequiredMixin, TemplateView):
+    template_name = "core/perfil.html"
+
+class EstatisticasView(CheckUserAdminMixin, LoginRequiredMixin, TemplateView):
+    template_name = "core/estatisticas.html"

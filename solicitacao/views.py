@@ -1,13 +1,7 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import TemplateView
+from core.permissions import CheckUserProfessorMixin
 
-# Create your views here.
-
-@login_required
-def nova_solicitacao(request):
-    user = request.user
-
-    if user.groups.filter(name='Professor').exists():
-        return render(request, 'solicitacao/nova_solicitacao.html')
-    else:
-        return redirect('index')
+# mudar para createview depois   
+class NovaSolicitacaoView(CheckUserProfessorMixin, LoginRequiredMixin, TemplateView): 
+    template_name = "solicitacao/nova_solicitacao.html"
