@@ -1,11 +1,10 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import TemplateView
 
-# Create your views here.
-@login_required
-def fila(request):
-    return render(request, "fila/fila.html")
-    
-@login_required
-def detalhes(request):
-    return render(request, "fila/detalhes.html")
+# mudar para listview
+class FilaView(LoginRequiredMixin, TemplateView):
+    template_name = "fila/fila.html"
+
+# mudar para detailview
+class DetalhesView(LoginRequiredMixin, TemplateView):
+    template_name = "fila/detalhes.html"

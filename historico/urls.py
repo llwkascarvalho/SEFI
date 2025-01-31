@@ -1,7 +1,7 @@
 from django.urls import path
-from historico import views
+from historico.views import HistoricoView
 
 # urls
 urlpatterns = [
-    path('', views.historico, name='historico'),
+    path('', HistoricoView.as_view(), name='historico'),
 ]

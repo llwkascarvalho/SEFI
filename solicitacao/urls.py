@@ -1,6 +1,6 @@
 from django.urls import path
-from solicitacao import views
+from solicitacao.views import NovaSolicitacaoView
 
 urlpatterns = [
-    path('', views.nova_solicitacao, name='nova-solicitacao'),
+    path('', NovaSolicitacaoView.as_view(), name='nova-solicitacao'),
 ]

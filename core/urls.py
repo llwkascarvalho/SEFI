@@ -1,9 +1,10 @@
 from django.urls import path
 from core import views
+from core.views import IndexView, PerfilView, EstatisticasView
 
 # urls
 urlpatterns = [
-    path('', views.index, name='index'),
-    path('estatisticas', views.estatisticas, name='estatisticas'),
-    path('perfil/', views.perfil, name='perfil-usuario'),
+    path('', IndexView.as_view(), name='index'),
+    path('estatisticas', EstatisticasView.as_view(), name='estatisticas'),
+    path('perfil/', PerfilView.as_view(), name='perfil-usuario'),
 ]

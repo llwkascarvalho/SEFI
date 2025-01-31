@@ -1,7 +1,6 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import TemplateView
 
-# Create your views here.
-@login_required
-def historico(request):
-    return render(request, "historico/historico.html")
+# mudar para listview
+class HistoricoView(LoginRequiredMixin, TemplateView):
+    template_name = "historico/historico.html"
