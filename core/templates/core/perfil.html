@@ -13,13 +13,13 @@
 
 <div class="profile-card">
     <div class="profile-info">
-        <img src= "{% static 'core/imagens/admin.png' %}" alt="Profile Picture">
+        <img src= "{{ request.user.foto_perfil.url }}" alt="Foto de Perfil">
         <div class="informacoes">
-            <p><strong>Nome:</strong><br>Lorem Ipsum</p>
-            <p><strong>Data de Registro:</strong><br> 28/12/2024 15:25:32</p>
-            <p><strong>Matrícula:</strong><br> Lorem Ipsum</p>
-            <p><strong>Email:</strong><br> Lorem Ipsum@ifrn.edu.br</p>
-            <p><strong>Vínculo:</strong><br> Lorem Ipsum</p>
+            <p><strong>Nome:</strong><br>{{ request.user.username }}</p>
+            <p><strong>Data de Registro:</strong><br> {{ request.user.date_joined }}</p>
+            <p><strong>Matrícula:</strong><br> {{ request.user.matricula }}</p>
+            <p><strong>Email:</strong><br> {{ request.user.email }}</p>
+            <p><strong>Vínculo:</strong><br> {{ request.user.vinculo }}</p>
         </div>
     </div>
 </div>
