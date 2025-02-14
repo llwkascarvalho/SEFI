@@ -22,9 +22,9 @@ html,
 body {
     display: flex;
     flex-direction: column;
-    max-width: 1920px;
-    height: 1024px;
-    margin: auto;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
     overflow-x: hidden;
     width: 100%;
 }
@@ -34,8 +34,8 @@ main {
     margin-left: 250px;
     padding: 0px 0px 72px 50px;
     margin-top: 150px;
-    min-height: 100vh;
-    max-width: 1920px;
+    min-height: calc(100vh - 150px);
+    width: calc(100% - 250px);
 }
 
 header {
@@ -48,7 +48,6 @@ header {
     width: 100%;
     height: 101px;
     z-index: 50;
-    max-width: 1920px;
 }
 
 /* LOGO E MENU */
@@ -234,8 +233,6 @@ header {
 .footer {
     display: flex;
     justify-content: center;
-    bottom: 0;
-    left: 0;
     width: 100%;
     background-color: var(--azul-escuro);
     color: #dbdde1;
@@ -244,8 +241,6 @@ header {
     align-items: center;
     font-size: 1rem;
     z-index: 100;
-    margin: auto;
-    max-width: 1920px;
 }
 
 .footer div {
