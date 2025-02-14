@@ -4,3 +4,6 @@ __pycache__
 # Ambiente virtual
 venv/
 env/
+
+# local
+management/
