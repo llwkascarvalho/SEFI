@@ -1,3 +1,78 @@
 from django.db import models
+from django.conf import settings
+from django.core.validators import MinValueValidator
 
-# Create your models here.
+# gera o caminho para salvar o arquivo: uploads/user_<id>/<filename>
+def arquivo_path(instance, filename):
+    return f'uploads/user_{instance.usuario.id}/{filename}'
+
+class Solicitacao(models.Model):
+    class TipoAtividadeChoices(models.TextChoices):
+        EXERCICIO = 'Exercício', 'Exercício'
+        PROVA = 'Prova', 'Prova'
+        OUTRO = 'Outro', 'Outro'
+    
+    class TipoEntregaChoices(models.TextChoices):
+        PESSOALMENTE = 'Pessoalmente', 'Pessoalmente'
+        BOLSISTA = 'Bolsista', 'Bolsista'
+    
+    class TipoImpressaoChoices(models.TextChoices):
+        COLORIDA = 'Colorida', 'Colorida'
+        PRETO_BRANCO = 'Preto e branco', 'Preto e branco'
+    
+    titulo = models.CharField('Título da Atividade', max_length=200)
+    quantidade_copias = models.PositiveIntegerField(
+        'Quantidade de cópias',
+        validators=[MinValueValidator(1)]
+    )
+    grampos = models.BooleanField('Grampos', default=False)
+    tipo_entrega = models.CharField(
+        'Tipo de Entrega',
+        max_length=20,
+        choices=TipoEntregaChoices.choices,
+        default=TipoEntregaChoices.PESSOALMENTE
+    )
+    tipo_atividade = models.CharField(
+        'Tipo de Atividade',
+        max_length=20,
+        choices=TipoAtividadeChoices.choices,
+        default=TipoAtividadeChoices.EXERCICIO
+    )
+    data_entrega = models.DateField('Data de Entrega')
+    tipo_impressao = models.CharField(
+        'Tipo de Impressão',
+        max_length=20,
+        choices=TipoImpressaoChoices.choices,
+        default=TipoImpressaoChoices.PRETO_BRANCO
+    )
+    arquivo = models.FileField(
+        'Arquivo',
+        upload_to=arquivo_path,
+        help_text='Upload do arquivo para impressão'
+    )
+    
+    usuario = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        verbose_name='Solicitante'
+    )
+    data_solicitacao = models.DateTimeField('Data da Solicitação', auto_now_add=True)
+    status = models.CharField(
+        'Status',
+        max_length=20,
+        default='Pendente',
+        choices=[
+            ('Pendente', 'Pendente'),
+            ('Em andamento', 'Em andamento'),
+            ('Concluída', 'Concluída'),
+            ('Cancelada', 'Cancelada')
+        ]
+    )
+
+    class Meta:
+        verbose_name = 'Solicitação'
+        verbose_name_plural = 'Solicitações'
+        ordering = ['-data_solicitacao']
+
+    def __str__(self):
+        return f'{self.titulo} - {self.usuario.username} - {self.data_entrega}'
