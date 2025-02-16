@@ -148,3 +148,40 @@ button {
 button:hover {
     background-color: #0056b3;
 }
+
+#form-foto-perfil {
+    display: flex;
+    justify-content: space-between;
+}
+
+#form-foto-perfil div {
+    display: flex;
+    flex-direction: column;
+}
+
+#form-foto-perfil div input {
+    display: flex;
+    flex-direction: column;
+}
+
+#form-foto-perfil label,
+#form-foto-perfil input,
+#form-foto-perfil button {
+    display: block;
+    margin-bottom: 10px;
+}
+
+#form-foto-perfil button {
+    padding: 10px;
+    color: var(--branco);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    align-self: flex-end;
+    width: 160px;
+    background-color: var(--azul-escuro);    
+}
+
+#form-foto-perfil button:hover {
+    background-color: #06315f;
+}

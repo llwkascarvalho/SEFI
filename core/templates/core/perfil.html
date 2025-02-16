@@ -116,6 +116,14 @@
                 <option value="">150%</option>
             </select>
         </div>
+        <form id="form-foto-perfil" method="post" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+            <strong><label for="foto_perfil">Alterar Foto de Perfil:</label></strong>
+            <div>
+                <input type="file" name="foto_perfil" id="foto_perfil" accept="image/*">
+                <button type="submit">Atualizar Foto</button>
+            </div>
+        </form>
     </div>
 </div>
 {% endblock %}
