@@ -29,3 +29,46 @@ document.addEventListener('DOMContentLoaded', function() {
         }); 
     }); 
 }); 
+
+document.getElementById('form-foto-perfil').addEventListener('submit', function(event) { 
+    event.preventDefault(); 
+
+    const fileInput = document.getElementById('foto_perfil'); 
+    const file = fileInput.files[0]; 
+
+    if (!file) { 
+        alert('Nenhuma foto foi selecionada.'); 
+        return; 
+    } 
+    if (file.size > 2 * 1024 * 1024) {
+        alert('O arquivo é muito grande. O tamanho máximo permitido é 2MB.');
+        return;
+    } 
+    if (!file.type.startsWith('image')) {
+        alert('O arquivo deve ser uma imagem.');
+        return; 
+    } 
+
+    const formData = new FormData(this); 
+
+    fetch(this.action, { 
+        method: 'POST', 
+        body: formData, 
+        headers: { 
+            'X-CSRFToken': '{{ csrf_token }}', 
+        }, 
+    }) 
+    .then(response => response.json()) 
+    .then(data => { 
+        if (data.success) { 
+            alert(data.message); 
+            window.location.reload(); 
+        } else { 
+            alert(data.message); 
+        } 
+    }) 
+    .catch(error => { 
+        console.error('Erro:', error); 
+        alert('Erro ao atualizar a foto de perfil. Tente novamente.'); 
+    }); 
+});
