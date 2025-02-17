@@ -19,6 +19,14 @@ class Solicitacao(models.Model):
     class TipoImpressaoChoices(models.TextChoices):
         COLORIDA = 'Colorida', 'Colorida'
         PRETO_BRANCO = 'Preto e branco', 'Preto e branco'
+
+    class StatusChoices(models.TextChoices):
+        PENDENTE = 'Pendente', 'Pendente'
+        EM_ANDAMENTO = 'Em andamento', 'Em andamento'
+        AGUARDANDO_ENTREGA = 'Aguardando entrega', 'Aguardando entrega'
+        AGUARDANDO_RETIRADA = 'Aguardando retirada', 'Aguardando retirada'
+        CONCLUIDA = 'Concluída', 'Concluída'
+        CANCELADA = 'Cancelada', 'Cancelada'
     
     titulo = models.CharField('Título da Atividade', max_length=200)
     quantidade_copias = models.PositiveIntegerField(
@@ -60,13 +68,8 @@ class Solicitacao(models.Model):
     status = models.CharField(
         'Status',
         max_length=20,
-        default='Pendente',
-        choices=[
-            ('Pendente', 'Pendente'),
-            ('Em andamento', 'Em andamento'),
-            ('Concluída', 'Concluída'),
-            ('Cancelada', 'Cancelada')
-        ]
+        choices=StatusChoices.choices,
+        default=StatusChoices.PENDENTE
     )
 
     class Meta:
