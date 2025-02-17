@@ -37,7 +37,7 @@ table > tbody > tr > td > button {
 }
 
 table > tbody > tr > td > button:hover {
-    background-color: var(--azul-claro);
+    background-color: var(--btn-hover);
     transition: ease-in-out 0.3s;
 }
 
