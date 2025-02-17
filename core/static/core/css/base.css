@@ -8,6 +8,25 @@
     --cinza-claro: #EDF2F7;
     --tablerow: #F7FAFC;
     --bordas: #CBD5E0;
+
+    --btn-hover: #2c5282;
+
+    --erro-texto: #ff283a;
+    --erro-bg: #f8d7da;
+    --erro-borda: #ffafb6;
+    --erro-icone: #e53e3e;
+    --erro-icone-hover: #c53030;
+    
+    --sucesso-texto: #008000;
+    --sucesso-bg: #d8f8d7;
+    --sucesso-borda: #b6ffb6;
+
+    --borda-input: #ccc;
+    --foco-input: rgba(0, 123, 255, 0.25);
+    
+    --upload-bg: #f8fafc;
+    --upload-hover: #3182ce;
+    --upload-info-bg: #edf2f7;
 }
 
 * {
