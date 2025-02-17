@@ -27,6 +27,15 @@
     --upload-bg: #f8fafc;
     --upload-hover: #3182ce;
     --upload-info-bg: #edf2f7;
+
+    --azul-escuro2: #2B3A56;
+    --cinza-escuro:#4A5568;
+    --links: #82C0FA;
+    --hover: #405170;
+    --verde: #30BE34;
+    --amarelo: #E89D34;
+    --azul: #085A95;
+    --vermelho: #E83434;
 }
 
 * {
