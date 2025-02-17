@@ -16,7 +16,7 @@
     <div class="profile-info">
         <img src= "{{ request.user.foto_perfil.url }}" alt="Foto de Perfil">
         <div class="informacoes">
-            <p><strong>Nome:</strong><br>{{ request.user.username }}</p>
+            <p><strong>Nome:</strong><br>{{ request.user.first_name }} {{ request.user.last_name }}</p>
             <p><strong>Data de Registro:</strong><br> {{ request.user.date_joined }}</p>
             <p><strong>Matrícula:</strong><br> {{ request.user.matricula }}</p>
             <p><strong>Email:</strong><br> {{ request.user.email }}</p>
