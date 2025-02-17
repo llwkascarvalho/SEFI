@@ -6,70 +6,94 @@
 {% endblock %}
 
 <div class="form-container">
+
+    {% if form.errors %}
+    <div class="error-message">
+        <p>Por favor, corrija os erros abaixo:</p>
+        {% for field in form %}
+            {% for error in field.errors %}
+                <ul>
+                    <li>{{ error }}</li>
+                </ul>
+            {% endfor %}
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}"><p>{{ message }}</p></div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
     <div class="texto-form">
         <h1>Nova solicitação</h1>
-        <p>É necessário preencher todos os campos para o envio.</p>
+        <p>É necessário preencher todos os campos para o envio.</p>   
     </div>
-    <form action="{% url 'nova-solicitacao' %}" method="POST" enctype="multipart/form-data">
+
+    <form action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <fieldset>
             <legend>Dados da solicitação</legend>
             <hr/>
 
-            <label for="titulo">Título da Atividade</label>
-            <input type="text" id="titulo" name="titulo" placeholder="Exercício de fixação..." required>
+            {{ form.titulo.label_tag }}
+            {{ form.titulo }}
             
             <div class="grid-3">
                 <div>
-                    <label for="quantidade_copias">Quantidade de cópias</label>
-                    <input type="number" id="quantidade_copias" name="quantidade_copias" placeholder="30" required>
+                    {{ form.quantidade_copias.label_tag }}
+                    {{ form.quantidade_copias }}
                 </div>
                 <div>
-                    <label for="grampos">Grampos?</label>
-                    <select id="grampos" name="grampos">
-                        <option value="True">Sim</option>
-                        <option value="False">Não</option>
-                    </select>
+                    {{ form.grampos.label_tag }}
+                    {{ form.grampos }}
                 </div>
                 <div>
-                    <label for="tipo_entrega">Retirada</label>
-                    <select id="tipo_entrega" name="tipo_entrega">
-                        <option value="Pessoalmente">Pessoalmente</option>
-                        <option value="Bolsista">Bolsista</option>
-                    </select>
+                    {{ form.tipo_entrega.label_tag }}
+                    {{ form.tipo_entrega }}
                 </div>
             </div>
             
             <div class="grid-3">
                 <div>
-                    <label for="tipo_atividade">Tipo de atividade</label>
-                    <select id="tipo_atividade" name="tipo_atividade">
-                        <option value="Exercício">Exercício</option>
-                        <option value="Prova">Prova</option>
-                        <option value="Outro">Outro</option>
-                    </select>
+                    {{ form.tipo_atividade.label_tag }}
+                    {{ form.tipo_atividade }}
                 </div>
                 <div>
-                    <label for="data_entrega">Data de entrega</label>
-                    <input type="date" id="data_entrega" name="data_entrega" required>
+                    {{ form.data_entrega.label_tag }}
+                    {{ form.data_entrega }}
                 </div>
                 <div>
-                    <label for="tipo_impressao">Impressão</label>
-                    <select id="tipo_impressao" name="tipo_impressao">
-                        <option value="Colorida">Colorida</option>
-                        <option value="Preto e branco">Preto e branco</option>
-                    </select>
+                    {{ form.tipo_impressao.label_tag }}
+                    {{ form.tipo_impressao }}
                 </div>
             </div>
             
-            <label for="arquivo">Upload de arquivos</label>
-            <input type="file" id="arquivo" name="arquivo" class="file-input" required>
+            {{ form.arquivo.label_tag }}
+            <div class="upload-area" id="uploadArea">
+                <div class="upload-content">
+                    <p>Arraste e solte seu arquivo aqui ou</p>
+                    <label for="arquivo" class="upload-button">Escolha um arquivo</label>
+                    {{ form.arquivo }}
+                </div>
+                <div class="file-info" id="fileInfo" style="display: none;">
+                    <p class="file-name" id="fileName"></p>
+                    <button type="button" class="remove-file" id="removeFile">
+                    </button>
+                </div>
+            </div>
+            <small class="help-text">Formatos permitidos: PDF, DOC, DOCX, ODT (máx. 10MB)</small>
             
             <div class="actions">
                 <button type="submit" class="submit-btn">Enviar</button>
-                <button type="reset" class="reset-btn">Remover</button>
+                <button type="reset" class="reset-btn" onclick="handleFormReset(event)">Limpar</button>
             </div>
         </fieldset>
     </form>
 </div>
+
+<script src="{% static 'solicitacao/js/upload.js' %}"></script>
 {% endblock %}
