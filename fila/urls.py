@@ -4,5 +4,5 @@ from fila.views import FilaView, DetalhesView
 # urls
 urlpatterns = [
     path('', FilaView.as_view(), name='fila'),
-    path('detalhes/', DetalhesView.as_view(), name='detalhes')
+    path('detalhes/<int:pk>/', DetalhesView.as_view(), name='detalhes')
 ]

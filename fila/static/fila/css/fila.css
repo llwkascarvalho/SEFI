@@ -1,6 +1,12 @@
-table {
+.fila {
+    width: 100%;
     max-width: 1158px;
-    padding-right: 14px;
+    padding-right: 22px;
+}
+
+table {
+    width: 100%;
+    table-layout: fixed;
     border-spacing: 0;
 }
 
@@ -11,6 +17,9 @@ table > thead {
 
 table > thead > tr > th {
     padding: 11px 12px 11px 12px;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
 }
 
 table > tbody > tr {
@@ -25,6 +34,10 @@ table > tbody > tr > td {
     border-color: var(--bordas);
     border-style: solid;
     border-width: 1px 0px;
+    white-space: normal;
+    overflow: visible;
+    word-wrap: break-word;
+    word-break: break-word;
 }
 
 table > tbody > tr > td > a > button {
@@ -43,13 +56,11 @@ table > tbody > tr > td > a > button:hover {
 
 .text-filter {
     margin-bottom: 32px;
-    padding-right: 22px;
     color: var(--azul-escuro);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 1158px;
-    position: relative;
+    width: 100%;
 }
 
 .text-filter > .text > h1 {
@@ -186,4 +197,38 @@ table > tbody > tr > td > a > button:hover {
 .filter-list-type-option > input:checked {
     background-color: var(--branco);
     border: 2px solid var(--branco);
+}
+
+.empty-state td {
+    padding: 40px !important;
+    text-align: center;
+}
+
+.empty-state-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.empty-state-content p {
+    color: var(--texto-secundario);
+    font-size: 16px;
+    margin: 0;
+}
+
+.status-pendente {
+    color: var(--vermelho);
+}
+
+.status-em-andamento {
+    color: var(--amarelo);
+}
+
+.status-aguardando-entrega {
+    color: var(--azul);
+}
+
+.status-aguardando-retirada {
+    color: var(--azul);
 }

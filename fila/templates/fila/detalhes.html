@@ -9,71 +9,70 @@
 {% if request.user.is_superuser %}
     <div class="container-header">
         <div class="container-informacoes">
-            <h1 class="titulo-detalhes">Solicitação Nº 05</h1>
-            <p class="solicitante">Irlan Arley Targino Moreira</p>
-            <p class="data-solicitante">20/10/2024</p>
+            <h1 class="titulo-detalhes">Solicitação Nº {{ solicitacao.id }}</h1>
+            <p class="solicitante">{{ solicitacao.usuario.first_name }} {{ solicitacao.usuario.last_name }}</p>
+            <p class="data-solicitante">{{ solicitacao.data_solicitacao|date:"d/m/Y" }}</p>
         </div>
-            <div class="detalhes-status">
-                <h2>Detalhes</h2>
-                <div class="dropdown">
-                    <div class="selected default">
-                        <span>Status da tarefa</span>
-                        <div class="caret"></div>
-                    </div>
-                    <div class="list">
-                        <div class="item red">Pendente</div>
-                        <div class="item green">Concluído</div>
-                        <div class="item blue">Aguardando entrega</div>
-                        <div class="item blue">Aguardando retirada</div>
-                        <div class="item yellow">Em andamento</div>
-                    </div>
+        <div class="detalhes-status">
+            <h2>Detalhes</h2>
+            <div class="dropdown">
+                <div class="selected default">
+                    <span>{{ solicitacao.status }}</span>
+                    <div class="caret"></div>
+                </div>
+                <div class="list">
+                    <div class="item red">Pendente</div>
+                    <div class="item yellow">Em andamento</div>
+                    <div class="item blue">Aguardando entrega</div>
+                    <div class="item blue">Aguardando retirada</div>
+                    <div class="item green">Concluído</div>
                 </div>
             </div>
+        </div>
     </div>
 
     <div class="container-main">
         <div class="container-card">
             <div class="container-conteudo">
                 <p class="title-card">Título</p>
-                <p class="text-card">Exercício de Fixação sobre
-                    Ponteiros</p>
+                <p class="text-card">{{ solicitacao.titulo }}</p>
             </div>
         </div>
         <div class="container-card">
             <div class="container-conteudo">
                 <p class="title-card">Retirada</p>
-                <p class="text-card">Pessoalmente</p>
+                <p class="text-card">{{ solicitacao.tipo_entrega }}</p>
             </div>
         </div>
         <div class="container-card">
             <div class="container-conteudo">
                 <p class="title-card">Grampos</p>
-                <p class="text-card">Sim</p>
+                <p class="text-card">{% if solicitacao.grampos %}Sim{% else %}Não{% endif %}</p>
             </div>
         </div>
         <div class="container-card">
             <div class="container-conteudo">
                 <p class="title-card">Quantidade de Cópias</p>
-                <p class="text-card">50</p>
+                <p class="text-card">{{ solicitacao.quantidade_copias }}</p>
             </div>
         </div>
         <div class="container-card">
             <div class="container-conteudo">
                 <p class="title-card">Tipo de Atividade</p>
-                <p class="text-card">Exercício</p>
+                <p class="text-card">{{ solicitacao.tipo_atividade }}</p>
             </div>
         </div>
         <div class="container-card">
             <div class="container-conteudo">
                 <p class="title-card">Data de Entrega</p>
-                <p class="text-card">27/10/2024</p>
+                <p class="text-card">{{ solicitacao.data_entrega|date:"d/m/Y" }}</p>
             </div>
         </div>
         <div class="container-card maior">
             <div class="container-conteudo">
                 <p class="title-card">Arquivo</p>
-                <p class="text-card">fixacaoponteiros.pdf</p>
-                <button>Download</button>
+                <p class="text-card">{{ solicitacao.arquivo.name }}</p>
+                <a href="{{ solicitacao.arquivo.url }}" download><button>Download</button></a>
             </div>
         </div>
     </div>
@@ -85,13 +84,12 @@
 {% if request.user|has_group:"Professor" %}
     <link rel="stylesheet" href="{% static 'fila/css/detalhes-professor.css' %}">
 
-
     <div class="container-header">
         <div class="container-informacoes--professor">
             <div class="conteudo-solicitacao">
-                <h1 class="titulo-detalhes">Solicitação Nº 05</h1>
-                <p class="solicitante">Irlan Arley Targino Moreira</p>
-                <p class="data-solicitante">20/10/2024</p>
+                <h1 class="titulo-detalhes">Solicitação Nº {{ solicitacao.id }}</h1>
+                <p class="solicitante">{{ solicitacao.usuario.first_name }} {{ solicitacao.usuario.last_name }}</p>
+                <p class="data-solicitante">{{ solicitacao.data_solicitacao|date:"d/m/Y" }}</p>
             </div>
             <div class="dropdown">
                 <div class="selected default">
@@ -118,9 +116,8 @@
             <h2>Detalhes</h2>
             <div class="status">
                 <div class="status-name">
-                    <span>Aguardando entrega</span>
+                    <span>{{ solicitacao.status }}</span>
                 </div>
-
             </div>
         </div>
     </div>
@@ -129,45 +126,44 @@
         <div class="container-card">
             <div class="container-conteudo">
                 <p class="title-card">Título</p>
-                <p class="text-card">Exercício de Fixação sobre
-                    Ponteiros</p>
+                <p class="text-card">{{ solicitacao.titulo }}</p>
             </div>
         </div>
         <div class="container-card">
             <div class="container-conteudo">
                 <p class="title-card">Retirada</p>
-                <p class="text-card">Pessoalmente</p>
+                <p class="text-card">{{ solicitacao.tipo_entrega }}</p>
             </div>
         </div>
         <div class="container-card">
             <div class="container-conteudo">
                 <p class="title-card">Grampos</p>
-                <p class="text-card">Sim</p>
+                <p class="text-card">{% if solicitacao.grampos %}Sim{% else %}Não{% endif %}</p>
             </div>
         </div>
         <div class="container-card">
             <div class="container-conteudo">
                 <p class="title-card">Quantidade de Cópias</p>
-                <p class="text-card">50</p>
+                <p class="text-card">{{ solicitacao.quantidade_copias }}</p>
             </div>
         </div>
         <div class="container-card">
             <div class="container-conteudo">
                 <p class="title-card">Tipo de Atividade</p>
-                <p class="text-card">Exercício</p>
+                <p class="text-card">{{ solicitacao.tipo_atividade }}</p>
             </div>
         </div>
         <div class="container-card">
             <div class="container-conteudo">
                 <p class="title-card">Data de Entrega</p>
-                <p class="text-card">27/10/2024</p>
+                <p class="text-card">{{ solicitacao.data_entrega|date:"d/m/Y" }}</p>
             </div>
         </div>
         <div class="container-card maior">
             <div class="container-conteudo">
                 <p class="title-card">Arquivo</p>
-                <p class="text-card">fixacaoponteiros.pdf</p>
-                <button>Download</button>
+                <p class="text-card">{{ solicitacao.arquivo }}</p>
+                <a href="{{ solicitacao.arquivo.url }}" download><button>Download</button></a>
             </div>
         </div>
     </div>
@@ -179,73 +175,74 @@
 
     <script src="{% static 'fila/js/dropdown.js' %}"></script>
     <script src="{% static 'fila/js/botoes.js' %}"></script>
-
 {% endif %}
 
 {% if request.user|has_group:"Bolsista" %}
     <link rel="stylesheet" href="{% static 'fila/css/detalhes-bolsista.css' %}">
 
-
     <div class="container-header">
         <div class="container-informacoes">
-            <h1 class="titulo-detalhes">Solicitação Nº 05</h1>
-            <p class="solicitante">Irlan Arley Targino Moreira</p>
-            <p class="data-solicitante">20/10/2024</p>
+            <h1 class="titulo-detalhes">Solicitação Nº {{ solicitacao.id }}</h1>
+            <p class="solicitante">{{ solicitacao.usuario.first_name }} {{ solicitacao.usuario.last_name }}</p>
+            <p class="data-solicitante">{{ solicitacao.data_solicitacao|date:"d/m/Y" }}</p>
         </div>
-            <div class="detalhes-status-bolsista">
-                <h2>Detalhes</h2>
-                <div class="status">
-                    <div class="status-name">
-                        <span>Aguardando entrega</span>
-                    </div>
-
+        <div class="detalhes-status-bolsista">
+            <h2>Detalhes</h2>
+            <div class="status">
+                <div class="status-name">
+                    <span>{{ solicitacao.status }}</span>
                 </div>
             </div>
+        </div>
     </div>
 
     <div class="container-main">
         <div class="container-card">
             <div class="container-conteudo">
                 <p class="title-card">Título</p>
-                <p class="text-card">Exercício de Fixação sobre
-                    Ponteiros</p>
+                <p class="text-card">{{ solicitacao.titulo }}</p>
             </div>
         </div>
         <div class="container-card">
             <div class="container-conteudo">
                 <p class="title-card">Retirada</p>
-                <p class="text-card">Pessoalmente</p>
+                <p class="text-card">{{ solicitacao.tipo_entrega }}</p>
             </div>
         </div>
         <div class="container-card">
             <div class="container-conteudo">
                 <p class="title-card">Grampos</p>
-                <p class="text-card">Sim</p>
+                <p class="text-card">{% if solicitacao.grampos %}Sim{% else %}Não{% endif %}</p>
             </div>
         </div>
         <div class="container-card">
             <div class="container-conteudo">
                 <p class="title-card">Quantidade de Cópias</p>
-                <p class="text-card">50</p>
+                <p class="text-card">{{ solicitacao.quantidade_copias }}</p>
             </div>
         </div>
         <div class="container-card">
             <div class="container-conteudo">
                 <p class="title-card">Tipo de Atividade</p>
-                <p class="text-card">Exercício</p>
+                <p class="text-card">{{ solicitacao.tipo_atividade }}</p>
             </div>
         </div>
         <div class="container-card">
             <div class="container-conteudo">
                 <p class="title-card">Data de Entrega</p>
-                <p class="text-card">27/10/2024</p>
+                <p class="text-card">{{ solicitacao.data_entrega|date:"d/m/Y" }}</p>
+            </div>
+        </div>
+        <div class="container-card maior">
+            <div class="container-conteudo">
+                <p class="title-card">Arquivo</p>
+                <p class="text-card">{{ solicitacao.arquivo }}</p>
+                <a href="{{ solicitacao.arquivo.url }}" download><button>Download</button></a>
             </div>
         </div>
     </div>
 
     <button class="button-entregue">Marcar como entregue</button>
-
 {% endif %}
-
 
 {% endblock %}

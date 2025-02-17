@@ -55,36 +55,53 @@
 
         <table>
             <thead>
-                <th>ID</th>
-                <th>Título</th>
-                <th>Status</th>
-                <th>Professor</th>
-                <th>Quantidade de Cópias</th>
-                <th>Tipo de atividade</th>
-                <th>Grampos</th>
-                <th>Data de Solicitação</th>
-                <th>Data de Entrega</th>
-                <th>Ações</th>
+                <tr>
+                    <th>ID</th>
+                    <th>Título</th>
+                    <th>Status</th>
+                    <th>Professor</th>
+                    <th>Quantidade de Cópias</th>
+                    <th>Tipo de atividade</th>
+                    <th>Grampos</th>
+                    <th>Data de Solicitação</th>
+                    <th>Data de Entrega</th>
+                    <th>Ações</th>
+                </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>7</td>
-                    <td>Atividade sobre Templates Django</td>
-                    <td style="color: #E83434;">Na fila</td>
-                    <td>Irlan Arley Targino Moreira</td>
-                    <td>40</td>
-                    <td>Exercicio</td>
-                    <td>Sim</td>
-                    <td>20 de Out.</td>
-                    <td>27 de Out.</td>
-                    <td>
-                        <a href="{% url 'detalhes'%}"><button>Detalhes</button></a>
-                    </td>
-                </tr>
+                {% if solicitacoes %}
+                    {% for solicitacao in solicitacoes %}
+                    <tr>
+                        <td>{{ solicitacao.id }}</td>
+                        <td>{{ solicitacao.titulo }}</td>
+                        <td class="status-{{ solicitacao.status|slugify }}">{{ solicitacao.status }}</td>
+                        <td>{{ solicitacao.usuario.first_name }} {{ solicitacao.usuario.last_name }}</td>
+                        <td>{{ solicitacao.quantidade_copias }}</td>
+                        <td>{{ solicitacao.tipo_atividade }}</td>
+                        <td>{% if solicitacao.grampos %}Sim{% else %}Não{% endif %}</td>
+                        <td>{{ solicitacao.data_solicitacao|date:"d \d\e M." }}</td>
+                        <td>{{ solicitacao.data_entrega|date:"d \d\e M." }}</td>
+                        <td>
+                            <a href="{% url 'detalhes' solicitacao.id %}"><button>Detalhes</button></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr class="empty-state">
+                        <td colspan="10">
+                            <div class="empty-state-content">
+                                <p>Nenhuma solicitação encontrada</p>
+                            </div>
+                        </td>
+                    </tr>
+                {% endif %}
             </tbody>
         </table>
         <div id="quantidade-solicitacoes">
-            <p>Mostrando <strong>01</strong> solicitação</p>
+            {% if solicitacoes %}
+                <p>Mostrando <strong>{{ solicitacoes.count }}</strong> 
+                    {% if solicitacoes.count == 1 %}solicitação{% else %}solicitações{% endif %}</p>
+            {% endif %}
         </div>
     </div>
 {% endif %}
@@ -139,34 +156,51 @@
 
         <table>
             <thead>
-                <th>ID</th>
-                <th>Título</th>
-                <th>Status</th>
-                <th>Quantidade de Cópias</th>
-                <th>Tipo de atividade</th>
-                <th>Grampos</th>
-                <th>Data de Solicitação</th>
-                <th>Data de Entrega</th>
-                <th>Ações</th>
+                <tr>
+                    <th>ID</th>
+                    <th>Título</th>
+                    <th>Status</th>
+                    <th>Quantidade de Cópias</th>
+                    <th>Tipo de atividade</th>
+                    <th>Grampos</th>
+                    <th>Data de Solicitação</th>
+                    <th>Data de Entrega</th>
+                    <th>Ações</th>
+                </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>7</td>
-                    <td>Atividade sobre Templates Django</td>
-                    <td style="color: #E83434;">Aguardando na fila</td>
-                    <td>40</td>
-                    <td>Exercicio</td>
-                    <td>Sim</td>
-                    <td>20 de Out.</td>
-                    <td>27 de Out.</td>
-                    <td>
-                        <a href="{% url 'detalhes'%}"><button>Detalhes</button></a>
-                    </td>
-                </tr>
+                {% if solicitacoes %}
+                    {% for solicitacao in solicitacoes %}
+                    <tr>
+                        <td>{{ solicitacao.id }}</td>
+                        <td>{{ solicitacao.titulo }}</td>
+                        <td class="status-{{ solicitacao.status|slugify }}">{{ solicitacao.status }}</td>
+                        <td>{{ solicitacao.quantidade_copias }}</td>
+                        <td>{{ solicitacao.tipo_atividade }}</td>
+                        <td>{% if solicitacao.grampos %}Sim{% else %}Não{% endif %}</td>
+                        <td>{{ solicitacao.data_solicitacao|date:"d \d\e M." }}</td>
+                        <td>{{ solicitacao.data_entrega|date:"d \d\e M." }}</td>
+                        <td>
+                            <a href="{% url 'detalhes' solicitacao.id %}"><button>Detalhes</button></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr class="empty-state">
+                        <td colspan="9">
+                            <div class="empty-state-content">
+                                <p>Nenhuma solicitação encontrada</p>
+                            </div>
+                        </td>
+                    </tr>
+                {% endif %}
             </tbody>
         </table>
         <div id="quantidade-solicitacoes">
-            <p>Mostrando <strong>01</strong> solicitação</p>
+            {% if solicitacoes %}
+                <p>Mostrando <strong>{{ solicitacoes.count }}</strong> 
+                    {% if solicitacoes.count == 1 %}solicitação{% else %}solicitações{% endif %}</p>
+            {% endif %}
         </div>
     </div>
 {% endif %}
@@ -220,36 +254,53 @@
 
         <table>
             <thead>
-                <th>ID</th>
-                <th>Título</th>
-                <th>Status</th>
-                <th>Professor</th>
-                <th>Quantidade de Cópias</th>
-                <th>Tipo de atividade</th>
-                <th>Grampos</th>
-                <th>Data de Solicitação</th>
-                <th>Data de Entrega</th>
-                <th>Ações</th>
+                <tr>
+                    <th>ID</th>
+                    <th>Título</th>
+                    <th>Status</th>
+                    <th>Professor</th>
+                    <th>Quantidade de Cópias</th>
+                    <th>Tipo de atividade</th>
+                    <th>Grampos</th>
+                    <th>Data de Solicitação</th>
+                    <th>Data de Entrega</th>
+                    <th>Ações</th>
+                </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>7</td>
-                    <td>Atividade sobre Templates Django</td>
-                    <td style="color: #006EBC;">Aguardando entrega</td>
-                    <td>Irlan Arley Targino Moreira</td>
-                    <td>40</td>
-                    <td>Exercicio</td>
-                    <td>Sim</td>
-                    <td>20 de Out.</td>
-                    <td>27 de Out.</td>
-                    <td>
-                        <a href="{% url 'detalhes'%}"><button>Detalhes</button></a>
-                    </td>
-                </tr>
+                {% if solicitacoes %}
+                    {% for solicitacao in solicitacoes %}
+                    <tr>
+                        <td>{{ solicitacao.id }}</td>
+                        <td>{{ solicitacao.titulo }}</td>
+                        <td class="status-{{ solicitacao.status|slugify }}">{{ solicitacao.status }}</td>
+                        <td>{{ solicitacao.usuario.first_name }} {{ solicitacao.usuario.last_name }}</td>
+                        <td>{{ solicitacao.quantidade_copias }}</td>
+                        <td>{{ solicitacao.tipo_atividade }}</td>
+                        <td>{% if solicitacao.grampos %}Sim{% else %}Não{% endif %}</td>
+                        <td>{{ solicitacao.data_solicitacao|date:"d \d\e\ M." }}</td>
+                        <td>{{ solicitacao.data_entrega|date:"d \d\e\ M." }}</td>
+                        <td>
+                            <a href="{% url 'detalhes' solicitacao.id %}"><button>Detalhes</button></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr class="empty-state">
+                        <td colspan="10">
+                            <div class="empty-state-content">
+                                <p>Nenhuma solicitação encontrada</p>
+                            </div>
+                        </td>
+                    </tr>
+                {% endif %}
             </tbody>
         </table>
         <div id="quantidade-solicitacoes">
-            <p>Mostrando <strong>01</strong> solicitação</p>
+            {% if solicitacoes %}
+                <p>Mostrando <strong>{{ solicitacoes.count }}</strong> 
+                    {% if solicitacoes.count == 1 %}solicitação{% else %}solicitações{% endif %}</p>
+            {% endif %}
         </div>
     </div>
 {% endif %}
