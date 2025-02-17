@@ -4,8 +4,8 @@ from solicitacao.models import Solicitacao
 # Register your models here.
 
 class SolicitacaoAdmin(admin.ModelAdmin):
-    list_display = ('usuario', 'data_solicitacao', 'status')
-    list_filter = ('status', 'data_solicitacao')
+    list_display = ('usuario', 'titulo', 'data_solicitacao', 'status')
+    list_filter = ('usuario', 'status', 'data_solicitacao')
     search_fields = ('usuario__username', 'status')
     ordering = ('-data_solicitacao',)
 
