@@ -116,7 +116,7 @@
             <h2>Detalhes</h2>
             <div class="status">
                 <div class="status-name">
-                    <span>{{ solicitacao.status }}</span>
+                    <span class="status-{{ solicitacao.status|slugify }}">{{ solicitacao.status }}</span>
                 </div>
             </div>
         </div>
@@ -190,7 +190,7 @@
             <h2>Detalhes</h2>
             <div class="status">
                 <div class="status-name">
-                    <span>{{ solicitacao.status }}</span>
+                    <span class="status-{{ solicitacao.status|slugify }}">{{ solicitacao.status }}</span>
                 </div>
             </div>
         </div>
