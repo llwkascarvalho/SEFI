@@ -72,14 +72,6 @@ table > tbody > tr > td > a > button:hover {
     margin: 0;
 }
 
-.status-concluida {
-    color: var(--verde);
-}
-
-.status-cancelada {
-    color: var(--vermelho);
-}
-
 .text-filter {
     margin-bottom: 32px;
     padding-right: 22px;

@@ -216,19 +216,3 @@ table > tbody > tr > td > a > button:hover {
     font-size: 16px;
     margin: 0;
 }
-
-.status-pendente {
-    color: var(--vermelho);
-}
-
-.status-em-andamento {
-    color: var(--amarelo);
-}
-
-.status-aguardando-entrega {
-    color: var(--azul);
-}
-
-.status-aguardando-retirada {
-    color: var(--azul);
-}
