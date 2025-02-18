@@ -286,3 +286,28 @@ header {
     align-items: center;
     gap: 32px;
 }
+
+
+.status-pendente {
+    color: var(--vermelho);
+}
+
+.status-em-andamento {
+    color: var(--amarelo);
+}
+
+.status-aguardando-entrega {
+    color: var(--azul);
+}
+
+.status-aguardando-retirada {
+    color: var(--azul);
+}
+
+.status-concluida {
+    color: var(--verde);
+}
+
+.status-cancelada {
+    color: var(--vermelho);
+}
