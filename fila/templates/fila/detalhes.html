@@ -4,9 +4,11 @@
 {% block content %}
 {% block css %}
 <link rel="stylesheet" href="{% static 'fila/css/detalhes.css' %}">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 {% endblock %}
 
 {% if request.user.is_superuser %}
+    {% csrf_token %}
     <div class="container-header">
         <div class="container-informacoes">
             <h1 class="titulo-detalhes">Solicitação Nº {{ solicitacao.id }}</h1>
@@ -16,16 +18,20 @@
         <div class="detalhes-status">
             <h2>Detalhes</h2>
             <div class="dropdown">
-                <div class="selected default">
+                <div class="selected default status-{{ solicitacao.status|slugify }}">
                     <span>{{ solicitacao.status }}</span>
                     <div class="caret"></div>
                 </div>
                 <div class="list">
-                    <div class="item red">Pendente</div>
-                    <div class="item yellow">Em andamento</div>
-                    <div class="item blue">Aguardando entrega</div>
-                    <div class="item blue">Aguardando retirada</div>
-                    <div class="item green">Concluído</div>
+                    {% for value, label in solicitacao.StatusChoices.choices %}
+                        {% if value != solicitacao.status %}
+                            <div class="item status-{{ value|slugify }}" 
+                                 data-value="{{ value }}"
+                                 data-url="{% url 'atualizar_status' pk=solicitacao.pk %}">
+                                {{ label }}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
                 </div>
             </div>
         </div>
@@ -78,6 +84,7 @@
     </div>
 
     <script src="{% static 'fila/js/dropdown.js' %}"></script>
+    <script src="{% static 'fila/js/atualizar_status.js' %}"></script>
 {% endif %}
 
 

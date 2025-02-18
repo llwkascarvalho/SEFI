@@ -1,18 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
     const dropdown = document.querySelector('.dropdown');
+    if (!dropdown) return;
+
     const selected = dropdown.querySelector('.selected');
     const caret = selected.querySelector('.caret');
     const list = dropdown.querySelector('.list');
-    const items = list.querySelectorAll('.item');
-
-    const updateList = () => {
-        const selectedText = selected.querySelector('span').textContent;
-
-        const updatedList = Array.from(items).filter(i => i.textContent !== selectedText);
-
-        list.innerHTML = '';
-        updatedList.forEach(i => list.appendChild(i));
-    };
 
     selected.addEventListener('click', () => {
         list.classList.toggle('show');
@@ -26,19 +18,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    list.addEventListener('click', (e) => {
-        const clickedItem = e.target;
-
-        if (clickedItem.classList.contains('item')) {
-            selected.querySelector('span').textContent = clickedItem.textContent;
-            selected.className = `selected ${clickedItem.className.split(' ')[1]}`;
-
-            updateList();
-
+    document.querySelectorAll(".list .item").forEach((item) => {
+        item.addEventListener("click", function(e) {
+            e.stopPropagation();
             list.classList.remove('show');
             caret.classList.remove('caret-rotate');
-        }
+        });
     });
-
-    updateList();
 });
