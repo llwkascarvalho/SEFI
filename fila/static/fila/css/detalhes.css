@@ -8,6 +8,23 @@
     gap: 4px;
 }
 
+.status {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    cursor: pointer;
+    border-radius: 5px;
+    color: var(--azul);
+    cursor: auto;
+}
+
+.status-name {
+    color: var(--vermelho);
+    font-weight: 700;
+    width: auto;
+}
+
 .titulo-detalhes {
     font-size: 24px;
     color: var(--azul-escuro2);
@@ -27,17 +44,14 @@
     border-bottom: solid 1px var(--azul-escuro2);
 }
 
-.status {
-    color: #E83434;
-}
-
 .detalhes-status div {
     display: flex;
     align-items: center;
-    width: 220px;
+    width: 160px;
+    justify-content: end;
 }
 
-.detalhes-status h2{
+.detalhes-status h2 {
     font-size: 20px;
     color: var(--azul-escuro2);
     padding-top: 24px;
@@ -89,14 +103,13 @@
     color: var(--azul-escuro);
 }
 
-button {
+.button-download {
     background-color: var(--azul-escuro);
     color: var(--branco);
     border-radius: 4px;
     font-size: 15px;
     width: 109px;
-    padding: 5px 10px 5px 10px;
-    height: 30px;
+    padding: 10px 20px 10px 20px;
     cursor: pointer;
 }
 
@@ -230,7 +243,6 @@ button:hover {
     color: var(--vermelho);
 }
 
-/* Selected status background colors */
 .selected.status-pendente {
     background-color: var(--vermelho);
     color: var(--branco);
