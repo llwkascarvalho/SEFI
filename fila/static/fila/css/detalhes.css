@@ -202,3 +202,57 @@ button:hover {
 .list .item:hover {
     background-color: #DFE4FC;
 }
+
+.item.status-pendente,
+.selected.status-pendente {
+    color: var(--vermelho);
+}
+
+.item.status-em-andamento,
+.selected.status-em-andamento {
+    color: var(--amarelo);
+}
+
+.item.status-aguardando-entrega,
+.selected.status-aguardando-entrega,
+.item.status-aguardando-retirada,
+.selected.status-aguardando-retirada {
+    color: var(--azul);
+}
+
+.item.status-concluida,
+.selected.status-concluida {
+    color: var(--verde);
+}
+
+.item.status-cancelada,
+.selected.status-cancelada {
+    color: var(--vermelho);
+}
+
+/* Selected status background colors */
+.selected.status-pendente {
+    background-color: var(--vermelho);
+    color: var(--branco);
+}
+
+.selected.status-em-andamento {
+    background-color: var(--amarelo);
+    color: var(--branco);
+}
+
+.selected.status-aguardando-entrega,
+.selected.status-aguardando-retirada {
+    background-color: var(--azul);
+    color: var(--branco);
+}
+
+.selected.status-concluida {
+    background-color: var(--verde);
+    color: var(--branco);
+}
+
+.selected.status-cancelada {
+    background-color: var(--vermelho);
+    color: var(--branco);
+}

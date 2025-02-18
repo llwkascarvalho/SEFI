@@ -296,10 +296,7 @@ header {
     color: var(--amarelo);
 }
 
-.status-aguardando-entrega {
-    color: var(--azul);
-}
-
+.status-aguardando-entrega,
 .status-aguardando-retirada {
     color: var(--azul);
 }
