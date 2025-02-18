@@ -3,6 +3,9 @@ from django.views.generic import ListView, DetailView
 from solicitacao.models import Solicitacao
 from django.db.models import Q
 from django.core.exceptions import PermissionDenied
+from django.http import JsonResponse
+from django.views import View
+from django.shortcuts import get_object_or_404
 
 class FilaView(LoginRequiredMixin, ListView):
     model = Solicitacao
@@ -57,3 +60,23 @@ class DetalhesView(LoginRequiredMixin, DetailView):
                 raise PermissionDenied
         
         return obj
+
+class AtualizarStatusView(LoginRequiredMixin, View):
+    def post(self, request, pk, *args, **kwargs):
+        solicitacao = get_object_or_404(Solicitacao, pk=pk)
+        novo_status = request.POST.get('novo_status')
+        
+        valid_status = [choice[0] for choice in Solicitacao.StatusChoices.choices]
+        if novo_status not in valid_status:
+            return JsonResponse({'success': False, 'message': 'Status inválido'}, status=400)
+        
+        try:
+            if request.user.is_superuser:
+                solicitacao.status = novo_status
+                solicitacao.save()
+                return JsonResponse({'success': True, 'message': 'Status atualizado com sucesso!'})
+
+            raise PermissionDenied
+            
+        except Exception as e:
+            return JsonResponse({'success': False, 'message': str(e)})
