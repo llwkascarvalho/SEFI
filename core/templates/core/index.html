@@ -18,7 +18,7 @@
                 <p class="title-card">Pendentes</p>
                 <div class="info-card">
                     <img class='icone-card' src="{% static 'core/imagens/index/icone-pendente.svg'%}" alt="">
-                    <p class="number-card">2</p>
+                    <p class="number-card">{{ pendentes }}</p>
                 </div>
             </div>
         </a>
@@ -29,7 +29,7 @@
                 <p class="title-card">Em andamento</p>
                 <div class="info-card">
                     <img class='icone-card' src="{% static 'core/imagens/index/icone-andamento.svg'%}" alt="">
-                    <p class="number-card">5</p>
+                    <p class="number-card">{{ em_andamento }}</p>
                 </div>
             </div>
         </a>
@@ -40,7 +40,7 @@
                 <p class="title-card">Concluídas</p>
                 <div class="info-card">
                     <img class='icone-card' src="{% static 'core/imagens/index/icone-concluido.svg'%}" alt="">
-                    <p class="number-card">2</p>
+                    <p class="number-card">{{ concluidas }}</p>
                 </div>
             </div>
         </a>
@@ -51,8 +51,9 @@
         <div class="container-conteudo-inferiores">
             <p class="title-card">Recentes</p>
             <div class="info-card-inferiores">
-                <p class="text-card point">Atividade sobre Templates Django</p>
-                <p class="text-card point">Miniteste - Engenharia de Softwa</p>
+                {% for solicitacao in recentes %}
+                    <p class="text-card point">{{ solicitacao.titulo }}</p>
+                {% endfor %}
             </div>
         </div>
     </div>
@@ -60,9 +61,7 @@
         <div class="container-conteudo-inferiores">
             <p class="title-card">Estatísticas</p>
             <div class="info-card-inferiores">
-                <p class="text-card">Total de solicitações esse mês: 8</p>
-                <p class="text-card">Tempo médio de espera: 1 dia</p>
-                <p class="text-card">Taxa de erro nas impressões: 10%</p>
+                <p class="text-card">Total de solicitações: {{ total_solicitacoes }}</p>
             </div>
         </div>
     </div>
@@ -70,7 +69,11 @@
         <div class="container-conteudo-inferiores">
             <p class="title-card">Ações Rápidas</p>
             <div class="info-card-inferiores">
-                <a href="{% url 'fila' %}"><button type="button">Solicitação mais recente</button></a>
+                {% if solicitacao_mais_recente %}
+                    <a href="{% url 'detalhes' solicitacao_mais_recente.id %}">
+                        <button type="button">Solicitação mais recente</button>
+                    </a>
+                {% endif %}
                 <a href="{% url 'fila' %}"><button type="button">Solicitações na fila</button></a>
             </div>
         </div>
@@ -82,9 +85,9 @@
         <div class="container-conteudo-inferiores maior">
             <p class="title-card">Suas Solicitações</p>
             <div class="info-card-inferiores">
-                <p class="text-card point">Revisão HTML e CSS</p>
-                <p class="text-card point">Avaliação de Javascript</p>
-                <p class="text-card point">Atividade sobre Templates Django</p>
+                {% for solicitacao in solicitacoes_pendentes %}
+                    <p class="text-card point">{{ solicitacao.titulo }}</p>
+                {% endfor %}
             </div>
         </div>
     </div>
@@ -107,7 +110,11 @@
         <div class="container-conteudo-inferiores maior">
             <p class="title-card">Solicitações aguardando entrega</p>
             <div class="info-card-inferiores">
-                <p class="text-card point">Revisão HTML e CSS</p>
+                {% for solicitacao in solicitacoes_ag_entrega %}
+                    <p class="text-card point">{{ solicitacao.titulo }}</p>
+                {% empty %}
+                    <p class="text-card">Nenhuma solicitação aguardando entrega</p>
+                {% endfor %}
             </div>
         </div>
     </div>
@@ -115,7 +122,11 @@
         <div class="container-conteudo-inferiores">
             <p class="title-card">Ações Rápidas</p>
             <div class="info-card-inferiores">
-                <a href="fila"><button type="button">Última solicitação</button></a>
+                {% if ultima_solicitacao %}
+                    <a href="{% url 'detalhes' ultima_solicitacao.id %}">
+                        <button type="button">Última solicitação</button>
+                    </a>
+                {% endif %}
                 <a href="historico"><button type="button">Acessar histórico</button></a>
                 <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <button type="button">Sair</button>
