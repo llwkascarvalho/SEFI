@@ -63,3 +63,14 @@ class SolicitacaoForm(forms.ModelForm):
 
         return arquivo
 
+    def clean(self):
+        cleaned_data = super().clean()
+        tipo_entrega = cleaned_data.get('tipo_entrega')
+        tipo_atividade = cleaned_data.get('tipo_atividade')
+
+        if tipo_entrega == Solicitacao.TipoEntregaChoices.BOLSISTA and tipo_atividade == Solicitacao.TipoAtividadeChoices.PROVA:
+            raise forms.ValidationError({
+                'tipo_entrega': 'Bolsistas não podem entregar provas.'
+            })
+        
+        return cleaned_data
