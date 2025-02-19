@@ -6,6 +6,7 @@ from django.core.exceptions import PermissionDenied
 from django.http import JsonResponse
 from django.views import View
 from django.shortcuts import get_object_or_404
+from core.permissions import CheckUserBolsistaMixin
 
 class FilaView(LoginRequiredMixin, ListView):
     model = Solicitacao
@@ -56,7 +57,9 @@ class DetalhesView(LoginRequiredMixin, DetailView):
                 raise PermissionDenied
         
         if usuario.groups.filter(name="Bolsista").exists():
-            if obj.tipo_entrega != Solicitacao.TipoEntregaChoices.BOLSISTA:
+            if (obj.tipo_entrega != Solicitacao.TipoEntregaChoices.BOLSISTA and 
+                    (obj.status == Solicitacao.StatusChoices.CONCLUIDA and 
+                     obj.entregue_por != usuario)):
                 raise PermissionDenied
         
         return obj
@@ -80,3 +83,19 @@ class AtualizarStatusView(LoginRequiredMixin, View):
             
         except Exception as e:
             return JsonResponse({'success': False, 'message': str(e)})
+
+class MarcarEntregueView(LoginRequiredMixin, CheckUserBolsistaMixin, View):
+    def post(self, request, pk):
+        solicitacao = get_object_or_404(Solicitacao, pk=pk)
+        
+        try:
+            solicitacao.entregar(request.user)
+            return JsonResponse({
+                'success': True,
+                'message': 'Solicitação marcada como entregue com sucesso!'
+            })
+        except Exception as e:
+            return JsonResponse({
+                'success': False,
+                'message': 'Não foi possível marcar a solicitação como entregue.'
+            }, status=400)
