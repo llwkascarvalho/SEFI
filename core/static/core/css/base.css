@@ -8,6 +8,7 @@
     --cinza-claro: #EDF2F7;
     --tablerow: #F7FAFC;
     --bordas: #CBD5E0;
+    --card: #DFEAF5;
 
     --btn-hover: #2c5282;
 
@@ -198,7 +199,7 @@ header {
     width: 254px;
     height: 100vh;
     top: 100%;
-    background-color: var(--cinza-claro);
+    background-color: var(--card);
     color: var(--branco);
     display: flex;
     flex-direction: column;

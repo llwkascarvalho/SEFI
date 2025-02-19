@@ -1,18 +1,3 @@
-:root {
-    --azul-escuro: #30465F;
-    --azul-escuro2: #2B3A56;
-    --azul-claro: #0084FD;
-    --branco: #ffffff;
-    --cinza-medio: #E2E8F0;
-    --cinza-claro: #EDF2F7;
-    --card: #DFEAF5;
-    --cinza-escuro:#4A5568;
-    --tablerow: #F7FAFC;
-    --bordas: #CBD5E0;
-    --links: #82C0FA;
-    --hover: #405170;
-}
-
 a, p {
     text-decoration: none;
 }

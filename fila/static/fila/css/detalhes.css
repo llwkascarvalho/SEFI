@@ -71,7 +71,7 @@
     width: 267px;
     height: 133px;
     align-items: center;
-    background-color: var(--cinza-claro);
+    background-color: var(--card);
     flex-direction: column;
     border-radius: 8px;
 }
