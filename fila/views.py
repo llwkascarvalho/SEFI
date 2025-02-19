@@ -24,15 +24,51 @@ class FilaView(LoginRequiredMixin, ListView):
         usuario = self.request.user
         
         if usuario.is_superuser:
-            return queryset
-        
-        if usuario.groups.filter(name="Professor").exists():
-            return queryset.filter(usuario=usuario)
-        
-        if usuario.groups.filter(name="Bolsista").exists():
-            return queryset.filter(tipo_entrega=Solicitacao.TipoEntregaChoices.BOLSISTA)
-        
-        raise PermissionDenied
+            queryset = queryset
+        elif usuario.groups.filter(name="Professor").exists():
+            queryset = queryset.filter(usuario=usuario)
+        elif usuario.groups.filter(name="Bolsista").exists():
+            queryset = queryset.filter(
+                tipo_entrega=Solicitacao.TipoEntregaChoices.BOLSISTA
+            ).exclude(tipo_atividade=Solicitacao.TipoAtividadeChoices.PROVA)
+        else:
+            raise PermissionDenied
+
+        # aplicar filtros da url
+        status_filter = self.request.GET.get('status')
+        tipo_filter = self.request.GET.get('tipo')
+
+        # filtrar por status
+        if status_filter:
+            status_list = status_filter.split(',')
+            status_query = Q()
+            for status in status_list:
+                if status == 'pendente':
+                    status_query |= Q(status=Solicitacao.StatusChoices.PENDENTE)
+                elif status == 'em_andamento':
+                    status_query |= Q(status=Solicitacao.StatusChoices.EM_ANDAMENTO)
+                elif status == 'aguardando_retirada':
+                    status_query |= Q(status=Solicitacao.StatusChoices.AGUARDANDO_RETIRADA)
+                elif status == 'aguardando_entrega':
+                    status_query |= Q(status=Solicitacao.StatusChoices.AGUARDANDO_ENTREGA)
+            queryset = queryset.filter(status_query)
+
+        # filtrar por tipo de atividade
+        if tipo_filter:
+            tipo_list = tipo_filter.split(',')
+            tipo_query = Q()
+            for tipo in tipo_list:
+                tipo = tipo.lower()
+                if tipo == 'exercicio':
+                    tipo_query |= Q(tipo_atividade=Solicitacao.TipoAtividadeChoices.EXERCICIO)
+                elif tipo == 'prova':
+                    tipo_query |= Q(tipo_atividade=Solicitacao.TipoAtividadeChoices.PROVA)
+                elif tipo == 'outro':
+                    tipo_query |= Q(tipo_atividade=Solicitacao.TipoAtividadeChoices.OUTRO)
+            if tipo_query:
+                queryset = queryset.filter(tipo_query)
+
+        return queryset
 
 
 class DetalhesView(LoginRequiredMixin, DetailView):
@@ -57,8 +93,9 @@ class DetalhesView(LoginRequiredMixin, DetailView):
                 raise PermissionDenied
         
         if usuario.groups.filter(name="Bolsista").exists():
-            if (obj.tipo_entrega != Solicitacao.TipoEntregaChoices.BOLSISTA and 
-                    (obj.status == Solicitacao.StatusChoices.CONCLUIDA and 
+            if (obj.tipo_atividade == Solicitacao.TipoAtividadeChoices.PROVA or 
+                    (obj.tipo_entrega != Solicitacao.TipoEntregaChoices.BOLSISTA and 
+                     obj.status == Solicitacao.StatusChoices.CONCLUIDA and 
                      obj.entregue_por != usuario)):
                 raise PermissionDenied
         

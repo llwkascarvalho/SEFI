@@ -4,6 +4,7 @@
 {% block content %}
 {% block css %}
 <link rel="stylesheet" href="{% static 'historico/css/historico.css' %}">
+<link rel="stylesheet" href="{% static 'fila/css/filter.css' %}">
 {% endblock %}
 
 {% if request.user.is_superuser %}
@@ -20,32 +21,52 @@
         </div>
 
         <div class="filter-list">
-            <div class="filter-list-status">
-                <p>STATUS:</p>
-                <div class="filter-list-status-options">
-                    <div class="filter-list-status-option">
-                        <p>Concluída</p>
-                        <input type="checkbox" name="status" id="status">
+            <div class="filter-section">
+                <h4 class="filter-section-title">Status</h4>
+                <label class="filter-option">
+                    <div class="filter-checkbox">
+                        <input type="checkbox" name="status" value="concluida">
+                        <span class="checkmark"></span>
                     </div>
-                    <div class="filter-list-status-option">
-                        <p>Cancelada</p>
-                        <input type="checkbox" name="status" id="status">
+                    <span class="filter-option-label">Concluída</span>
+                </label>
+                <label class="filter-option">
+                    <div class="filter-checkbox">
+                        <input type="checkbox" name="status" value="cancelada">
+                        <span class="checkmark"></span>
                     </div>
-                </div>
+                    <span class="filter-option-label">Cancelada</span>
+                </label>
             </div>
-            <hr class="filter-list-divider">
-            <div class="filter-list-type">
-                <p>TIPO:</p>
-                <div class="filter-list-type-options">
-                    <div class="filter-list-type-option">
-                        <p>Exercício</p>
-                        <input type="checkbox" name="status" id="status">
+
+            <div class="filter-section">
+                <h4 class="filter-section-title">Tipo de Atividade</h4>
+                <label class="filter-option">
+                    <div class="filter-checkbox">
+                        <input type="checkbox" name="tipo" value="exercicio">
+                        <span class="checkmark"></span>
                     </div>
-                    <div class="filter-list-type-option">
-                        <p>Prova</p>
-                        <input type="checkbox" name="status" id="status">
+                    <span class="filter-option-label">Exercício</span>
+                </label>
+                <label class="filter-option">
+                    <div class="filter-checkbox">
+                        <input type="checkbox" name="tipo" value="prova">
+                        <span class="checkmark"></span>
                     </div>
-                </div>
+                    <span class="filter-option-label">Prova</span>
+                </label>
+                <label class="filter-option">
+                    <div class="filter-checkbox">
+                        <input type="checkbox" name="tipo" value="outro">
+                        <span class="checkmark"></span>
+                    </div>
+                    <span class="filter-option-label">Outro</span>
+                </label>
+            </div>
+
+            <div class="filter-actions">
+                <button class="btn-clear">Limpar</button>
+                <button class="btn-apply">Aplicar</button>
             </div>
         </div>
 
@@ -116,32 +137,52 @@
         </div>
 
         <div class="filter-list">
-            <div class="filter-list-status">
-                <p>STATUS:</p>
-                <div class="filter-list-status-options">
-                    <div class="filter-list-status-option">
-                        <p>Concluída</p>
-                        <input type="checkbox" name="status" id="status">
+            <div class="filter-section">
+                <h4 class="filter-section-title">Status</h4>
+                <label class="filter-option">
+                    <div class="filter-checkbox">
+                        <input type="checkbox" name="status" value="concluida">
+                        <span class="checkmark"></span>
                     </div>
-                    <div class="filter-list-status-option">
-                        <p>Cancelada</p>
-                        <input type="checkbox" name="status" id="status">
+                    <span class="filter-option-label">Concluída</span>
+                </label>
+                <label class="filter-option">
+                    <div class="filter-checkbox">
+                        <input type="checkbox" name="status" value="cancelada">
+                        <span class="checkmark"></span>
                     </div>
-                </div>
+                    <span class="filter-option-label">Cancelada</span>
+                </label>
             </div>
-            <hr class="filter-list-divider">
-            <div class="filter-list-type">
-                <p>TIPO:</p>
-                <div class="filter-list-type-options">
-                    <div class="filter-list-type-option">
-                        <p>Exercício</p>
-                        <input type="checkbox" name="status" id="status">
+
+            <div class="filter-section">
+                <h4 class="filter-section-title">Tipo de Atividade</h4>
+                <label class="filter-option">
+                    <div class="filter-checkbox">
+                        <input type="checkbox" name="tipo" value="exercicio">
+                        <span class="checkmark"></span>
                     </div>
-                    <div class="filter-list-type-option">
-                        <p>Prova</p>
-                        <input type="checkbox" name="status" id="status">
+                    <span class="filter-option-label">Exercício</span>
+                </label>
+                <label class="filter-option">
+                    <div class="filter-checkbox">
+                        <input type="checkbox" name="tipo" value="prova">
+                        <span class="checkmark"></span>
                     </div>
-                </div>
+                    <span class="filter-option-label">Prova</span>
+                </label>
+                <label class="filter-option">
+                    <div class="filter-checkbox">
+                        <input type="checkbox" name="tipo" value="outro">
+                        <span class="checkmark"></span>
+                    </div>
+                    <span class="filter-option-label">Outro</span>
+                </label>
+            </div>
+
+            <div class="filter-actions">
+                <button class="btn-clear">Limpar</button>
+                <button class="btn-apply">Aplicar</button>
             </div>
         </div>
 
@@ -210,32 +251,45 @@
         </div>
         
         <div class="filter-list">
-            <div class="filter-list-status">
-                <p>STATUS:</p>
-                <div class="filter-list-status-options">
-                    <div class="filter-list-status-option">
-                        <p>Concluída</p>
-                        <input type="checkbox" name="status" id="status">
+            <div class="filter-section">
+                <h4 class="filter-section-title">Status</h4>
+                <label class="filter-option">
+                    <div class="filter-checkbox">
+                        <input type="checkbox" name="status" value="concluida">
+                        <span class="checkmark"></span>
                     </div>
-                    <div class="filter-list-status-option">
-                        <p>Cancelada</p>
-                        <input type="checkbox" name="status" id="status">
+                    <span class="filter-option-label">Concluída</span>
+                </label>
+                <label class="filter-option">
+                    <div class="filter-checkbox">
+                        <input type="checkbox" name="status" value="cancelada">
+                        <span class="checkmark"></span>
                     </div>
-                </div>
+                    <span class="filter-option-label">Cancelada</span>
+                </label>
             </div>
-            <hr class="filter-list-divider">
-            <div class="filter-list-type">
-                <p>TIPO:</p>
-                <div class="filter-list-type-options">
-                    <div class="filter-list-type-option">
-                        <p>Exercício</p>
-                        <input type="checkbox" name="status" id="status">
+
+            <div class="filter-section">
+                <h4 class="filter-section-title">Tipo de Atividade</h4>
+                <label class="filter-option">
+                    <div class="filter-checkbox">
+                        <input type="checkbox" name="tipo" value="exercicio">
+                        <span class="checkmark"></span>
                     </div>
-                    <div class="filter-list-type-option">
-                        <p>Prova</p>
-                        <input type="checkbox" name="status" id="status">
+                    <span class="filter-option-label">Exercício</span>
+                </label>
+                <label class="filter-option">
+                    <div class="filter-checkbox">
+                        <input type="checkbox" name="tipo" value="outro">
+                        <span class="checkmark"></span>
                     </div>
-                </div>
+                    <span class="filter-option-label">Outro</span>
+                </label>
+            </div>
+
+            <div class="filter-actions">
+                <button class="btn-clear">Limpar</button>
+                <button class="btn-apply">Aplicar</button>
             </div>
         </div>
 
@@ -292,5 +346,6 @@
     </div>
 {% endif %}
 
-<script src="{% static 'historico/js/dropdown-filtro.js' %}"></script>
+<script src="{% static 'fila/js/filter.js' %}"></script>
+
 {% endblock %}
