@@ -1,11 +1,21 @@
-migrations/
+!solicitacao/migrations/
+solicitacao/migrations/*
+!solicitacao/migrations/__init__.py
+!core/migrations/
+core/migrations/*
+!core/migrations/__init__.py
 __pycache__
 
 # Ambiente virtual
 venv/
 env/
 
+# env
+.env
+
 # local
 management/
 dev_notes.md
 media/uploads/
+z_db_backup/
+
