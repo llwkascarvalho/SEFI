@@ -174,6 +174,7 @@
 
 {% if request.user|has_group:"Bolsista" %}
     <link rel="stylesheet" href="{% static 'fila/css/detalhes-bolsista.css' %}">
+    {% csrf_token %}
 
     <div class="container-header">
         <div class="container-informacoes">
@@ -231,8 +232,10 @@
     </div>
 
     {% if solicitacao.status == 'Aguardando entrega' %}
-        <button class="button-entregue">Marcar como entregue</button>
+        <button type="button" class="button-entregue" id="btn-marcar-entregue">Marcar como entregue</button>
     {% endif %}
+
+    <script src="{% static 'fila/js/marcar_entregue.js' %}"></script>
 {% endif %}
 
 {% endblock %}
