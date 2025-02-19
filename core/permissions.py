@@ -20,3 +20,10 @@ class CheckSolicitacaoFromUserMixin(UserPassesTestMixin):
     
     def handle_no_permission(self):
         raise PermissionDenied("Você não tem permissão para modificar esta solicitação.")
+
+class CheckUserBolsistaMixin(UserPassesTestMixin):
+    def test_func(self):
+        return self.request.user.groups.filter(name="Bolsista").exists()
+    
+    def handle_no_permission(self):
+        raise PermissionDenied("Você não tem permissão para modificar esta solicitação.")
