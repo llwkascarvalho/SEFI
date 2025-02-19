@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.core.validators import MinValueValidator
+from django.utils import timezone
 
 # gera o caminho para salvar o arquivo: uploads/user_<id>/<filename>
 def arquivo_path(instance, filename):
@@ -71,6 +72,33 @@ class Solicitacao(models.Model):
         choices=StatusChoices.choices,
         default=StatusChoices.PENDENTE
     )
+
+    # campos para rastreamento de entrega
+    entregue_por = models.ForeignKey(
+        'core.CustomUser',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='solicitacoes_entregues'
+    )
+    data_entrega_efetiva = models.DateTimeField(
+        null=True,
+        blank=True,
+        help_text="Data e hora em que a solicitação foi entregue ao solicitante"
+    )
+
+    @property
+    def tempo_entrega(self):
+        if self.data_entrega_efetiva:
+            return self.data_entrega_efetiva - self.data_solicitacao
+        return None
+
+    def entregar(self, bolsista):
+        if self.status == self.StatusChoices.AGUARDANDO_ENTREGA:
+            self.status = self.StatusChoices.CONCLUIDA
+            self.entregue_por = bolsista
+            self.data_entrega_efetiva = timezone.now()
+            self.save()
 
     class Meta:
         verbose_name = 'Solicitação'
