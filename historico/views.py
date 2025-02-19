@@ -9,7 +9,6 @@ class HistoricoView(LoginRequiredMixin, ListView):
     template_name = "historico/historico.html"
     context_object_name = "solicitacoes"
 
-
     def base_queryset(self):
         return Solicitacao.objects.filter(
             Q(status=Solicitacao.StatusChoices.CONCLUIDA) | 
@@ -27,6 +26,6 @@ class HistoricoView(LoginRequiredMixin, ListView):
             return queryset.filter(usuario=usuario)
         
         if usuario.groups.filter(name="Bolsista").exists():
-            return queryset.filter(tipo_entrega=Solicitacao.TipoEntregaChoices.BOLSISTA)
+            return queryset.filter(entregue_por=usuario).filter(tipo_entrega=Solicitacao.TipoEntregaChoices.BOLSISTA)
         
         raise PermissionDenied
