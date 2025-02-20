@@ -29,6 +29,11 @@ O SEFI é um sistema web desenvolvido em Django para o projeto integrador (do 4�
 - HTML/CSS
 - JavaScript
 
+## 📚 Bibliotecas Django
+
+- [Django Environ](https://github.com/joke2k/django-environ)
+- [Django Cleanup](https://github.com/un1t/django-cleanup)
+
 ## 📋 Pré-requisitos
 
 - Python 3.x
