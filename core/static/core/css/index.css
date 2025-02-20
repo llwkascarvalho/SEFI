@@ -124,6 +124,7 @@ a, p {
     font-size: 15px;
     font-weight: 400;
     width: max-content;
+    color: var(--azul-escuro);
 }
 
 .info-card-inferiores button {
