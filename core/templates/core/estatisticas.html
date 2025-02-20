@@ -69,9 +69,15 @@ document.addEventListener('DOMContentLoaded', function () {
     const solicitacoesPorSemana = {{ solicitacoes_por_semana|safe }};
     
     Highcharts.chart('chart-container', {
+        accessibility: {
+            enabled: false
+        },
         chart: {
             type: 'column',
-            backgroundColor: 'transparent'
+            backgroundColor: 'transparent',
+            accessibility: {
+                enabled: false
+            }
         },
         title: {
             text: null
@@ -119,12 +125,15 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     Highcharts.chart('pie-chart-container', {
+        accessibility: {
+            enabled: false
+        },
         chart: {
             type: 'pie',
             backgroundColor: 'transparent',
             height: 180,
             marginTop: 0,
-            marginBottom: 0
+            marginBottom: 0,
         },
         title: {
             text: null
