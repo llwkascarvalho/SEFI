@@ -41,8 +41,10 @@ document.addEventListener('DOMContentLoaded', () => {
     applyButton?.addEventListener('click', () => {
         const selectedFilters = {
             status: [],
-            tipo: []
+            tipo: [],
         };
+
+        const tituloFilter = document.querySelector('.filter-input-text').value;
 
         filterList.querySelectorAll('input[type="checkbox"]:checked').forEach(checkbox => {
             selectedFilters[checkbox.name].push(checkbox.value);
@@ -54,6 +56,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 params.append(key, values.join(','));
             }
         });
+
+        if (tituloFilter) {
+            params.append('titulo', tituloFilter);
+        }
 
         window.location.search = params.toString();
     });
