@@ -6,6 +6,8 @@ from django.http import JsonResponse
 from django.views import View 
 from django.db.models import Q
 from solicitacao.models import Solicitacao
+from datetime import datetime, timedelta
+from django.db.models import Count
 
 class IndexView(LoginRequiredMixin, TemplateView):
     template_name = 'core/index.html'
@@ -78,6 +80,73 @@ class PerfilView(LoginRequiredMixin, TemplateView):
 
 class EstatisticasView(CheckUserAdminMixin, LoginRequiredMixin, TemplateView):
     template_name = "core/estatisticas.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        data_limite = datetime.now() - timedelta(days=30)
+        
+        context['solicitacoes_mensais'] = Solicitacao.objects.filter(
+            data_solicitacao__gte=data_limite
+        ).count()
+        
+        context['exercicios_mensais'] = Solicitacao.objects.filter(
+            tipo_atividade=Solicitacao.TipoAtividadeChoices.EXERCICIO,
+            data_solicitacao__gte=data_limite
+        ).count()
+
+        context['provas_mensais'] = Solicitacao.objects.filter(
+            tipo_atividade=Solicitacao.TipoAtividadeChoices.PROVA,
+            data_solicitacao__gte=data_limite
+        ).count()
+
+        professor_mais_ativo = Solicitacao.objects.filter(
+            data_solicitacao__gte=data_limite
+        ).values(
+            'usuario__username',
+            'usuario__first_name',
+            'usuario__last_name'
+        ).annotate(
+            total_solicitacoes=Count('id')
+        ).order_by('-total_solicitacoes').first()
+
+        if professor_mais_ativo:
+            if professor_mais_ativo['usuario__first_name'] and professor_mais_ativo['usuario__last_name']:
+                nome_display = f"{professor_mais_ativo['usuario__first_name']} {professor_mais_ativo['usuario__last_name']}"
+            else:
+                nome_display = professor_mais_ativo['usuario__username']
+            
+            context['professor_mais_ativo'] = {
+                'nome': nome_display,
+                'total': professor_mais_ativo['total_solicitacoes']
+            }
+        else:
+            context['professor_mais_ativo'] = {
+                'nome': 'Nenhum professor',
+                'total': 0
+            }
+
+        solicitacoes_por_semana = []
+        for i in range(4):
+            inicio_semana = datetime.now() - timedelta(days=7*(i+1))
+            fim_semana = datetime.now() - timedelta(days=7*i)
+            total = Solicitacao.objects.filter(
+                data_solicitacao__gte=inicio_semana,
+                data_solicitacao__lt=fim_semana
+            ).count()
+            solicitacoes_por_semana.insert(0, total)
+        
+        context['solicitacoes_por_semana'] = solicitacoes_por_semana
+
+        tipos_atividade = Solicitacao.objects.filter(
+            data_solicitacao__gte=data_limite
+        ).values('tipo_atividade').annotate(
+            total=Count('id')
+        )
+        
+        context['tipos_atividade'] = list(tipos_atividade)
+
+        return context
 
 class AtualizarFotoPerfilView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
