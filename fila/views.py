@@ -37,6 +37,7 @@ class FilaView(LoginRequiredMixin, ListView):
         # aplicar filtros da url
         status_filter = self.request.GET.get('status')
         tipo_filter = self.request.GET.get('tipo')
+        titulo_filter = self.request.GET.get('titulo')
 
         # filtrar por status
         if status_filter:
@@ -67,6 +68,10 @@ class FilaView(LoginRequiredMixin, ListView):
                     tipo_query |= Q(tipo_atividade=Solicitacao.TipoAtividadeChoices.OUTRO)
             if tipo_query:
                 queryset = queryset.filter(tipo_query)
+
+        # filtrar por nome
+        if titulo_filter:
+            queryset = queryset.filter(Q(titulo__icontains=titulo_filter))
 
         return queryset
 
