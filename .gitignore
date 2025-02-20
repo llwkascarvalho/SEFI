@@ -14,7 +14,6 @@ env/
 .env
 
 # local
-management/
 dev_notes.md
 media/uploads/
 z_db_backup/
