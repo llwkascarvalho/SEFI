@@ -179,3 +179,10 @@
     font-size: 12px;
     font-weight: 300;
 }
+
+.filter-input-text {
+    width: 80%;
+    padding: 8px;
+    border: 1px solid var(--bordas);
+    border-radius: 4px;
+}
