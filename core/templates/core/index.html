@@ -8,7 +8,7 @@
 
 <div class="container-header">
     <h1>Bem-vindo ao SEFI</h1>
-    <p>Olá, <strong>Usuario</strong>! Gerencie todas as solicitações de impressões do IFRN com facilidade e eficiência.</p>
+    <p>Olá, <strong>{%if request.user.first_name%}{{request.user.first_name}}{%else%}{{request.user.username}}{%endif%}</strong>! Gerencie as solicitações de impressão com facilidade e eficiência.</p>
 </div>
 
 <div class="container-main">
