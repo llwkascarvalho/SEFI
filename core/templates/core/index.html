@@ -1,0 +1,146 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load auth_extras %}
+{% block content %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'core/css/index.css' %}">
+{% endblock %}
+
+<div class="container-header">
+    <h1>Bem-vindo ao SEFI</h1>
+    <p>Olá, <strong>{%if request.user.first_name%}{{request.user.first_name}}{%else%}{{request.user.username}}{%endif%}</strong>! Gerencie as solicitações de impressão com facilidade e eficiência.</p>
+</div>
+
+<div class="container-main">
+    <div class="container-card">
+        <a href="{% url 'fila' %}?status=pendente">
+            <div class="container-conteudo">
+                <p class="title-card">Pendentes</p>
+                <div class="info-card">
+                    <img class='icone-card' src="{% static 'core/imagens/index/icone-pendente.svg'%}" alt="">
+                    <p class="number-card">{{ pendentes }}</p>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="container-card">
+        <a href="{% url 'fila' %}?status=em_andamento">
+            <div class="container-conteudo">
+                <p class="title-card">Em andamento</p>
+                <div class="info-card">
+                    <img class='icone-card' src="{% static 'core/imagens/index/icone-andamento.svg'%}" alt="">
+                    <p class="number-card">{{ em_andamento }}</p>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="container-card">
+        <a href="{% url 'historico' %}?status=concluida">
+            <div class="container-conteudo">
+                <p class="title-card">Concluídas</p>
+                <div class="info-card">
+                    <img class='icone-card' src="{% static 'core/imagens/index/icone-concluido.svg'%}" alt="">
+                    <p class="number-card">{{ concluidas }}</p>
+                </div>
+            </div>
+        </a>
+    </div>
+    
+    {% if request.user.is_superuser %}
+    <div class="container-card2">
+        <div class="container-conteudo-inferiores">
+            <p class="title-card">Recentes</p>
+            <div class="info-card-inferiores">
+                {% for solicitacao in recentes %}
+                    <a href="{% url 'detalhes' solicitacao.id %}">
+                        <p class="text-card point">{{ solicitacao.titulo }}</p>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="container-card2">
+        <div class="container-conteudo-inferiores">
+            <p class="title-card">Estatísticas</p>
+            <div class="info-card-inferiores">
+                <p class="text-card">Total de solicitações: {{ total_solicitacoes }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="container-card2">
+        <div class="container-conteudo-inferiores">
+            <p class="title-card">Ações Rápidas</p>
+            <div class="info-card-inferiores">
+                {% if solicitacao_mais_recente %}
+                    <a href="{% url 'detalhes' solicitacao_mais_recente.id %}">
+                        <button type="button">Solicitação mais recente</button>
+                    </a>
+                {% endif %}
+                <a href="{% url 'fila' %}"><button type="button">Solicitações na fila</button></a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if request.user|has_group:"Professor" %}
+    <div class="container-card2 maior">
+        <div class="container-conteudo-inferiores maior">
+            <p class="title-card">Suas Solicitações</p>
+            <div class="info-card-inferiores">
+                {% for solicitacao in solicitacoes_pendentes %}
+                    <a href="{% url 'detalhes' solicitacao.id %}">
+                        <p class="text-card point">{{ solicitacao.titulo }}</p>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="container-card2">
+        <div class="container-conteudo-inferiores">
+            <p class="title-card">Ações Rápidas</p>
+            <div class="info-card-inferiores">
+                <a href="{% url 'nova-solicitacao' %}"><button type="button">Realizar nova solicitação</button></a>
+                <a href="{% url 'historico' %}"><button type="button">Acessar histórico</button></a>
+                <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <button type="button">Sair</button>
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if request.user|has_group:"Bolsista" %}
+    <div class="container-card2 maior">
+        <div class="container-conteudo-inferiores maior">
+            <p class="title-card">Solicitações aguardando entrega</p>
+            <div class="info-card-inferiores">
+                {% for solicitacao in solicitacoes_ag_entrega %}
+                    <a href="{% url 'detalhes' solicitacao.id %}">
+                        <p class="text-card point">{{ solicitacao.titulo }}</p>
+                    </a>
+                {% empty %}
+                    <p class="text-card">Nenhuma solicitação aguardando entrega</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="container-card2">
+        <div class="container-conteudo-inferiores">
+            <p class="title-card">Ações Rápidas</p>
+            <div class="info-card-inferiores">
+                {% if ultima_solicitacao %}
+                    <a href="{% url 'detalhes' ultima_solicitacao.id %}">
+                        <button type="button">Última solicitação</button>
+                    </a>
+                {% endif %}
+                <a href="historico"><button type="button">Acessar histórico</button></a>
+                <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <button type="button">Sair</button>
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}

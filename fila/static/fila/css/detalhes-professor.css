@@ -1,0 +1,10 @@
+.container-informacoes--professor {
+    display: flex;
+    width: 873px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.dropdown .selected.transparent{ background-color: var(--cinza-escuro);
+color: var(--branco); 
+}

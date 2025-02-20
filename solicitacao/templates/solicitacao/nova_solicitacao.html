@@ -1,0 +1,99 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block content %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'solicitacao/css/solicitacao.css' %}">
+{% endblock %}
+
+<div class="form-container">
+
+    {% if form.errors %}
+    <div class="error-message">
+        <p>Por favor, corrija os erros abaixo:</p>
+        {% for field in form %}
+            {% for error in field.errors %}
+                <ul>
+                    <li>{{ error }}</li>
+                </ul>
+            {% endfor %}
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}"><p>{{ message }}</p></div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="texto-form">
+        <h1>Nova solicitação</h1>
+        <p>É necessário preencher todos os campos para o envio.</p>   
+    </div>
+
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <fieldset>
+            <legend>Dados da solicitação</legend>
+            <hr/>
+
+            {{ form.titulo.label_tag }}
+            {{ form.titulo }}
+            
+            <div class="grid-3">
+                <div>
+                    {{ form.quantidade_copias.label_tag }}
+                    {{ form.quantidade_copias }}
+                </div>
+                <div>
+                    {{ form.grampos.label_tag }}
+                    {{ form.grampos }}
+                </div>
+                <div>
+                    {{ form.tipo_entrega.label_tag }}
+                    {{ form.tipo_entrega }}
+                </div>
+            </div>
+            
+            <div class="grid-3">
+                <div>
+                    {{ form.tipo_atividade.label_tag }}
+                    {{ form.tipo_atividade }}
+                </div>
+                <div>
+                    {{ form.data_entrega.label_tag }}
+                    {{ form.data_entrega }}
+                </div>
+                <div>
+                    {{ form.tipo_impressao.label_tag }}
+                    {{ form.tipo_impressao }}
+                </div>
+            </div>
+            
+            {{ form.arquivo.label_tag }}
+            <div class="upload-area" id="uploadArea">
+                <div class="upload-content">
+                    <p>Arraste e solte seu arquivo aqui ou</p>
+                    <label for="arquivo" class="upload-button">Escolha um arquivo</label>
+                    {{ form.arquivo }}
+                </div>
+                <div class="file-info" id="fileInfo" style="display: none;">
+                    <p class="file-name" id="fileName"></p>
+                    <button type="button" class="remove-file" id="removeFile">
+                    </button>
+                </div>
+            </div>
+            <small class="help-text">Formatos permitidos: PDF, DOC, DOCX, ODT (máx. 10MB)</small>
+            
+            <div class="actions">
+                <button type="submit" class="submit-btn">Enviar</button>
+                <button type="reset" class="reset-btn" onclick="handleFormReset(event)">Limpar</button>
+            </div>
+        </fieldset>
+    </form>
+</div>
+
+<script src="{% static 'solicitacao/js/upload.js' %}"></script>
+{% endblock %}

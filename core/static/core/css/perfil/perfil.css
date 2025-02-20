@@ -1,0 +1,187 @@
+.container-header {
+    padding: 0 0 48px 24px;
+}
+
+.container-header h1 {
+    font-size: 24px;
+    color: #30465F;
+    font-weight: 700;
+    padding-bottom: 4px;
+}
+
+.container-header p {
+    font-size: 12px;
+    color: #30465F;
+    font-weight: 300;
+}
+
+.profile-card {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    margin: 0 0 20px 24px;
+    width: 986px;
+    background-color: var(--azul-escuro);
+    color: var(--branco);
+    height: 190px;
+}
+
+
+.profile-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.profile-info img {
+   
+    border-radius: 50%;
+    width: 140px;
+    height: 140px;
+    margin: 0 16px 0 12px;
+}
+
+.informacoes {
+    display: flex;
+    width: 580px;
+    flex-wrap: wrap;
+    gap: 32px;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 0 0 20px 24px;
+    width: 986px;
+    background-color: #DFEAF5;
+    color: var(--preto);
+    height: max-content; 
+}
+
+.container-info h2 {
+    margin-top: 0;
+    font-size: 24px;
+    color: #30465F;
+    font-weight: 700;
+    padding-bottom: 4px;
+}
+
+.container-info p {
+    font-size: 12px;
+    color: #30465F;
+    font-weight: 300;
+}
+
+.container-card-notificacoes p {
+    margin: 10px 0;
+}
+
+.card div {
+    margin: 8px 0 0 0;
+}
+
+.card div div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.card div div p {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    color: #30465F;
+    font-weight: 500;
+}
+
+.card label {
+    font-size: 16px;
+    color: #30465F;
+    font-weight: 500;
+}
+
+.card div div select {
+    width: 160px;
+    margin: 6px 0;
+    height: 32px;
+    background-color: var(--azul-escuro);
+    color: var(--branco);
+    border-radius: 5px;
+    padding: 8px;
+}
+
+.card div div select option {
+    background-color: #fff;
+    color: #000;
+}
+
+span p {
+    gap: 8px;
+}
+
+.container-card-notificacoes {
+    display: flex;
+}
+
+.container-notificacoes {
+    flex-direction: column;
+    width: 100%;
+}
+
+.container-card-notificacoes span {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+button {
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#form-foto-perfil {
+    display: flex;
+    justify-content: space-between;
+}
+
+#form-foto-perfil div {
+    display: flex;
+    flex-direction: column;
+}
+
+#form-foto-perfil div input {
+    display: flex;
+    flex-direction: column;
+}
+
+#form-foto-perfil label,
+#form-foto-perfil input,
+#form-foto-perfil button {
+    display: block;
+    margin-bottom: 10px;
+}
+
+#form-foto-perfil button {
+    padding: 10px;
+    color: var(--branco);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    align-self: flex-end;
+    width: 160px;
+    background-color: var(--azul-escuro);    
+}
+
+#form-foto-perfil button:hover {
+    background-color: #06315f;
+}

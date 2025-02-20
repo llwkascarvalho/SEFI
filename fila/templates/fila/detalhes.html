@@ -1,0 +1,240 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load auth_extras %}
+{% block content %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'fila/css/detalhes.css' %}">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{% endblock %}
+
+{% if request.user.is_superuser %}
+    {% csrf_token %}
+    <div class="container-header">
+        <div class="container-informacoes">
+            <h1 class="titulo-detalhes">Solicitação Nº {{ solicitacao.id }}</h1>
+            <p class="solicitante">{% if solicitacao.usuario.first_name %}{{ solicitacao.usuario.first_name }} {{ solicitacao.usuario.last_name }}{% else %}{{ solicitacao.usuario.username }}{% endif %}</p>
+            <p class="data-solicitante">{{ solicitacao.data_solicitacao|date:"d/m/Y" }}</p>
+        </div>
+        <div class="detalhes-status">
+            <h2>Detalhes</h2>
+            <div class="dropdown">
+                <div class="selected default status-{{ solicitacao.status|slugify }}">
+                    <span>{{ solicitacao.status }}</span>
+                    <div class="caret"></div>
+                </div>
+                <div class="list">
+                    {% for value, label in solicitacao.StatusChoices.choices %}
+                        {% if value != solicitacao.status %}
+                            <div class="item status-{{ value|slugify }}" 
+                                 data-value="{{ value }}"
+                                 data-url="{% url 'atualizar_status' pk=solicitacao.pk %}">
+                                {{ label }}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-main">
+        <div class="container-card">
+            <div class="container-conteudo">
+                <p class="title-card">Título</p>
+                <p class="text-card">{{ solicitacao.titulo }}</p>
+            </div>
+        </div>
+        <div class="container-card">
+            <div class="container-conteudo">
+                <p class="title-card">Retirada</p>
+                <p class="text-card">{{ solicitacao.tipo_entrega }}</p>
+            </div>
+        </div>
+        <div class="container-card">
+            <div class="container-conteudo">
+                <p class="title-card">Grampos</p>
+                <p class="text-card">{% if solicitacao.grampos %}Sim{% else %}Não{% endif %}</p>
+            </div>
+        </div>
+        <div class="container-card">
+            <div class="container-conteudo">
+                <p class="title-card">Quantidade de Cópias</p>
+                <p class="text-card">{{ solicitacao.quantidade_copias }}</p>
+            </div>
+        </div>
+        <div class="container-card">
+            <div class="container-conteudo">
+                <p class="title-card">Tipo de Atividade</p>
+                <p class="text-card">{{ solicitacao.tipo_atividade }}</p>
+            </div>
+        </div>
+        <div class="container-card">
+            <div class="container-conteudo">
+                <p class="title-card">Data de Entrega</p>
+                <p class="text-card">{{ solicitacao.data_entrega|date:"d/m/Y" }}</p>
+            </div>
+        </div>
+        <div class="container-card maior">
+            <div class="container-conteudo">
+                <p class="title-card">Arquivo</p>
+                <p class="text-card">{{ solicitacao.arquivo.name }}</p>
+                <a href="{{ solicitacao.arquivo.url }}" download><button class="button-download">Download</button></a>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'fila/js/dropdown.js' %}"></script>
+    <script src="{% static 'fila/js/atualizar_status.js' %}"></script>
+{% endif %}
+
+
+{% if request.user|has_group:"Professor" %}
+    <link rel="stylesheet" href="{% static 'fila/css/detalhes-professor.css' %}">
+
+    <div class="container-header">
+        <div class="container-informacoes--professor">
+            <div class="conteudo-solicitacao">
+                <h1 class="titulo-detalhes">Solicitação Nº {{ solicitacao.id }}</h1>
+                <p class="data-solicitante">{{ solicitacao.data_solicitacao|date:"d/m/Y" }}</p>
+            </div>
+            {% if solicitacao.status == 'Pendente' %}
+            <div class="dropdown">
+                <div class="selected default">
+                    <span>Alterar solicitação</span>
+                    <div class="caret"></div>
+                </div>
+                <div class="list">
+                    <a href="{% url 'editar_solicitacao' solicitacao.pk %}" class="item transparent">Editar</a>
+                    <div class="item red" id="excluir-solicitacao" data-url="{% url 'excluir_solicitacao' solicitacao.pk %}">Excluir solicitação</div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="detalhes-status">
+            <h2>Detalhes</h2>
+            <div class="status">
+                <div class="status-name">
+                    <span class="status-{{ solicitacao.status|slugify }}">{{ solicitacao.status }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-main">
+        <div class="container-card">
+            <div class="container-conteudo">
+                <p class="title-card">Título</p>
+                <p class="text-card">{{ solicitacao.titulo }}</p>
+            </div>
+        </div>
+        <div class="container-card">
+            <div class="container-conteudo">
+                <p class="title-card">Retirada</p>
+                <p class="text-card">{{ solicitacao.tipo_entrega }}</p>
+            </div>
+        </div>
+        <div class="container-card">
+            <div class="container-conteudo">
+                <p class="title-card">Grampos</p>
+                <p class="text-card">{% if solicitacao.grampos %}Sim{% else %}Não{% endif %}</p>
+            </div>
+        </div>
+        <div class="container-card">
+            <div class="container-conteudo">
+                <p class="title-card">Quantidade de Cópias</p>
+                <p class="text-card">{{ solicitacao.quantidade_copias }}</p>
+            </div>
+        </div>
+        <div class="container-card">
+            <div class="container-conteudo">
+                <p class="title-card">Tipo de Atividade</p>
+                <p class="text-card">{{ solicitacao.tipo_atividade }}</p>
+            </div>
+        </div>
+        <div class="container-card">
+            <div class="container-conteudo">
+                <p class="title-card">Data de Entrega</p>
+                <p class="text-card">{{ solicitacao.data_entrega|date:"d/m/Y" }}</p>
+            </div>
+        </div>
+        <div class="container-card maior">
+            <div class="container-conteudo">
+                <p class="title-card">Arquivo</p>
+                <p class="text-card">{{ solicitacao.arquivo }}</p>
+                <a href="{{ solicitacao.arquivo.url }}" download><button class="button-download">Download</button></a>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'fila/js/dropdown.js' %}"></script>
+    <script src="{% static 'fila/js/botoes.js' %}"></script>
+{% endif %}
+
+{% if request.user|has_group:"Bolsista" %}
+    <link rel="stylesheet" href="{% static 'fila/css/detalhes-bolsista.css' %}">
+    {% csrf_token %}
+
+    <div class="container-header">
+        <div class="container-informacoes">
+            <h1 class="titulo-detalhes">Solicitação Nº {{ solicitacao.id }}</h1>
+            <p class="solicitante">{% if solicitacao.usuario.first_name %}{{ solicitacao.usuario.first_name }} {{ solicitacao.usuario.last_name }}{% else %}{{ solicitacao.usuario.username }}{% endif %}</p>
+            <p class="data-solicitante">{{ solicitacao.data_solicitacao|date:"d/m/Y" }}</p>
+        </div>
+        <div class="detalhes-status">
+            <h2>Detalhes</h2>
+            <div class="status">
+                <div class="status-name">
+                    <span class="status-{{ solicitacao.status|slugify }}">{{ solicitacao.status }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-main">
+        <div class="container-card">
+            <div class="container-conteudo">
+                <p class="title-card">Título</p>
+                <p class="text-card">{{ solicitacao.titulo }}</p>
+            </div>
+        </div>
+        <div class="container-card">
+            <div class="container-conteudo">
+                <p class="title-card">Retirada</p>
+                <p class="text-card">{{ solicitacao.tipo_entrega }}</p>
+            </div>
+        </div>
+        <div class="container-card">
+            <div class="container-conteudo">
+                <p class="title-card">Grampos</p>
+                <p class="text-card">{% if solicitacao.grampos %}Sim{% else %}Não{% endif %}</p>
+            </div>
+        </div>
+        <div class="container-card">
+            <div class="container-conteudo">
+                <p class="title-card">Quantidade de Cópias</p>
+                <p class="text-card">{{ solicitacao.quantidade_copias }}</p>
+            </div>
+        </div>
+        <div class="container-card">
+            <div class="container-conteudo">
+                <p class="title-card">Tipo de Atividade</p>
+                <p class="text-card">{{ solicitacao.tipo_atividade }}</p>
+            </div>
+        </div>
+        <div class="container-card">
+            <div class="container-conteudo">
+                <p class="title-card">Data de Entrega</p>
+                <p class="text-card">{{ solicitacao.data_entrega|date:"d/m/Y" }}</p>
+            </div>
+        </div>
+    </div>
+
+    {% if solicitacao.status == 'Aguardando entrega' %}
+        <button type="button" class="button-entregue" id="btn-marcar-entregue">Marcar como entregue</button>
+    {% endif %}
+
+    <script src="{% static 'fila/js/marcar_entregue.js' %}"></script>
+{% endif %}
+
+{% endblock %}

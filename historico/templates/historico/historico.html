@@ -1,0 +1,351 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load auth_extras %}
+{% block content %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'historico/css/historico.css' %}">
+<link rel="stylesheet" href="{% static 'fila/css/filter.css' %}">
+{% endblock %}
+
+{% if request.user.is_superuser %}
+    <div class="historico">
+        <div class="text-filter">
+            <div class="text">
+                <h1>Histórico</h1>
+                <p>Essas são todas as solicitações já realizadas!</p>
+            </div>
+            <div class="filter">
+                <p>Filtrar</p>
+                <img src="{% static 'core/icones/filtro.svg' %}" alt="filtro">
+            </div>
+        </div>
+
+        <div class="filter-list">
+            <div class="filter-section">
+                <h4 class="filter-section-title">Status</h4>
+                <label class="filter-option">
+                    <div class="filter-checkbox">
+                        <input type="checkbox" name="status" value="concluida">
+                        <span class="checkmark"></span>
+                    </div>
+                    <span class="filter-option-label">Concluída</span>
+                </label>
+                <label class="filter-option">
+                    <div class="filter-checkbox">
+                        <input type="checkbox" name="status" value="cancelada">
+                        <span class="checkmark"></span>
+                    </div>
+                    <span class="filter-option-label">Cancelada</span>
+                </label>
+            </div>
+
+            <div class="filter-section">
+                <h4 class="filter-section-title">Tipo de Atividade</h4>
+                <label class="filter-option">
+                    <div class="filter-checkbox">
+                        <input type="checkbox" name="tipo" value="exercicio">
+                        <span class="checkmark"></span>
+                    </div>
+                    <span class="filter-option-label">Exercício</span>
+                </label>
+                <label class="filter-option">
+                    <div class="filter-checkbox">
+                        <input type="checkbox" name="tipo" value="prova">
+                        <span class="checkmark"></span>
+                    </div>
+                    <span class="filter-option-label">Prova</span>
+                </label>
+                <label class="filter-option">
+                    <div class="filter-checkbox">
+                        <input type="checkbox" name="tipo" value="outro">
+                        <span class="checkmark"></span>
+                    </div>
+                    <span class="filter-option-label">Outro</span>
+                </label>
+            </div>
+
+            <div class="filter-actions">
+                <button class="btn-clear">Limpar</button>
+                <button class="btn-apply">Aplicar</button>
+            </div>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Título</th>
+                    <th>Status</th>
+                    <th>Professor</th>
+                    <th>Quantidade de Cópias</th>
+                    <th>Tipo de atividade</th>
+                    <th>Grampos</th>
+                    <th>Data de Solicitação</th>
+                    <th>Data de Entrega</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if solicitacoes %}
+                    {% for solicitacao in solicitacoes %}
+                    <tr>
+                        <td>{{ solicitacao.id }}</td>
+                        <td>{{ solicitacao.titulo }}</td>
+                        <td class="status-{{ solicitacao.status|slugify }}">{{ solicitacao.status }}</td>
+                        <td>{{ solicitacao.usuario.first_name }} {{ solicitacao.usuario.last_name }}</td>
+                        <td>{{ solicitacao.quantidade_copias }}</td>
+                        <td>{{ solicitacao.tipo_atividade }}</td>
+                        <td>{% if solicitacao.grampos %}Sim{% else %}Não{% endif %}</td>
+                        <td>{{ solicitacao.data_solicitacao|date:"d \d\e M." }}</td>
+                        <td>{{ solicitacao.data_entrega|date:"d \d\e M." }}</td>
+                        <td>
+                            <a href="{% url 'detalhes' solicitacao.id %}"><button>Detalhes</button></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr class="empty-state">
+                        <td colspan="10">
+                            <div class="empty-state-content">
+                                <p>Nenhuma solicitação encontrada</p>
+                            </div>
+                        </td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+        <div id="quantidade-solicitacoes">
+            {% if solicitacoes %}
+                <p>Mostrando <strong>{{ solicitacoes.count }}</strong> 
+                    {% if solicitacoes.count == 1 %}solicitação{% else %}solicitações{% endif %}</p>
+            {% endif %}
+        </div>
+    </div>
+{% endif %}
+
+{% if request.user|has_group:"Professor" %}
+    <div class="historico">
+        <div class="text-filter">
+            <div class="text">
+                <h1>Histórico</h1>
+                <p>Essas são todas as solicitações já feitas por você!</p>
+            </div>
+            <div class="filter">
+                <p>Filtrar</p>
+                <img src="{% static 'core/icones/filtro.svg' %}" alt="filtro">
+            </div>
+        </div>
+
+        <div class="filter-list">
+            <div class="filter-section">
+                <h4 class="filter-section-title">Status</h4>
+                <label class="filter-option">
+                    <div class="filter-checkbox">
+                        <input type="checkbox" name="status" value="concluida">
+                        <span class="checkmark"></span>
+                    </div>
+                    <span class="filter-option-label">Concluída</span>
+                </label>
+                <label class="filter-option">
+                    <div class="filter-checkbox">
+                        <input type="checkbox" name="status" value="cancelada">
+                        <span class="checkmark"></span>
+                    </div>
+                    <span class="filter-option-label">Cancelada</span>
+                </label>
+            </div>
+
+            <div class="filter-section">
+                <h4 class="filter-section-title">Tipo de Atividade</h4>
+                <label class="filter-option">
+                    <div class="filter-checkbox">
+                        <input type="checkbox" name="tipo" value="exercicio">
+                        <span class="checkmark"></span>
+                    </div>
+                    <span class="filter-option-label">Exercício</span>
+                </label>
+                <label class="filter-option">
+                    <div class="filter-checkbox">
+                        <input type="checkbox" name="tipo" value="prova">
+                        <span class="checkmark"></span>
+                    </div>
+                    <span class="filter-option-label">Prova</span>
+                </label>
+                <label class="filter-option">
+                    <div class="filter-checkbox">
+                        <input type="checkbox" name="tipo" value="outro">
+                        <span class="checkmark"></span>
+                    </div>
+                    <span class="filter-option-label">Outro</span>
+                </label>
+            </div>
+
+            <div class="filter-actions">
+                <button class="btn-clear">Limpar</button>
+                <button class="btn-apply">Aplicar</button>
+            </div>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Título</th>
+                    <th>Status</th>
+                    <th>Quantidade de Cópias</th>
+                    <th>Tipo de atividade</th>
+                    <th>Grampos</th>
+                    <th>Data de Solicitação</th>
+                    <th>Data de Entrega</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if solicitacoes %}
+                    {% for solicitacao in solicitacoes %}
+                    <tr>
+                        <td>{{ solicitacao.id }}</td>
+                        <td>{{ solicitacao.titulo }}</td>
+                        <td class="status-{{ solicitacao.status|slugify }}">{{ solicitacao.status }}</td>
+                        <td>{{ solicitacao.quantidade_copias }}</td>
+                        <td>{{ solicitacao.tipo_atividade }}</td>
+                        <td>{% if solicitacao.grampos %}Sim{% else %}Não{% endif %}</td>
+                        <td>{{ solicitacao.data_solicitacao|date:"d \d\e M." }}</td>
+                        <td>{{ solicitacao.data_entrega|date:"d \d\e M." }}</td>
+                        <td>
+                            <a href="{% url 'detalhes' solicitacao.id %}"><button>Detalhes</button></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr class="empty-state">
+                        <td colspan="9">
+                            <div class="empty-state-content">
+                                <p>Nenhuma solicitação encontrada</p>
+                            </div>
+                        </td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+        <div id="quantidade-solicitacoes">
+            {% if solicitacoes %}
+                <p>Mostrando <strong>{{ solicitacoes.count }}</strong> 
+                    {% if solicitacoes.count == 1 %}solicitação{% else %}solicitações{% endif %}</p>
+            {% endif %}
+        </div>
+    </div>
+{% endif %}
+
+{% if request.user|has_group:"Bolsista"  %}
+    <div class="historico">
+        <div class="text-filter">
+            <div class="text">
+                <h1>Histórico</h1>
+                <p>Essas são todas as solicitações que você já entregou!</p>
+            </div>
+            <div class="filter">
+                <p>Filtrar</p>
+                <img src="{% static 'core/icones/filtro.svg' %}" alt="filtro">
+            </div>
+        </div>
+        
+        <div class="filter-list">
+            <div class="filter-section">
+                <h4 class="filter-section-title">Status</h4>
+                <label class="filter-option">
+                    <div class="filter-checkbox">
+                        <input type="checkbox" name="status" value="concluida">
+                        <span class="checkmark"></span>
+                    </div>
+                    <span class="filter-option-label">Concluída</span>
+                </label>
+                <label class="filter-option">
+                    <div class="filter-checkbox">
+                        <input type="checkbox" name="status" value="cancelada">
+                        <span class="checkmark"></span>
+                    </div>
+                    <span class="filter-option-label">Cancelada</span>
+                </label>
+            </div>
+
+            <div class="filter-section">
+                <h4 class="filter-section-title">Tipo de Atividade</h4>
+                <label class="filter-option">
+                    <div class="filter-checkbox">
+                        <input type="checkbox" name="tipo" value="exercicio">
+                        <span class="checkmark"></span>
+                    </div>
+                    <span class="filter-option-label">Exercício</span>
+                </label>
+                <label class="filter-option">
+                    <div class="filter-checkbox">
+                        <input type="checkbox" name="tipo" value="outro">
+                        <span class="checkmark"></span>
+                    </div>
+                    <span class="filter-option-label">Outro</span>
+                </label>
+            </div>
+
+            <div class="filter-actions">
+                <button class="btn-clear">Limpar</button>
+                <button class="btn-apply">Aplicar</button>
+            </div>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Título</th>
+                    <th>Status</th>
+                    <th>Professor</th>
+                    <th>Quantidade de Cópias</th>
+                    <th>Tipo de atividade</th>
+                    <th>Grampos</th>
+                    <th>Data de Solicitação</th>
+                    <th>Data de Entrega</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if solicitacoes %}
+                    {% for solicitacao in solicitacoes %}
+                    <tr>
+                        <td>{{ solicitacao.id }}</td>
+                        <td>{{ solicitacao.titulo }}</td>
+                        <td class="status-{{ solicitacao.status|slugify }}">{{ solicitacao.status }}</td>
+                        <td>{{ solicitacao.usuario.first_name }} {{ solicitacao.usuario.last_name }}</td>
+                        <td>{{ solicitacao.quantidade_copias }}</td>
+                        <td>{{ solicitacao.tipo_atividade }}</td>
+                        <td>{% if solicitacao.grampos %}Sim{% else %}Não{% endif %}</td>
+                        <td>{{ solicitacao.data_solicitacao|date:"d \d\e M." }}</td>
+                        <td>{{ solicitacao.data_entrega|date:"d \d\e M." }}</td>
+                        <td>
+                            <a href="{% url 'detalhes' solicitacao.id %}"><button>Detalhes</button></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr class="empty-state">
+                        <td colspan="10">
+                            <div class="empty-state-content">
+                                <p>Nenhuma solicitação encontrada</p>
+                            </div>
+                        </td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+        <div id="quantidade-solicitacoes">
+            {% if solicitacoes %}
+                <p>Mostrando <strong>{{ solicitacoes.count }}</strong> 
+                    {% if solicitacoes.count == 1 %}solicitação{% else %}solicitações{% endif %}</p>
+            {% endif %}
+        </div>
+    </div>
+{% endif %}
+
+<script src="{% static 'fila/js/filter.js' %}"></script>
+
+{% endblock %}

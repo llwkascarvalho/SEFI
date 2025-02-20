@@ -1,0 +1,83 @@
+.historico {
+    width: 100%;
+    max-width: 1158px;
+    padding-right: 22px;
+}
+
+table {
+    width: 100%;
+    table-layout: fixed;
+    border-spacing: 0;
+    transition: transform 0.3s ease;
+}
+
+table > thead {
+    font-size: 15px;
+    color: var(--azul-escuro);
+}
+
+table > thead > tr > th {
+    padding: 11px 12px 11px 12px;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+}
+
+table > tbody > tr {
+    background-color: var(--tablerow);
+}
+
+table > tbody > tr > td {
+    color: var(--azul-escuro);
+    text-align: center;
+    font-size: 14px;
+    padding: 13px 8px 13px 8px;
+    border-color: var(--bordas);
+    border-style: solid;
+    border-width: 1px 0px;
+    white-space: normal;
+    overflow: visible;
+    word-wrap: break-word;
+    word-break: break-word;
+}
+
+table > tbody > tr > td > a > button {
+    background-color: var(--azul-escuro);
+    color: var(--branco);
+    border-radius: 4px;
+    padding: 5px 10px 5px 10px;
+    height: 30px;
+    cursor: pointer;
+}
+
+table > tbody > tr > td > a > button:hover {
+    background-color: var(--btn-hover);
+    transition: ease-in-out 0.3s;
+}
+
+.empty-state td {
+    padding: 40px !important;
+    text-align: center;
+}
+
+.empty-state-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.empty-state-content p {
+    color: var(--texto-secundario);
+    font-size: 16px;
+    margin: 0;
+}
+
+#quantidade-solicitacoes {
+    padding: 16px;
+}
+
+#quantidade-solicitacoes > p {
+    font-size: 13px;
+    color: var(--azul-escuro);
+}

@@ -1,0 +1,188 @@
+.filter {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 12px 18px;
+    background-color: var(--azul-escuro);
+    color: var(--branco);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-right: 8px;
+}
+
+.filter:hover {
+    background-color: var(--hover);
+}
+
+.filter > p {
+    font-size: 14px;
+    font-weight: 500;
+    margin-right: 8px;
+}
+
+.filter > img {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.3s ease;
+}
+
+.filter.active > img {
+    transform: rotate(180deg);
+}
+
+.filter-list {
+    display: none;
+    width: 100%;
+    background-color: var(--branco);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 24px;
+    margin-bottom: 32px;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+}
+
+.filter-list.show {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    transform: translateY(0);
+}
+
+.filter-section {
+    flex: 1;
+    min-width: 200px;
+    margin-bottom: 0;
+}
+
+.filter-section-title {
+    color: var(--azul-escuro);
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+}
+
+.filter-option {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    cursor: pointer;
+}
+
+.filter-checkbox {
+    position: relative;
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+}
+
+.filter-checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.filter-checkbox .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 18px;
+    height: 18px;
+    background-color: var(--branco);
+    border: 2px solid var(--azul-escuro);
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.filter-checkbox input:checked + .checkmark {
+    background-color: var(--azul-escuro);
+}
+
+.filter-checkbox .checkmark:after {
+    content: '';
+    position: absolute;
+    display: none;
+    left: 5px;
+    top: 2px;
+    width: 4px;
+    height: 8px;
+    border: solid var(--branco);
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.filter-checkbox input:checked + .checkmark:after {
+    display: block;
+}
+
+.filter-option-label {
+    color: var(--azul-escuro);
+    font-size: 14px;
+}
+
+.filter-actions {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid var(--bordas);
+}
+
+.filter-actions button {
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.filter-actions .btn-clear {
+    background-color: transparent;
+    color: var(--azul-escuro);
+    border: 1px solid var(--bordas);
+}
+
+.filter-actions .btn-clear:hover {
+    background-color: var(--cinza-claro);
+}
+
+.filter-actions .btn-apply {
+    background-color: var(--azul-escuro);
+    color: var(--branco);
+    border: none;
+}
+
+.filter-actions .btn-apply:hover {
+    background-color: var(--hover);
+} 
+
+.text-filter {
+    margin-bottom: 32px;
+    color: var(--azul-escuro);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.text-filter > .text > h1 {
+    font-size: 24px;
+    margin-bottom: 4px;
+}
+
+.text-filter > .text > p {
+    font-size: 12px;
+    font-weight: 300;
+}
+
+.filter-input-text {
+    width: 80%;
+    padding: 8px;
+    border: 1px solid var(--bordas);
+    border-radius: 4px;
+}
