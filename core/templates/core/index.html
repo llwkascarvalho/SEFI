@@ -13,7 +13,7 @@
 
 <div class="container-main">
     <div class="container-card">
-        <a href="{% url 'fila' %}">
+        <a href="{% url 'fila' %}?status=pendente">
             <div class="container-conteudo">
                 <p class="title-card">Pendentes</p>
                 <div class="info-card">
@@ -24,7 +24,7 @@
         </a>
     </div>
     <div class="container-card">
-        <a href="{% url 'fila' %}">
+        <a href="{% url 'fila' %}?status=em_andamento">
             <div class="container-conteudo">
                 <p class="title-card">Em andamento</p>
                 <div class="info-card">
@@ -35,7 +35,7 @@
         </a>
     </div>
     <div class="container-card">
-        <a href="historico">
+        <a href="{% url 'historico' %}?status=concluida">
             <div class="container-conteudo">
                 <p class="title-card">Concluídas</p>
                 <div class="info-card">
@@ -52,7 +52,9 @@
             <p class="title-card">Recentes</p>
             <div class="info-card-inferiores">
                 {% for solicitacao in recentes %}
-                    <p class="text-card point">{{ solicitacao.titulo }}</p>
+                    <a href="{% url 'detalhes' solicitacao.id %}">
+                        <p class="text-card point">{{ solicitacao.titulo }}</p>
+                    </a>
                 {% endfor %}
             </div>
         </div>
@@ -86,7 +88,9 @@
             <p class="title-card">Suas Solicitações</p>
             <div class="info-card-inferiores">
                 {% for solicitacao in solicitacoes_pendentes %}
-                    <p class="text-card point">{{ solicitacao.titulo }}</p>
+                    <a href="{% url 'detalhes' solicitacao.id %}">
+                        <p class="text-card point">{{ solicitacao.titulo }}</p>
+                    </a>
                 {% endfor %}
             </div>
         </div>
@@ -111,7 +115,9 @@
             <p class="title-card">Solicitações aguardando entrega</p>
             <div class="info-card-inferiores">
                 {% for solicitacao in solicitacoes_ag_entrega %}
-                    <p class="text-card point">{{ solicitacao.titulo }}</p>
+                    <a href="{% url 'detalhes' solicitacao.id %}">
+                        <p class="text-card point">{{ solicitacao.titulo }}</p>
+                    </a>
                 {% empty %}
                     <p class="text-card">Nenhuma solicitação aguardando entrega</p>
                 {% endfor %}
