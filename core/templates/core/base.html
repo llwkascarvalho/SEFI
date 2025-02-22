@@ -22,29 +22,6 @@
                     <div class="linha"></div>
                     <div class="linha"></div>
                 </div>
-                <ul id="menu" class="menu">
-                    <li><a href="{% url 'index' %}"><img src="{% static 'core/icones/home-azul.svg' %}" alt="Ínicio"> Início</a></li>
-                    {% if request.user|has_group:"Professor"  %}
-                    <li><a href="{% url 'nova-solicitacao' %}"><img src="{% static 'core/icones/nova-solicitação.svg' %}" alt="Nova Solicitação">
-                            Nova Solicitação</a></li>
-                    {% endif %}
-                    <li><a href="{% url 'fila' %}"><img src="{% static 'core/icones/fila.svg' %}" alt="Fila de Impressão"> Fila de
-                            Impressão</a></li>
-                    <li><a href="{% url 'historico' %}"><img src="{% static 'core/icones/histórico.svg' %}" alt="Histórico de Impressões">
-                            Histórico de Impressões</a></li>
-                    {% if request.user.is_staff %}
-                    <li><a href="{% url 'estatisticas' %}"><img src="{% static 'core/icones/estatisticas.svg' %}" alt="Estatísticas">
-                            Estatísticas</a></li>
-                    {% endif %}
-                    <li>
-                        <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                            <img src="{% static 'core/icones/sair.svg' %}" alt="Sair"> Sair
-                        </a>
-                        <form id="logout-form" method="post" action="{% url 'logout' %}" style="display: none;">
-                            {% csrf_token %}
-                        </form>
-                    </li>
-                </ul>   
                 <a href="{% url 'index' %}" style="text-decoration: none;">
                     <div class="container-logo">
                         <img class="logo" src="{% static 'core/imagens/Logo.svg' %}" alt="">
@@ -61,28 +38,52 @@
             <img class="icon" src="{% static 'core/icones/help-circle.svg' %}" alt="">
             <a href="{% url 'perfil-usuario' %}">
                 <img class="usuario" src="{{ request.user.foto_perfil.url }}" alt="Perfil">
-            </a>      
+            </a>
         </div>
     </header>
 
-    <main>
-        {% block content %}
-        <!-- Conteúdo principal -->
-        {% endblock %}
-    </main>
+    <div class="content-wrapper">
+        <ul id="menu" class="menu">
+            <li><a href="{% url 'index' %}"><img src="{% static 'core/icones/home-azul.svg' %}" alt="Ínicio"> Início</a></li>
+            {% if request.user|has_group:"Professor" %}
+            <li><a href="{% url 'nova-solicitacao' %}"><img src="{% static 'core/icones/nova-solicitação.svg' %}" alt="Nova Solicitação">
+                    Nova Solicitação</a></li>
+            {% endif %}
+            <li><a href="{% url 'fila' %}"><img src="{% static 'core/icones/fila.svg' %}" alt="Fila de Impressão"> Fila de
+                    Impressão</a></li>
+            <li><a href="{% url 'historico' %}"><img src="{% static 'core/icones/histórico.svg' %}" alt="Histórico de Impressões">
+                    Histórico de Impressões</a></li>
+            {% if request.user.is_staff %}
+            <li><a href="{% url 'estatisticas' %}"><img src="{% static 'core/icones/estatisticas.svg' %}" alt="Estatísticas">
+                    Estatísticas</a></li>
+            {% endif %}
+            <li>
+                <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <img src="{% static 'core/icones/sair.svg' %}" alt="Sair"> Sair
+                </a>
+                <form id="logout-form" method="post" action="{% url 'logout' %}" style="display: none;">
+                    {% csrf_token %}
+                </form>
+            </li>
+        </ul>
+        <main>
+            {% block content %}
+            <!-- Conteúdo principal -->
+            {% endblock %}
+        </main>
+    </div>
 
     <footer class="footer">
         <p class="p__footer">
-            &copy; 2025 SEFI.
-        <div>
-            <img class="icone-footer" src="{% static 'core/icones/python.svg' %}" alt="Python Icon">
-            Desenvolvido por IFRN.
-        </div>
+            © 2025 SEFI.
+            <div>
+                <img class="icone-footer" src="{% static 'core/icones/python.svg' %}" alt="Python Icon">
+                Desenvolvido por IFRN.
+            </div>
         </p>
     </footer>
 
     <script src="{% static 'core/js/menu.js' %}"></script>
-
 </body>
 
 </html>
