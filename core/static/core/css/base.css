@@ -47,28 +47,22 @@
     border: none;
 }
 
-html,
-body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+html, body {
+    height: 100%;
     margin: 0;
     padding: 0;
     overflow-x: hidden;
     width: 100%;
 }
 
-main {
-    flex: 1;
-    margin-left: 250px;
-    padding: 0px 0px 72px 50px;
-    margin-top: 150px;
-    min-height: calc(100vh - 150px);
-    width: calc(100% - 250px);
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 header {
-    position: fixed;
+    position: relative;
     display: flex;
     padding: 24px 0 24px 24px;
     background-color: var(--azul-escuro);
@@ -79,12 +73,16 @@ header {
     z-index: 50;
 }
 
-/* LOGO E MENU */
-
 .container {
     display: flex;
     align-items: center;
     width: 50%;
+}
+
+.menu-logo {
+    display: flex;
+    align-items: center;
+    max-width: 212px;
 }
 
 .container-logo {
@@ -104,12 +102,6 @@ header {
     font-weight: 400;
 }
 
-.menu-logo {
-    display: flex;
-    align-items: center;
-    max-width: 212px;
-}
-
 .logo {
     max-width: 50px;
     max-height: 42px;
@@ -117,10 +109,7 @@ header {
 }
 
 .burger {
-    top: 20px;
-    right: 20px;
     cursor: pointer;
-
     margin-right: 14px;
 }
 
@@ -132,42 +121,6 @@ header {
     margin: 3px;
     transition: 0.3s;
 }
-
-/* BARRA DE PESQUISA */
-
-.input-container {
-    position: relative;
-    width: 320px;
-}
-
-.search-input {
-    width: 100%;
-    padding: 10px 10px 10px 40px;
-    font-size: 12px;
-    background-color: var(--cinza-medio);
-    color: var(--azul-escuro);
-    border: 1px solid var(--cinza-escuro);
-    border-radius: 5px;
-    outline: none;
-    margin-left: 40px;
-    box-sizing: border-box;
-}
-
-.search-input:focus {
-    border-color: var(--azul-claro);
-}
-
-.icone-search {
-    position: absolute;
-    top: 50%;
-    left: 50px;
-    transform: translateY(-50%);
-    width: 20px;
-    height: 20px;
-    pointer-events: none;
-}
-
-/* ITENS ALINHADOS CANTO SUPERIOR DIREITO*/
 
 .container-itens {
     display: flex;
@@ -191,22 +144,21 @@ header {
     margin-right: 32px;
 }
 
-/* MENU */
+.content-wrapper {
+    display: flex;
+    flex: 1;
+}
 
 .menu {
-    position: absolute;
-    left: 0;
     width: 254px;
-    height: 100vh;
-    top: 100%;
     background-color: var(--card);
     color: var(--branco);
     display: flex;
     flex-direction: column;
-    padding-left: 20px;
-    transition: transform 0.3s ease-in-out;
-    gap: 1rem;
     padding: 32px 16px 0 16px;
+    gap: 1rem;
+    transform: translateX(0);
+    transition: transform 0.3s ease-in-out;
 }
 
 .menu li {
@@ -244,7 +196,7 @@ header {
 }
 
 .menu a.active img {
-    filter: invert(1); /* Torna a imagem branca */
+    filter: invert(1);
 }
 
 .menu a.active {
@@ -254,10 +206,21 @@ header {
 
 .menu.active {
     transform: translateX(-100%);
-    display: none;
+    transition: transform 0.3s ease-in-out;
 }
 
-/* FOOTER */
+main {
+    flex: 1;
+    padding: 50px 0px 72px 50px;
+    width: calc(100% - 254px);
+    transition: transform 0.3s ease-in-out, width 0.3s ease-in-out;
+    transform: translateX(0);
+}
+
+main.menu-active {
+    transform: translateX(-254px);
+    width: 100%;
+}
 
 .footer {
     display: flex;

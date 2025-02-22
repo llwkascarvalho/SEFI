@@ -3,7 +3,7 @@
 {% load auth_extras %}
 {% block content %}
 {% block css %}
-<link rel="stylesheet" href="{% static 'core/css/perfil/perfil.css' %}">
+<link rel="stylesheet" href="{% static 'core/css/perfil.css' %}">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 {% endblock %}
 
@@ -16,11 +16,11 @@
     <div class="profile-info">
         <img src= "{{ request.user.foto_perfil.url }}" alt="Foto de Perfil">
         <div class="informacoes">
-            <p><strong>Nome:</strong><br>{{ request.user.first_name }} {{ request.user.last_name }}</p>
-            <p><strong>Data de Registro:</strong><br> {{ request.user.date_joined }}</p>
-            <p><strong>Matrícula:</strong><br> {{ request.user.matricula }}</p>
-            <p><strong>Email:</strong><br> {{ request.user.email }}</p>
-            <p><strong>Vínculo:</strong><br> {{ request.user.vinculo }}</p>
+            <p><strong>Nome:</strong>{{ request.user.first_name }} {{ request.user.last_name }}</p>
+            <p><strong>Data de Registro:</strong> {{ request.user.date_joined }}</p>
+            <p><strong>Matrícula:</strong> {{ request.user.matricula }}</p>
+            <p><strong>Email:</strong> {{ request.user.email }}</p>
+            <p><strong>Vínculo:</strong> {{ request.user.vinculo }}</p>
         </div>
     </div>
 </div>

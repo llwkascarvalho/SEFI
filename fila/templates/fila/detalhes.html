@@ -1,6 +1,7 @@
 {% extends 'core/base.html' %}
 {% load static %}
 {% load auth_extras %}
+{% load basename %}
 {% block content %}
 {% block css %}
 <link rel="stylesheet" href="{% static 'fila/css/detalhes.css' %}">
@@ -77,7 +78,7 @@
         <div class="container-card maior">
             <div class="container-conteudo">
                 <p class="title-card">Arquivo</p>
-                <p class="text-card">{{ solicitacao.arquivo.name }}</p>
+                <p class="text-card">{{ solicitacao.arquivo.name | basename }}</p>
                 <a href="{{ solicitacao.arquivo.url }}" download><button class="button-download">Download</button></a>
             </div>
         </div>
