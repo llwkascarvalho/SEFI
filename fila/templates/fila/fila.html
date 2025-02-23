@@ -131,11 +131,28 @@
                 {% endif %}
             </tbody>
         </table>
-        <div id="quantidade-solicitacoes">
-            {% if solicitacoes %}
-                <p>Mostrando <strong>{{ solicitacoes.count }}</strong> 
-                    {% if solicitacoes.count == 1 %}solicitação{% else %}solicitações{% endif %}</p>
-            {% endif %}
+        <div class="table-footer">
+            <div id="quantidade-solicitacoes">
+                {% if total_solicitacoes %}
+                    <p>Mostrando <strong>{{ inicio_range }} - {{ fim_range }}</strong> de <strong>{{ total_solicitacoes }}</strong> 
+                        {% if total_solicitacoes == 1 %}solicitação{% else %}solicitações{% endif %}</p>
+                {% endif %}
+            </div>
+            <div class="pagination">
+                <span class="step-links">
+                    {% if page_obj.has_previous %}
+                        <a href="?pagina={{ page_obj.previous_page_number }}{% if request.GET.status %}&status={{ request.GET.status }}{% endif %}{% if request.GET.tipo %}&tipo={{ request.GET.tipo }}{% endif %}{% if request.GET.titulo %}&titulo={{ request.GET.titulo }}{% endif %}">Anterior</a>
+                    {% endif %}
+
+                    <span class="current">
+                        Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+                    </span>
+
+                    {% if page_obj.has_next %}
+                        <a href="?pagina={{ page_obj.next_page_number }}{% if request.GET.status %}&status={{ request.GET.status }}{% endif %}{% if request.GET.tipo %}&tipo={{ request.GET.tipo }}{% endif %}{% if request.GET.titulo %}&titulo={{ request.GET.titulo }}{% endif %}">Próxima</a>
+                    {% endif %}
+                </span>
+            </div>
         </div>
     </div>
 {% endif %}
@@ -264,11 +281,28 @@
                 {% endif %}
             </tbody>
         </table>
-        <div id="quantidade-solicitacoes">
-            {% if solicitacoes %}
-                <p>Mostrando <strong>{{ solicitacoes.count }}</strong> 
-                    {% if solicitacoes.count == 1 %}solicitação{% else %}solicitações{% endif %}</p>
-            {% endif %}
+        <div class="table-footer">
+            <div id="quantidade-solicitacoes">
+                {% if total_solicitacoes %}
+                    <p>Mostrando <strong>{{ inicio_range }} - {{ fim_range }}</strong> de <strong>{{ total_solicitacoes }}</strong> 
+                        {% if total_solicitacoes == 1 %}solicitação{% else %}solicitações{% endif %}</p>
+                {% endif %}
+            </div>
+            <div class="pagination">
+                <span class="step-links">
+                    {% if page_obj.has_previous %}
+                        <a href="?pagina={{ page_obj.previous_page_number }}{% if request.GET.status %}&status={{ request.GET.status }}{% endif %}{% if request.GET.tipo %}&tipo={{ request.GET.tipo }}{% endif %}{% if request.GET.titulo %}&titulo={{ request.GET.titulo }}{% endif %}">Anterior</a>
+                    {% endif %}
+
+                    <span class="current">
+                        Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+                    </span>
+
+                    {% if page_obj.has_next %}
+                        <a href="?pagina={{ page_obj.next_page_number }}{% if request.GET.status %}&status={{ request.GET.status }}{% endif %}{% if request.GET.tipo %}&tipo={{ request.GET.tipo }}{% endif %}{% if request.GET.titulo %}&titulo={{ request.GET.titulo }}{% endif %}">Próxima</a>
+                    {% endif %}
+                </span>
+            </div>
         </div>
     </div>
 {% endif %}
@@ -384,11 +418,28 @@
                 {% endif %}
             </tbody>
         </table>
-        <div id="quantidade-solicitacoes">
-            {% if solicitacoes %}
-                <p>Mostrando <strong>{{ solicitacoes.count }}</strong> 
-                    {% if solicitacoes.count == 1 %}solicitação{% else %}solicitações{% endif %}</p>
-            {% endif %}
+        <div class="table-footer">
+            <div id="quantidade-solicitacoes">
+                {% if total_solicitacoes %}
+                    <p>Mostrando <strong>{{ inicio_range }} - {{ fim_range }}</strong> de <strong>{{ total_solicitacoes }}</strong> 
+                        {% if total_solicitacoes == 1 %}solicitação{% else %}solicitações{% endif %}</p>
+                {% endif %}
+            </div>
+            <div class="pagination">
+                <span class="step-links">
+                    {% if page_obj.has_previous %}
+                        <a href="?pagina={{ page_obj.previous_page_number }}{% if request.GET.status %}&status={{ request.GET.status }}{% endif %}{% if request.GET.tipo %}&tipo={{ request.GET.tipo }}{% endif %}{% if request.GET.titulo %}&titulo={{ request.GET.titulo }}{% endif %}">Anterior</a>
+                    {% endif %}
+
+                    <span class="current">
+                        Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+                    </span>
+
+                    {% if page_obj.has_next %}
+                        <a href="?pagina={{ page_obj.next_page_number }}{% if request.GET.status %}&status={{ request.GET.status }}{% endif %}{% if request.GET.tipo %}&tipo={{ request.GET.tipo }}{% endif %}{% if request.GET.titulo %}&titulo={{ request.GET.titulo }}{% endif %}">Próxima</a>
+                    {% endif %}
+                </span>
+            </div>
         </div>
     </div>
 {% endif %}

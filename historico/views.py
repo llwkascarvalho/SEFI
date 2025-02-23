@@ -8,6 +8,8 @@ class HistoricoView(LoginRequiredMixin, ListView):
     model = Solicitacao
     template_name = "historico/historico.html"
     context_object_name = "solicitacoes"
+    paginate_by = 8
+    page_kwarg = 'pagina'
 
     def base_queryset(self):
         return Solicitacao.objects.filter(
@@ -55,6 +57,19 @@ class HistoricoView(LoginRequiredMixin, ListView):
                     tipo_query |= Q(tipo_atividade=Solicitacao.TipoAtividadeChoices.PROVA)
                 elif tipo == 'outro':
                     tipo_query |= Q(tipo_atividade=Solicitacao.TipoAtividadeChoices.OUTRO)
-            queryset = queryset.filter(tipo_query)
+            if tipo_query:
+                queryset = queryset.filter(tipo_query)
 
         return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        queryset = self.get_queryset()
+        context['total_solicitacoes'] = queryset.count()
+        
+        page = context['page_obj']
+        context['itens_pagina_atual'] = len(page.object_list)
+        context['inicio_range'] = (page.number - 1) * self.paginate_by + 1
+        context['fim_range'] = min((page.number - 1) * self.paginate_by + len(page.object_list), context['total_solicitacoes'])
+        
+        return context
