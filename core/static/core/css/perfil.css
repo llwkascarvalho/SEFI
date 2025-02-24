@@ -36,9 +36,8 @@
 }
 
 .profile-info img {
-   
     border-radius: 50%;
-    width: 140px;
+    min-width: 140px;
     height: 140px;
     margin: 0 16px 0 12px;
 }

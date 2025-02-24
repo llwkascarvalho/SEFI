@@ -48,7 +48,7 @@
     display: flex;
     align-items: center;
     width: 160px;
-    justify-content: flex-start;
+    justify-content: flex-end;
 }
 
 .detalhes-status h2 {

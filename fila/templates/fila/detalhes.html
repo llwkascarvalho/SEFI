@@ -162,7 +162,7 @@
         <div class="container-card maior">
             <div class="container-conteudo">
                 <p class="title-card">Arquivo</p>
-                <p class="text-card">{{ solicitacao.arquivo }}</p>
+                <p class="text-card">{{ solicitacao.arquivo.name | basename }}</p>
                 <a href="{{ solicitacao.arquivo.url }}" download><button class="button-download">Download</button></a>
             </div>
         </div>

@@ -33,9 +33,9 @@ class CustomUserManager(BaseUserManager):
 
 class CustomUser(AbstractUser):
     class VinculoChoices(models.TextChoices):
-        BOLSISTA = 'bolsista', 'Bolsista'
-        PROFESSOR = 'professor', 'Professor'
-        COORDENADOR = 'coordenador', 'Coordenador'
+        BOLSISTA = 'Bolsista', 'Bolsista'
+        PROFESSOR = 'Professor', 'Professor'
+        COORDENADOR = 'Coordenador', 'Coordenador'
     
     vinculo = models.CharField(max_length=100, choices=VinculoChoices.choices)
     matricula = models.CharField(max_length=100, null=True, blank=True, unique=True)
