@@ -35,6 +35,7 @@ class HistoricoView(LoginRequiredMixin, ListView):
 
         status_filter = self.request.GET.get('status')
         tipo_filter = self.request.GET.get('tipo')
+        titulo_filter = self.request.GET.get('titulo')
 
         if status_filter:
             status_list = status_filter.split(',')
@@ -59,6 +60,9 @@ class HistoricoView(LoginRequiredMixin, ListView):
                     tipo_query |= Q(tipo_atividade=Solicitacao.TipoAtividadeChoices.OUTRO)
             if tipo_query:
                 queryset = queryset.filter(tipo_query)
+
+        if titulo_filter:
+            queryset = queryset.filter(Q(titulo__icontains=titulo_filter))
 
         return queryset
 

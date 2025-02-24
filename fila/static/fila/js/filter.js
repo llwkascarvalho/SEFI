@@ -36,6 +36,10 @@ document.addEventListener('DOMContentLoaded', () => {
     clearButton?.addEventListener('click', () => {
         const checkboxes = filterList.querySelectorAll('input[type="checkbox"]');
         checkboxes.forEach(checkbox => checkbox.checked = false);
+        const tituloInput = document.querySelector('.filter-input-text');
+        if (tituloInput) {
+            tituloInput.value = '';
+        }
     });
 
     applyButton?.addEventListener('click', () => {
