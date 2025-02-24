@@ -268,3 +268,21 @@ button:hover {
     background-color: var(--vermelho);
     color: var(--branco);
 }
+
+.btn-delete {
+    display: block;
+    background-color: var(--vermelho);
+    color: var(--branco);
+    border: none;
+    border-radius: 4px;
+    padding: 12px 24px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 24px 0 0 24px;
+    width: fit-content;
+}
+
+.btn-delete:hover {
+    background-color: #c52121;
+}

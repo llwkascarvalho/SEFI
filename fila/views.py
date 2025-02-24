@@ -112,10 +112,13 @@ class DetalhesView(LoginRequiredMixin, DetailView):
                 raise PermissionDenied
         
         if usuario.groups.filter(name="Bolsista").exists():
-            if (obj.tipo_atividade == Solicitacao.TipoAtividadeChoices.PROVA or 
-                    (obj.tipo_entrega != Solicitacao.TipoEntregaChoices.BOLSISTA and 
-                     obj.status == Solicitacao.StatusChoices.CONCLUIDA and 
-                     obj.entregue_por != usuario)):
+            if obj.tipo_atividade == Solicitacao.TipoAtividadeChoices.PROVA:
+                raise PermissionDenied
+            
+            if obj.tipo_entrega != Solicitacao.TipoEntregaChoices.BOLSISTA:
+                raise PermissionDenied
+            
+            if obj.status == Solicitacao.StatusChoices.CONCLUIDA and obj.entregue_por != usuario:
                 raise PermissionDenied
         
         return obj

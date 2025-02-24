@@ -15,8 +15,9 @@ class CheckSolicitacaoFromUserMixin(UserPassesTestMixin):
         solicitacao = self.get_object()
         usuario = self.request.user
         
-        return (usuario == solicitacao.usuario and 
-                solicitacao.status == solicitacao.StatusChoices.PENDENTE)
+        return (usuario.is_superuser or 
+                (usuario == solicitacao.usuario and 
+                 solicitacao.status == solicitacao.StatusChoices.PENDENTE))
     
     def handle_no_permission(self):
         raise PermissionDenied("Você não tem permissão para modificar esta solicitação.")

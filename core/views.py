@@ -111,7 +111,7 @@ class EstatisticasView(CheckUserAdminMixin, LoginRequiredMixin, TemplateView):
         ).order_by('-total_solicitacoes').first()
 
         if professor_mais_ativo:
-            if professor_mais_ativo['usuario__first_name'] and professor_mais_ativo['usuario__last_name']:
+            if professor_mais_ativo['usuario__first_name'] or professor_mais_ativo['usuario__last_name']:
                 nome_display = f"{professor_mais_ativo['usuario__first_name']} {professor_mais_ativo['usuario__last_name']}"
             else:
                 nome_display = professor_mais_ativo['usuario__username']

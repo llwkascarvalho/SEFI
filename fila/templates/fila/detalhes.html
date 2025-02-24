@@ -18,23 +18,33 @@
         </div>
         <div class="detalhes-status">
             <h2>Detalhes</h2>
-            <div class="dropdown">
-                <div class="selected default status-{{ solicitacao.status|slugify }}">
-                    <span>{{ solicitacao.status }}</span>
-                    <div class="caret"></div>
+            {% if solicitacao.status == 'Concluída' or solicitacao.status == 'Cancelada' %}
+                <div class="status">
+                    <div class="status-name">
+                        <span class="status-{{ solicitacao.status|slugify }}">{{ solicitacao.status }}</span>
+                    </div>
                 </div>
-                <div class="list">
-                    {% for value, label in solicitacao.StatusChoices.choices %}
-                        {% if value != solicitacao.status %}
-                            <div class="item status-{{ value|slugify }}" 
-                                 data-value="{{ value }}"
-                                 data-url="{% url 'atualizar_status' pk=solicitacao.pk %}">
-                                {{ label }}
-                            </div>
-                        {% endif %}
-                    {% endfor %}
+            {% else %}
+                <div class="dropdown">
+                    <div class="selected default status-{{ solicitacao.status|slugify }}">
+                        <span>{{ solicitacao.status }}</span>
+                        <div class="caret"></div>
+                    </div>
+                    <div class="list">
+                        {% for value, label in solicitacao.StatusChoices.choices %}
+                            {% if value != solicitacao.status %}
+                                {% if value == 'Aguardando entrega' and solicitacao.tipo_entrega == 'Bolsista' or value == 'Aguardando retirada' and solicitacao.tipo_entrega != 'Bolsista' or value != 'Aguardando entrega' and value != 'Aguardando retirada' %}
+                                    <div class="item status-{{ value|slugify }}" 
+                                         data-value="{{ value }}"
+                                         data-url="{% url 'atualizar_status' pk=solicitacao.pk %}">
+                                        {{ label }}
+                                    </div>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
                 </div>
-            </div>
+            {% endif %}
         </div>
     </div>
 
@@ -84,8 +94,15 @@
         </div>
     </div>
 
+    {% if request.user.is_superuser and solicitacao.status != 'Concluída' and solicitacao.status != 'Cancelada' %}
+        <button type="button" class="btn-delete" id="excluir-solicitacao" data-url="{% url 'excluir_solicitacao' solicitacao.pk %}">
+            Excluir solicitação
+        </button>
+    {% endif %}
+
     <script src="{% static 'fila/js/dropdown.js' %}"></script>
     <script src="{% static 'fila/js/atualizar_status.js' %}"></script>
+    <script src="{% static 'fila/js/botoes.js' %}"></script>
 {% endif %}
 
 
