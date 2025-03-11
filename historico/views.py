@@ -5,6 +5,21 @@ from django.db.models import Q
 from django.core.exceptions import PermissionDenied
 
 class HistoricoView(LoginRequiredMixin, ListView):
+    """
+    View para exibir o histórico de solicitações no sistema.
+    
+    Exibe solicitações que estão concluídas ou canceladas, com diferentes
+    filtros baseados no tipo de usuário (superusuário, professor ou bolsista).
+    Suporta paginação e filtros por status, tipo de atividade e título.
+    
+    Attributes:
+        model: Modelo Solicitacao
+        template_name: HTML
+        context_object_name: Nome do contexto para a lista de solicitações
+        paginate_by: Número de itens por página
+        page_kwarg: Nome do parâmetro de página na URL
+    """
+    
     model = Solicitacao
     template_name = "historico/historico.html"
     context_object_name = "solicitacoes"
@@ -12,12 +27,37 @@ class HistoricoView(LoginRequiredMixin, ListView):
     page_kwarg = 'pagina'
 
     def base_queryset(self):
+        """
+        Retorna o queryset base incluindo apenas solicitações concluídas ou canceladas.
+        
+        Returns:
+            QuerySet: Solicitações finalizadas
+        """
         return Solicitacao.objects.filter(
             Q(status=Solicitacao.StatusChoices.CONCLUIDA) | 
             Q(status=Solicitacao.StatusChoices.CANCELADA)
         ).order_by('data_entrega')
 
     def get_queryset(self):
+        """
+        Retorna o queryset filtrado baseado no tipo de usuário e parâmetros da URL.
+        
+        Filtragem específica para cada tipo de usuário:
+        - Superusuário: acesso a todas as solicitações
+        - Professor: apenas suas próprias solicitações
+        - Bolsista: apenas solicitações que ele entregou
+        
+        Também aplica filtros adicionais:
+        - status: filtra por status
+        - tipo: filtra por tipo de atividade
+        - titulo: filtra por texto no título
+        
+        Returns:
+            QuerySet: Solicitações filtradas
+        
+        Raises:
+            PermissionDenied: Se o usuário não tiver permissão
+        """
         queryset = self.base_queryset()
         usuario = self.request.user
         
@@ -67,6 +107,17 @@ class HistoricoView(LoginRequiredMixin, ListView):
         return queryset
 
     def get_context_data(self, **kwargs):
+        """
+        Adiciona dados de contexto para o template.
+        
+        Contextos:
+        - Total de solicitações
+        - Número de itens na página atual (paginacao)
+        - Range de itens sendo exibidos (paginacao)
+        
+        Returns:
+            context: Contexto com informações
+        """
         context = super().get_context_data(**kwargs)
         queryset = self.get_queryset()
         context['total_solicitacoes'] = queryset.count()

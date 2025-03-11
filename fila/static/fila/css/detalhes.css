@@ -286,3 +286,29 @@ button:hover {
 .btn-delete:hover {
     background-color: #c52121;
 }
+
+.sortable {
+    cursor: pointer;
+    position: relative;
+}
+
+.sort-icon {
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--azul-escuro);
+    font-size: 12px;
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+}
+
+.sortable:hover .sort-icon {
+    opacity: 1;
+}
+
+th.asc .sort-icon,
+th.desc .sort-icon {
+    opacity: 1;
+    color: var(--azul-escuro);
+}

@@ -9,6 +9,21 @@ from django.shortcuts import get_object_or_404
 from core.permissions import CheckUserBolsistaMixin
 
 class FilaView(LoginRequiredMixin, ListView):
+    """
+    View para exibir a lista de solicitações ativas no sistema.
+    
+    Exibe solicitações que não estão concluídas ou canceladas, com diferentes
+    filtros baseados no tipo de usuário (superusuário, professor ou bolsista).
+    Suporta paginação e filtros por status, tipo de atividade e título.
+    
+    Attributes:
+        model: Modelo Solicitacao
+        template_name: HTML
+        context_object_name: Nome do contexto para a lista de solicitações
+        paginate_by: Número de itens por página
+        page_kwarg: Nome do parâmetro de página na URL
+    """
+    
     model = Solicitacao
     template_name = "fila/fila.html"
     context_object_name = "solicitacoes"
@@ -16,12 +31,37 @@ class FilaView(LoginRequiredMixin, ListView):
     page_kwarg = 'pagina'
 
     def _base_queryset(self):
+        """
+        Retorna o queryset base excluindo solicitações concluídas ou canceladas.
+        
+        Returns:
+            QuerySet: Solicitações ativas
+        """
         return Solicitacao.objects.exclude(
             Q(status=Solicitacao.StatusChoices.CONCLUIDA) | 
             Q(status=Solicitacao.StatusChoices.CANCELADA)
         ).order_by('data_entrega')
 
     def get_queryset(self):
+        """
+        Retorna o queryset filtrado baseado no tipo de usuário e parâmetros da URL.
+        
+        Filtragem específica para cada tipo de usuário:
+        - Superusuário: acesso a todas as solicitações
+        - Professor: apenas suas próprias solicitações
+        - Bolsista: apenas solicitações para entrega de bolsistas, exceto provas
+        
+        Também aplica filtros adicionais:
+        - status: filtra por status
+        - tipo: filtra por tipo de atividade
+        - titulo: filtra por texto no título
+        
+        Returns:
+            QuerySet: Solicitações filtradas
+        
+        Raises:
+            PermissionDenied: Se o usuário não tiver permissão
+        """
         queryset = self._base_queryset()
         usuario = self.request.user
         
@@ -78,6 +118,17 @@ class FilaView(LoginRequiredMixin, ListView):
         return queryset
 
     def get_context_data(self, **kwargs):
+        """
+        Adiciona dados de contexto para o template.
+        
+        Contextos:
+        - Total de solicitações
+        - Número de itens na página atual (paginacao)
+        - Range de itens sendo exibidos (paginacao)
+        
+        Returns:
+            context: Contexto com informações
+        """
         context = super().get_context_data(**kwargs)
         queryset = self.get_queryset()
         context['total_solicitacoes'] = queryset.count()
@@ -91,16 +142,45 @@ class FilaView(LoginRequiredMixin, ListView):
 
 
 class DetalhesView(LoginRequiredMixin, DetailView):
+    """
+    View para exibir os detalhes de uma solicitação específica.
+    
+    Controla o acesso aos detalhes baseado no tipo de usuário:
+    - Superusuário: acesso a todas as solicitações
+    - Professor: apenas suas próprias solicitações
+    - Bolsista: apenas solicitações para entrega de bolsistas, exceto provas
+    
+    Attributes:
+        model: Modelo Solicitacao
+        template_name: Template HTML para renderização
+        context_object_name: Nome do contexto para a solicitação
+    """
+    
     model = Solicitacao
     template_name = "fila/detalhes.html"
     context_object_name = "solicitacao"
 
     def get_context_data(self, **kwargs):
+        """
+        Adiciona a solicitação específica ao contexto.
+        
+        Returns:
+            context: Contexto com a solicitação solicitada
+        """
         context = super().get_context_data(**kwargs)
         context["solicitacao"] = Solicitacao.objects.get(id=self.kwargs["pk"])
         return context
 
     def get_object(self):
+        """
+        Retorna o objeto solicitação se o usuário tiver permissão.
+        
+        Returns:
+            Solicitacao: Objeto da solicitação
+            
+        Raises:
+            PermissionDenied: Se o usuário não tiver permissão para ver a solicitação
+        """
         obj = super().get_object()
         usuario = self.request.user
 
@@ -124,10 +204,30 @@ class DetalhesView(LoginRequiredMixin, DetailView):
         return obj
 
 class AtualizarStatusView(LoginRequiredMixin, View):
+    """
+    View para atualizar o status de uma solicitação.
+    
+    Apenas superusuários podem atualizar o status de solicitações.
+    """
+    
     def post(self, request, pk, *args, **kwargs):
+        """
+        Processa a requisição POST para atualizar o status.
+        
+        Args:
+            request: Requisição HTTP
+            pk: ID da solicitação
+            
+        Returns:
+            JsonResponse: Resposta JSON indicando sucesso ou falha
+            
+        Raises:
+            PermissionDenied: Se o usuário não for superusuário
+        """
         solicitacao = get_object_or_404(Solicitacao, pk=pk)
         novo_status = request.POST.get('novo_status')
         
+        # validar status
         valid_status = [choice[0] for choice in Solicitacao.StatusChoices.choices]
         if novo_status not in valid_status:
             return JsonResponse({'success': False, 'message': 'Status inválido'}, status=400)
@@ -144,10 +244,27 @@ class AtualizarStatusView(LoginRequiredMixin, View):
             return JsonResponse({'success': False, 'message': str(e)})
 
 class MarcarEntregueView(LoginRequiredMixin, CheckUserBolsistaMixin, View):
+    """
+    View para marcar uma solicitação como entregue.
+    
+    Apenas bolsistas podem marcar solicitações como entregues.
+    """
+    
     def post(self, request, pk):
+        """
+        Processa a requisição POST para marcar como entregue.
+        
+        Args:
+            request: Requisição HTTP
+            pk: ID da solicitação
+            
+        Returns:
+            JsonResponse: Resposta JSON indicando sucesso ou falha
+        """
         solicitacao = get_object_or_404(Solicitacao, pk=pk)
         
         try:
+            # usa o metodo entregar do model Solicitacao
             solicitacao.entregar(request.user)
             return JsonResponse({
                 'success': True,

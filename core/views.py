@@ -10,9 +10,30 @@ from datetime import datetime, timedelta
 from django.db.models import Count
 
 class IndexView(LoginRequiredMixin, TemplateView):
+    """
+    View para exibir a página inicial do sistema.
+    
+    Exibe diferentes dashboards baseados no tipo de usuário (superusuário, professor ou bolsista).
+    Cada dashboard contém informações relevantes para o tipo de usuário.
+    
+    Attributes:
+        template_name: HTML para renderização da página inicial
+    """
+    
     template_name = 'core/index.html'
 
     def get_context_data(self, **kwargs):
+        """
+        Retorna o contexto baseado no tipo de usuário.
+        
+        Direciona para o contexto específico de cada tipo de usuário:
+        - Superusuário: dashboard administrativo
+        - Professor: dashboard com suas solicitações
+        - Bolsista: dashboard com solicitações para entrega
+        
+        Returns:
+            context: Contexto com informações do dashboard
+        """
         context = super().get_context_data(**kwargs)
         usuario = self.request.user
 
@@ -26,6 +47,18 @@ class IndexView(LoginRequiredMixin, TemplateView):
         return context
     
     def get_admin_context(self):
+        """
+        Retorna o contexto para usuários administradores.
+        
+        Contextos:
+        - Contagem de solicitações por status
+        - Solicitações mais recentes
+        - Total de solicitações
+        - Solicitação mais recente
+        
+        Returns:
+            dict: Contexto com informações administrativas
+        """
         return {
             'pendentes': Solicitacao.objects.filter(
                 status=Solicitacao.StatusChoices.PENDENTE).count(),
@@ -39,6 +72,19 @@ class IndexView(LoginRequiredMixin, TemplateView):
         }
 
     def get_professor_context(self, usuario):
+        """
+        Retorna o contexto para professores.
+        
+        Args:
+            usuario: Usuário professor atual
+        
+        Contextos:
+        - Contagem de suas solicitações por status
+        - Lista de solicitações pendentes
+        
+        Returns:
+            dict: Contexto com informações do professor
+        """
         return {
             'pendentes': Solicitacao.objects.filter(
                 status=Solicitacao.StatusChoices.PENDENTE,
@@ -56,6 +102,20 @@ class IndexView(LoginRequiredMixin, TemplateView):
         }
 
     def get_bolsista_context(self, usuario):
+        """
+        Retorna o contexto para bolsistas.
+        
+        Args:
+            usuario: Usuário bolsista atual
+        
+        Contextos:
+        - Contagem de solicitações por status
+        - Solicitações aguardando entrega
+        - Última solicitação pendente
+        
+        Returns:
+            dict: Contexto com informações do bolsista
+        """
         return {
             'pendentes': Solicitacao.objects.filter(
                 status=Solicitacao.StatusChoices.PENDENTE,
@@ -76,12 +136,44 @@ class IndexView(LoginRequiredMixin, TemplateView):
         }
     
 class PerfilView(LoginRequiredMixin, TemplateView):
+    """
+    View para exibir o perfil do usuário.
+    
+    Attributes:
+        template_name: HTML para renderização do perfil
+    """
+    
     template_name = "core/perfil.html"
 
 class EstatisticasView(CheckUserAdminMixin, LoginRequiredMixin, TemplateView):
+    """
+    View para exibir estatísticas do sistema.
+    
+    Exibe dados estatísticos dos últimos 30 dias, incluindo:
+    - Total de solicitações
+    - Contagem por tipo de atividade
+    - Professor mais ativo
+    - Histórico semanal
+    
+    Attributes:
+        template_name: HTML para renderização das estatísticas
+    """
+    
     template_name = "core/estatisticas.html"
 
     def get_context_data(self, **kwargs):
+        """
+        Retorna o contexto com dados estatísticos.
+        
+        Contextos:
+        - Contagens mensais por tipo
+        - Professor mais ativo do período
+        - Histórico de solicitações por semana
+        - Distribuição por tipo de atividade
+        
+        Returns:
+            context: Contexto com estatísticas
+        """
         context = super().get_context_data(**kwargs)
         
         data_limite = datetime.now() - timedelta(days=30)
@@ -111,6 +203,7 @@ class EstatisticasView(CheckUserAdminMixin, LoginRequiredMixin, TemplateView):
         ).order_by('-total_solicitacoes').first()
 
         if professor_mais_ativo:
+            # se o professor tem um nome, exibe o nome, se não, exibe o username
             if professor_mais_ativo['usuario__first_name'] or professor_mais_ativo['usuario__last_name']:
                 nome_display = f"{professor_mais_ativo['usuario__first_name']} {professor_mais_ativo['usuario__last_name']}"
             else:
@@ -126,8 +219,17 @@ class EstatisticasView(CheckUserAdminMixin, LoginRequiredMixin, TemplateView):
                 'total': 0
             }
 
+        """
+        Histórico de solicitações por semana
+        """
         solicitacoes_por_semana = []
         for i in range(4):
+            """
+            Calcula o início e o fim da semana
+            inicio_semana pega a data atual e subtrai 7 dias * i assim, a semana 1 é a semana atual, a semana 2 é a semana passada, etc
+            fim_semana pega a data atual e subtrai 7 dias * (i+1) assim, a semana 1 é a semana atual, a semana 2 é a semana passada, etc
+            total é a quantidade de solicitações que foram feitas entre o início e o fim da semana
+            """
             inicio_semana = datetime.now() - timedelta(days=7*(i+1))
             fim_semana = datetime.now() - timedelta(days=7*i)
             total = Solicitacao.objects.filter(
@@ -149,7 +251,27 @@ class EstatisticasView(CheckUserAdminMixin, LoginRequiredMixin, TemplateView):
         return context
 
 class AtualizarFotoPerfilView(LoginRequiredMixin, View):
+    """
+    View para atualizar a foto de perfil do usuário.
+    
+    Processa o upload de uma nova foto de perfil, validando:
+    - Tamanho máximo de 2MB
+    - Tipo de arquivo (deve ser imagem)
+    """
+    
     def post(self, request, *args, **kwargs):
+        """
+        Processa a requisição POST para atualizar a foto.
+        
+        Args:
+            request: Requisição HTTP com a nova foto
+            
+        Returns:
+            JsonResponse: Resposta JSON indicando sucesso ou falha
+            
+        Raises:
+            ValidationError: Se a foto não atender aos requisitos
+        """
         user = request.user
         nova_foto = request.FILES.get('foto_perfil')
         
